@@ -3,19 +3,22 @@
     
     $Usuario= $_POST['Usuario'];
     $Clave=$_POST['Clave'];
-
-    require_once 'datos/funciones_bd.php';
-    $db = new funciones_BD();
-    // regproducto($Nombre,$Codp,$Precio,$Imagen,$Coduni,$Codsup)
-    if($db->regcliente($Usuario,$Clave,$Telefono,$Correo,$Genero)){
-
-     	$resultado="Se registro correctamente el Usuario";
-    }else{
-     	$resultado="Error al registrar el usuario, Consulte con su administrador.";
-    }
-
-    echo $resultado;
-
+    
+    include ("funciones.php");
+            $datos = array("usuario"=>$Usuario,
+                           "clave"=>$Clave);
+            
+            $tabla = "usuarios";
+            $Usuariod = new Funciones();
+            $respuesta = $Usuariod -> loginUsermovil($datos);
+            
+            //return $respuesta;
+            if (is_null( $respuesta)){
+              echo  "0|Error de conexión al servidor";
+            }else{
+              echo  $respuesta;  
+            }            
+     
  }else{
     ?>
     
@@ -37,7 +40,7 @@
         <body>
              
                 <div class="box">
-                    <h1>Holis</h1>
+                    <h1>Holis, si lees esto hubo un error en el sistema, contacte con su administrador. que tenga un lindo dia</h1>
                 </div>
                  
         </body>
