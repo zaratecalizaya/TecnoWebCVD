@@ -14,7 +14,7 @@
   <!-- icheck bootstrap -->
   <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="css/adminlte.min.css">
     <!-- Bago style -->
   <link rel="stylesheet" href="css/bagostyle.css">
   <!-- Google Font: Source Sans Pro -->
@@ -116,7 +116,7 @@
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
+<script src="js/adminlte.min.js"></script>
 
 </body>
 </html>
