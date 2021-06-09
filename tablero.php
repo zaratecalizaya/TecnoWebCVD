@@ -14,7 +14,7 @@ if (!isset($_SESSION['session_id'])) {
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="dist/img/minilogobago.png" alt="Bago Logo" class="brand-image img-circle elevation-3"
+      <img src="imagenes/minilogobago.png" alt="Bago Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">Bago</span>
     </a>
@@ -80,15 +80,15 @@ if (!isset($_SESSION['session_id'])) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Competencias.php" class="nav-link ">
+                <a href="./Comportamiento.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Competencias</p>
+                  <p>Comportamientos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./GrupoCompetencias.php" class="nav-link ">
+                <a href="./GrupoComportamiento.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Grupos Competencias</p>
+                  <p>Grupos de Comportamientos</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -404,10 +404,10 @@ if (!isset($_SESSION['session_id'])) {
 <!-- overlayScrollbars -->
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.js"></script>
+<script src="js/adminlte.js"></script>
 
 <!-- OPTIONAL SCRIPTS -->
-<script src="dist/js/demo.js"></script>
+<script src="js/demo.js"></script>
 
 <!-- PAGE PLUGINS -->
 <!-- jQuery Mapael -->
@@ -418,7 +418,7 @@ if (!isset($_SESSION['session_id'])) {
 <!-- ChartJS -->
 <script src="plugins/chart.js/Chart.min.js"></script>
 
-<!-- PAGE SCRIPTS -->
-<script src="dist/js/pages/dashboard2.js"></script>
+<!-- PAGE SCRIPTS
+<script src="js/pages/dashboard2.js"></script>  -->
 </body>
 </html>

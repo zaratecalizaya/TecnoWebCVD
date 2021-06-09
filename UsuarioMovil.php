@@ -22,7 +22,7 @@ if (!isset($_SESSION['session_id'])) {
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="css/adminlte.min.css">
   <!-- Select2 -->
   <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
@@ -43,7 +43,7 @@ if (!isset($_SESSION['session_id'])) {
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="dist/img/minilogobago.png" alt="Bago Logo" class="brand-image img-circle elevation-3"
+      <img src="imagenes/minilogobago.png" alt="Bago Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">Bago</span>
     </a>
@@ -85,13 +85,13 @@ if (!isset($_SESSION['session_id'])) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./UsuarioWeb.php" class="nav-link active">
+                <a href="./UsuarioWeb.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Usuarios Web</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./UsuarioMovil.php" class="nav-link ">
+                <a href="./UsuarioMovil.php" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Usuarios Moviles</p>
                 </a>
@@ -108,15 +108,15 @@ if (!isset($_SESSION['session_id'])) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Competencias.php" class="nav-link ">
+                <a href="./Comportamientos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Competencias</p>
+                  <p>Comportamientos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./GrupoCompetencias.php" class="nav-link ">
+                <a href="./GrupoComportamientos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Grupos Competencias</p>
+                  <p>Grupos de comportamientos</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -140,7 +140,7 @@ if (!isset($_SESSION['session_id'])) {
               <li class="nav-item">
                 <a href="./reporte1.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Reporte de competencias</p>
+                  <p>Reporte de comportamientos</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -480,9 +480,9 @@ if (!isset($_SESSION['session_id'])) {
 <!-- overlayScrollbars -->
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.js"></script>
+<script src="js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
+<script src="js/demo.js"></script>
 <!-- page script -->
 <script>
   $(function () {
