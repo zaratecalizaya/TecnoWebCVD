@@ -172,7 +172,7 @@ if (!isset($_SESSION['session_id'])) {
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="tablero.php">Inicio</a></li>
-              <li class="breadcrumb-item active text-white">Logros</li>
+              <li class="breadcrumb-item active text-white">Comportamientos</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -196,10 +196,11 @@ if (!isset($_SESSION['session_id'])) {
                   <tr>
                     <th>Id</th>
                     <th>Nombre</th>
-                    <th>Usuario</th>
-                    <th>Estado</th>
+                    <th>Puntaje</th>
+                    <th>Grupo</th>
+                    <th>Estados</th>
                     <th>Fecha Actualizacion</th>
-                    <th>Acciones</th>
+                  
                   </tr>
                   </thead>
                   <tbody>
@@ -207,8 +208,8 @@ if (!isset($_SESSION['session_id'])) {
                     require_once 'Controlador/usuario.controlador.php';
   
                   
-                    $cusuario = new ControladorUsuario();
-                    $list=  $cusuario -> ctrListarUsuariosWeb(1,1000);
+                    $ccomportamiento = new ControladorLogro();
+                    $list=  $ccomportamiento -> ctrListarUsuariosWeb(1,1000);
                     
                     while (count($list)>0){
                       $User = array_shift($list);
@@ -268,39 +269,15 @@ if (!isset($_SESSION['session_id'])) {
                     <input type="number"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputNombre">Nombre del comportamiento</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre del comportamiento">
+                    <label for="exampleInputNombre">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese su Nombre">
                   </div>
                   <div class="form-group">
-                    <label for="InputUsuario">Puntaje</label>
-                    <input type="text" class="form-control" id="Puntaje" name="Puntaje" placeholder="Ingrese el puntaje">
+                    <label for="InputUsuario">Usuario</label>
+                    <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Ingrese su Usuario">
                   </div>
-
-                  
                   <div class="form-group">
-                    <label>Grupos de comportamiento</label>
-                    <select class="form-control select2" id="IdGrupos" name="IdGrupos"  style="width: 100%;"> 
-                    <?php
-                      
-                      require_once 'Controlador/usuario.controlador.php';
-                     
-                      $cusuario = new ControladorUsuario();
-                      $list=  $cusuario -> ctrListarSectores();
-                    
-                      while (count($list)>0){
-                        $User = array_shift($list);
-                        $Did = array_shift($User);
-                        $Dnombres = array_shift($User);
-                        echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
-                      }
-                    ?>
-                    </select>
-                  </div>
-
-
-
-                  <div class="form-group">
-                    <label for="exampleInputPassword1"></label>
+                    <label for="exampleInputPassword1">Contraseña</label>
                     <input type="password" class="form-control" id="clave" name="clave" placeholder="Ingrese su Contraseña">
                   </div>
                   <div class="form-group">
@@ -330,8 +307,6 @@ if (!isset($_SESSION['session_id'])) {
                 </div>
               </form>
             </div>
-          </div>
-        </div>
             <!-- /.card -->
       </div><!--/. container-fluid -->
     </section>

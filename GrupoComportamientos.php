@@ -167,12 +167,12 @@ if (!isset($_SESSION['session_id'])) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-white">Lista de grupo de comportamientos</h1>
+            <h1 class="m-0 text-white">Usuarios Web</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="tablero.php">Inicio</a></li>
-              <li class="breadcrumb-item active text-white">Logros</li>
+              <li class="breadcrumb-item active text-white">Usuarios Web</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -187,7 +187,7 @@ if (!isset($_SESSION['session_id'])) {
           <div class="col-12">
             <div class="card card-primary">
               <div class="card-header" >
-                <h3 class="card-title">Lista de grupo de comportamientos</h3>
+                <h3 class="card-title">Lista de Usuarios Web</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -196,20 +196,19 @@ if (!isset($_SESSION['session_id'])) {
                   <tr>
                     <th>Id</th>
                     <th>Nombre</th>
-                    <th>PuntajeMeta</th>
-                    <th>Imagenes</th>
+                    <th>Usuario</th>
                     <th>Estado</th>
                     <th>Fecha Actualizacion</th>
-                    
+                    <th>Acciones</th>
                   </tr>
                   </thead>
                   <tbody>
                   <?php
-                    require_once 'Controlador/logros.controlador.php';
+                    require_once 'Controlador/usuario.controlador.php';
   
                   
-                    $clogros = new ControladorLogro();
-                    $list=  $clogros -> ctrListarGrupoComportamientos(1,1000);
+                    $cusuario = new ControladorUsuario();
+                    $list=  $cusuario -> ctrListarUsuariosWeb(1,1000);
                     
                     while (count($list)>0){
                       $User = array_shift($list);
@@ -256,7 +255,7 @@ if (!isset($_SESSION['session_id'])) {
  
         <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title"><label id="TituloUser">Agregar Comportamientos</label> </h3> 
+                <h3 class="card-title"><label id="TituloUser">Agregar Usuario</label> </h3> 
                 <button id="nuevousuario" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Usuario</button>
                 
               </div>
@@ -269,39 +268,15 @@ if (!isset($_SESSION['session_id'])) {
                     <input type="number"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputNombre">Nombre del comportamiento</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre del comportamiento">
+                    <label for="exampleInputNombre">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese su Nombre">
                   </div>
                   <div class="form-group">
-                    <label for="InputUsuario">Puntaje</label>
-                    <input type="text" class="form-control" id="Puntaje" name="Puntaje" placeholder="Ingrese el puntaje">
+                    <label for="InputUsuario">Usuario</label>
+                    <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Ingrese su Usuario">
                   </div>
-
-                  
                   <div class="form-group">
-                    <label>Grupos de comportamiento</label>
-                    <select class="form-control select2" id="IdGrupos" name="IdGrupos"  style="width: 100%;"> 
-                    <?php
-                      
-                      require_once 'Controlador/usuario.controlador.php';
-                     
-                      $cusuario = new ControladorUsuario();
-                      $list=  $cusuario -> ctrListarSectores();
-                    
-                      while (count($list)>0){
-                        $User = array_shift($list);
-                        $Did = array_shift($User);
-                        $Dnombres = array_shift($User);
-                        echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
-                      }
-                    ?>
-                    </select>
-                  </div>
-
-
-
-                  <div class="form-group">
-                    <label for="exampleInputPassword1"></label>
+                    <label for="exampleInputPassword1">Contraseña</label>
                     <input type="password" class="form-control" id="clave" name="clave" placeholder="Ingrese su Contraseña">
                   </div>
                   <div class="form-group">

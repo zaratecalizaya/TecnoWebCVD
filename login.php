@@ -14,7 +14,7 @@
   <!-- icheck bootstrap -->
   <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="css/adminlte.min.css">
     <!-- Bago style -->
   <link rel="stylesheet" href="css/bagostyle.css">
   <!-- Google Font: Source Sans Pro -->
@@ -23,7 +23,7 @@
 <body class="hold-transition login-page hero-image">
 <div class="login-box">
   <div class="login-logo">
-    <a href="tablero.php"><img src="images/Logo_Bago-completo_blanco.png" height="150" width="350" alt="Logo Image" ></a>
+    <a href="tablero.php"><img src="imagenes/Logo_Bago-completo_blanco.png" height="150" width="350" alt="Logo Image" ></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -116,7 +116,7 @@
 <!-- Bootstrap 4 -->
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
+<script src="js/adminlte.min.js"></script>
 
 </body>
 </html>

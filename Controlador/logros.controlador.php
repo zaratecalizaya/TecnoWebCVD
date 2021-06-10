@@ -1,6 +1,6 @@
 <?php
 
-  require_once 'modelo/Funciones/UsuarioDAO.php';
+
   require_once 'modelo/Funciones/GrupoComportamientoDAO.php';
   require_once 'modelo/Funciones/ComportamientoDAO.php';
 
@@ -110,22 +110,23 @@ class ControladorLogro{
       $respuesta = $Comportamientod -> listComportamientos($pagina,$cantidad);
       
       return $respuesta;
+    }
       
     
-}
 
 
-public function ctrListarGrupoComportamientos($pagina,$cantidad){
+
+      public function ctrListarGrupoComportamientos($pagina,$cantidad){
       
             
-  $tabla = "grupocomportamiento";
-  $GrupoComportamientod = new GrupoComportamientoDAO();
-  $respuesta = $Comportamientod -> listGrupoComportamientos($pagina,$cantidad);
+       $tabla = "grupocomportamiento";
+       $GrupoComportamientod = new GrupoComportamientoDAO();
+        $respuesta = $Comportamientod -> listGrupoComportamientos($pagina,$cantidad);
   
-  return $respuesta;
+        return $respuesta;
   
+        }
 
-}
 
 
 
