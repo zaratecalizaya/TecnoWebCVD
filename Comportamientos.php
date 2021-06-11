@@ -198,18 +198,18 @@ if (!isset($_SESSION['session_id'])) {
                     <th>Nombre</th>
                     <th>Puntaje</th>
                     <th>Grupo</th>
-                    <th>Estados</th>
+                    <th>Estado</th>
                     <th>Fecha Actualizacion</th>
-                  
+                    <th>Acciones</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <?php
+                 <?php 
                     require_once 'Controlador/usuario.controlador.php';
   
                   
-                    $ccomportamiento = new ControladorLogro();
-                    $list=  $ccomportamiento -> ctrListarUsuariosWeb(1,1000);
+                    $cusuario = new ControladorUsuario();
+                    $list=  $cusuario -> ctrListarUsuariosWeb(1,1000);
                     
                     while (count($list)>0){
                       $User = array_shift($list);
@@ -238,7 +238,7 @@ if (!isset($_SESSION['session_id'])) {
                       echo "</tr>";
                     }
                     
-                    ?>
+                    ?> 
                     
                   
                   </tbody>
@@ -257,7 +257,7 @@ if (!isset($_SESSION['session_id'])) {
         <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title"><label id="TituloUser">Agregar Comportamientos</label> </h3> 
-                <button id="nuevousuario" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Usuario</button>
+                <button id="nuevoComportamiento" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Comportamiento</button>
                 
               </div>
               <!-- /.card-header -->
@@ -273,17 +273,32 @@ if (!isset($_SESSION['session_id'])) {
                     <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese su Nombre">
                   </div>
                   <div class="form-group">
-                    <label for="InputUsuario">Usuario</label>
-                    <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Ingrese su Usuario">
+                    <label for="InputUsuario">Puntaje</label>
+                    <input type="text" class="form-control" id="puntaje" name="puntaje" placeholder="Ingrese el Puntaje">
                   </div>
+                   
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Contraseña</label>
-                    <input type="password" class="form-control" id="clave" name="clave" placeholder="Ingrese su Contraseña">
+                    <label>Grupos de comportamiento</label>
+                    <select class="form-control select2" id="grupos" name="grupos"  style="width: 100%;"> 
+                    <?php
+                      
+                      require_once 'Controlador/usuario.controlador.php';
+                     
+                      $cusuario = new ControladorUsuario();
+                      $list=  $cusuario -> ctrListarSectores();
+                    
+                      while (count($list)>0){
+                        $User = array_shift($list);
+                        $Did = array_shift($User);
+                        $Dnombres = array_shift($User);
+                        echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
+                      }
+                    ?>
+                    </select>
                   </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword2">Repita su Contraseña</label>
-                    <input type="password" class="form-control" id="clave2" name="clave2" placeholder="Repita su Contraseña">
-                  </div>
+
+
+
                   
                 </div>
                 <!-- /.card-body -->

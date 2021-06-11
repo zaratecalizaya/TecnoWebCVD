@@ -138,6 +138,48 @@ class ComportamientoDAO {
 		
 	}
 
+  public function addcomportamiento($tabla,$datos) { //añadiendo comportamiento
+
+    require_once 'modelo/Conexion/connectbd.php';
+    require_once 'modelo/utilitario.php';
+    $mutil = new Utils();
+    $mutil -> console_log('Entro Addcomportamiento');
+      // connecting to database
+      $this->db = new DB_Connect();
+      $link=$this->db->connect();
+            
+            $consulta ="INSERT INTO ".$tabla." (Nombre, Puntaje, IdGrupo, IdCargo, CI, Region, Sector,SubSector, Usuario, Clave, Estado, IdNivel, Puntaje,Imagen,FActualizacion) VALUES('".$datos["Nombres"]."','".$datos["Apellidos"]."','".$datos["FechaNatal"]."','".$datos["Cargo"]."','".$datos["Ci"]."','".$datos["Region"]."','".$line["sector"]."','".$line["subsector"]."','".$datos["usuario"]."','".$clave."',0,1,0,'".$datos["Imagen"]."',now())";
+            $result=mysqli_query($link,$consulta);
+            if ($result ==true){
+              return "true";
+            }else {
+              return "Error al guardar el usuario";
+            }
+          
+    
+        
+        return "error al cargar la informacion de sectores";
+        
+      
+  }
+  
+
+
+
+
+ 
+
+    
+
+
+
+
+
+
+
+
+
+
   
 }
  

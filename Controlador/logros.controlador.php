@@ -64,7 +64,7 @@ class ControladorLogro{
             }
             
             }
-          }else{
+            }else{
               return "Las contraseñas no coinciden";
           }
         }else{
@@ -112,20 +112,36 @@ class ControladorLogro{
       return $respuesta;
     }
       
-    
+    public function ctrListarGrupoComportamiento(){
+      
+            
+      $tabla = "grupocomportamiento";
+      $Logrosd = new LogrosDAO();
+      $respuesta = $Logrosd -> listGrupoComportamiento();
+      
+      return $respuesta;
+      
+    }
+
+  
 
 
-
-      public function ctrListarGrupoComportamientos($pagina,$cantidad){
+      public function ctrListarGrupoComportamientosTabla($pagina,$cantidad){
       
             
        $tabla = "grupocomportamiento";
        $GrupoComportamientod = new GrupoComportamientoDAO();
-        $respuesta = $Comportamientod -> listGrupoComportamientos($pagina,$cantidad);
+        $respuesta = $GrupoComportamientod -> listGrupoComportamiento($pagina,$cantidad);
   
         return $respuesta;
   
-        }
+      }
+
+
+
+
+      
+      
 
 
 

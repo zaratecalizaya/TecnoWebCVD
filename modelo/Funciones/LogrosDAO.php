@@ -14,12 +14,10 @@ class LogrosDAO {
 
     }
  
-    // destructor
-    function __destruct() {
- 
-    }
+
+   
 	
-	   public function isuserexist($tabla, $username) {
+	  public function isuserexist($tabla, $username) {
 
         require_once 'modelo/Conexion/connectbd.php';
         // connecting to database
@@ -136,26 +134,26 @@ class LogrosDAO {
 		mysqli_close($link);
 		return $json;
 		
-	}
+	 }
     
     public function listLogrosUsuario($pagina,$cantidad){
-		require_once 'modelo/Conexion/connectbd.php';
+		  require_once 'modelo/Conexion/connectbd.php';
         // connecting to database
         $this->db = new DB_Connect();
         $link=$this->db->connect();
-		//$json=$cuenta;
-        Id	Comentario	Estado	IdColega	IdLogro	IdUsuario	FActualizacion
-		$query = "SELECT lu.Id,lu.Comentario ,lu.Estado,lu.IdColega,lu.IdLogro,lu.IdUsuario,lu.FActualizacion, uc.Usuario as Colega, us.Usuario as Usuario
+	      	//$json=$cuenta;
+     
+	  	$query = "SELECT lu.Id,lu.Comentario ,lu.Estado,lu.IdColega,lu.IdLogro,lu.IdUsuario,lu.FActualizacion, uc.Usuario as Colega, us.Usuario as Usuario
                     FROM logrousuario lu inner join logro l on l.id=lu.IdLogro
                     inner join usuarios uc on uc.id=lu.IdColega
                     inner join usuarios us on us.id=lu.IdUsuario";
-		$result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+	  	$result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
 
-		$json = array();
-		//$json =mysqli_num_rows($result);
-		if(mysqli_num_rows($result)>0){
+	  	$json = array();
+	   	//$json =mysqli_num_rows($result);
+		 if(mysqli_num_rows($result)>0){
 				//$json['cliente'][]=nada;
-			while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+		  	while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                 $destado ="Deshabilitado";
                 if ($line["Estado"]==1){
                     $destado ="Habilitado";
@@ -164,11 +162,17 @@ class LogrosDAO {
 			}
 			
 		}
-		
+  
 		mysqli_close($link);
 		return $json;
 		
-	}
+	  }
+
+
+
+
+    
+  
   
   public function contarLogros(){
 		require_once 'modelo/Conexion/connectbd.php';
@@ -252,6 +256,41 @@ class LogrosDAO {
 				mysqli_close($link);
         return $mensaje;
 	}
+
+
+  
+
+ public function listGrupoComportamiento($pagina,$cantidad){
+  require_once 'modelo/Conexion/connectbd.php';
+      // connecting to database
+      $this->db = new DB_Connect();
+      $link=$this->db->connect();
+  //$json=$cuenta;
+  
+
+  $query = "SELECT Id,Nombre,PuntajeMeta,Imagen,Estado,FActualizacion FROM grupocomportamiento ";
+  $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+
+  $json = array();
+  //$json =mysqli_num_rows($result);
+  if(mysqli_num_rows($result)>0){
+      //$json['cliente'][]=nada;
+    while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+      $destado ="Deshabilitado";
+      if ($line["Estado"]==1){
+          $destado ="Habilitado";
+      }        
+      array_push($json, array($line["Id"],$line["Nombre"],$line["PuntajeMeta"],$line["Imagen"],$destado,$line["FActualizacion"]));
+    }
+    
+  }
+  
+  mysqli_close($link);
+  return $json;
+  
+ }
+
+
 }
  
 ?>

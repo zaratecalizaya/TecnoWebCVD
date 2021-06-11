@@ -80,13 +80,13 @@ if (!isset($_SESSION['session_id'])) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Comportamiento.php" class="nav-link ">
+                <a href="./Comportamientos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Comportamientos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./GrupoComportamiento.php" class="nav-link ">
+                <a href="./GrupoComportamientos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Grupos de Comportamientos</p>
                 </a>
