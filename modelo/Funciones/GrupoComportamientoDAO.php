@@ -19,31 +19,7 @@ class GrupoComportamientoDAO {
  
     }
 	
-	   public function isGcomportexist($tabla, $username) {
-
-        require_once 'modelo/Conexion/connectbd.php';
-        // connecting to database
-        $this->db = new DB_Connect();
-        $link=$this->db->connect();
-		
-        if ($result = mysqli_query($link,"SELECT * from ".$tabla." WHERE Usuario = '".$username."'")) {
-
-          /* determinar el número de filas del resultado */
-          $num_rows  = mysqli_num_rows($result);
-
-          if ($num_rows > 0) {
-            return true;
-          } else {
-            // no existe
-            return false;
-          }
-
-        }else {
-          return false;
-        }
-        
-    }
- 
+	 
     /**
      * agregar nuevo usuarigrupoComportamiento
      */
@@ -54,15 +30,10 @@ class GrupoComportamientoDAO {
         $this->db = new DB_Connect();
         $link=$this->db->connect();
 		
-      	$pu=$this->isuserexist($tabla, $datos["usuario"]);
-        if($pu==false){
-          $clave = md5($datos["clave"]);
-          //$clave = $datos["clave"];
-          $result=mysqli_query($link,"INSERT INTO ".$tabla." (Nombre,Usuario,Clave,Estado) VALUES('".$datos["nombre"]."','".$datos["usuario"]."','".$clave."',1)");
+             //$clave = $datos["clave"];
+          $result=mysqli_query($link,"INSERT INTO ".$tabla." (Nombre,PuntajeMeta,Imagen,Estado,FActualizacion) VALUES('".$datos["nombre"]."','".$datos["puntajemeta"]."','".$datos["imagen"]."',1,now())");
           return $result;
-      	}else{
-      		return "el usuario ya existe";
-      	}
+      
 
     }
  
@@ -92,23 +63,61 @@ class GrupoComportamientoDAO {
 
     }
  
-    public function updatestatususerWeb($tabla,$datos) { //regusu et no es
+
+
+    public function isgrupoexist($tabla, $id) {
 
       require_once 'modelo/Conexion/connectbd.php';
-        // connecting to database
-        $this->db = new DB_Connect();
-        $link=$this->db->connect();
-		
-      	$pu=$this->isuserexist($tabla, $datos["usuario"]);
-        if($pu==true){
-          $result=mysqli_query($link,"UPDATE ".$tabla." SET estado=ABS(estado-1) where id = ".$datos["id"]);
+      // connecting to database
+      $this->db = new DB_Connect();
+      $link=$this->db->connect();
+  
+      if ($result = mysqli_query($link,"SELECT * from ".$tabla." WHERE Id = '".$id."'")) {
+
+        /* determinar el número de filas del resultado */
+        $num_rows  = mysqli_num_rows($result);
+
+        if ($num_rows > 0) {
+          return true;
+        } else {
+          // no existe
+          return false;
+        }
+
+      }else {
+        return false;
+      }
+      
+  }
+
+
+
+
+    public function updateGrupo($tabla,$datos) { //regusu et no es
+
+      require_once 'modelo/Conexion/connectbd.php';
+      // connecting to database
+      $this->db = new DB_Connect();
+      $link=$this->db->connect();
+  
+      $pu=$this->isgrupoexist($tabla, $datos["id"]);
+      if($pu==true){
+        
+          $result=mysqli_query($link,"UPDATE ".$tabla." SET Nombre = '".$datos["nombre"]."',PuntajeMeta='".$datos["puntajemeta"]."' ,FActualizacion = now() where id = ".$datos["id"]);
           return $result;
-      	}else{
-      		return false;
-      	}
+             
+      }else{
+        return false;
+      }
+
 
     }
-	
+
+
+
+
+
+
     public function listGrupo($idGrupo){
       require_once 'modelo/Conexion/connectbd.php';
           // connecting to database
@@ -135,7 +144,18 @@ class GrupoComportamientoDAO {
 
 
 
+    public function updatestatusgrupo($tabla,$datos) { //regusu et no es
 
+      require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+		
+      
+          $result=mysqli_query($link,"UPDATE ".$tabla." SET estado=ABS(estado-1) where id = ".$datos["id"]);
+          return $result;
+      
+    }
 
 
     public function listGrupoComportamiento($pagina,$cantidad){

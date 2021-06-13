@@ -124,6 +124,74 @@ class ControladorLogro{
     }
 
   
+///aqui
+    public function ctrRegistroGrupo(){
+      
+      if(isset($_POST["id"])){
+       
+          if(($_POST["id"])==0){
+            if (preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*$/',$_POST["nombre"])){
+          
+              
+              $subir_archivo = 'logros/'.basename($_FILES['subir_archivo']['name']);
+              if (move_uploaded_file($_FILES['subir_archivo']['tmp_name'], $subir_archivo)) {
+           
+                  $datos = array("nombre"=>$_POST["nombre"],
+                         "puntajemeta"=>$_POST["puntajemeta"],
+                         "imagen"=>$subir_archivo
+                         );
+          
+                  $tabla = "grupocomportamiento";
+                  $Usuariod = new GrupoComportamientoDAO();
+                  $respuesta = $Usuariod -> addGrupoComportamiento($tabla,$datos);
+                 // return $respuesta;  
+                  if ($respuesta==true){
+                    return "true";
+                  }else{
+                    return $respuesta;  
+                  }
+
+
+
+              } else {
+                return "La subida de imagen ha fallado";
+              }
+            }else{
+              return "Se ha introducido Caracteres invalidos en el nombre";
+            }              
+        
+          }else{
+            if (preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*$/',$_POST["nombre"])){
+                $datos = array("id"=>$_POST["id"],
+                         "nombre"=>$_POST["nombre"],
+                         "puntajemeta"=>$_POST["puntajemeta"],
+                         "imagen"=>$subir_archivo
+                         );
+          
+                $tabla = "grupocomportamiento";
+                $Usuariod = new GrupoComportamientoDAO();
+                $respuesta = $Usuariod -> updateGrupo($tabla,$datos);
+          
+                //return $respuesta;
+                if ($respuesta==true){
+                  return "true";
+                }else{
+                  return $respuesta;  
+                }
+                     
+            }else{
+              return "Se ha introducido Caracteres invalidos en el nombre";
+            }
+          }
+        
+      }else{
+        return "";
+      }
+      
+  }
+  
+
+
 
 
       public function ctrListarGrupoComportamientosTabla($pagina,$cantidad){
@@ -139,7 +207,18 @@ class ControladorLogro{
 
 
 
-
+      public function ctrActualizarEstadoGrupoComportamiento($id){
+      
+            
+        $tabla = "grupocomportamiento";
+        $datos = array("id"=>$id);
+        $Grupod = new GrupoComportamientoDAO();
+        $respuesta = $Grupod -> updatestatusgrupo($tabla,$datos);
+        
+        return $respuesta;
+        
+      
+    }
       
       
 

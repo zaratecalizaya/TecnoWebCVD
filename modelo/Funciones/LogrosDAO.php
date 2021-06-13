@@ -134,7 +134,7 @@ class LogrosDAO {
 		mysqli_close($link);
 		return $json;
 		
-	 }
+	}
     
     public function listLogrosUsuario($pagina,$cantidad){
 		  require_once 'modelo/Conexion/connectbd.php';
@@ -161,12 +161,12 @@ class LogrosDAO {
 				array_push($json, array($line["Id"],$line["Nombre"],$line["Descripcion"],$destado,$line["Experiencia"],$line["FActualizacion"]));
 			}
 			
-		}
+		 }
   
-		mysqli_close($link);
-		return $json;
-		
-	  }
+	  	mysqli_close($link);
+		 return $json;
+	 	
+	 }
 
 
 

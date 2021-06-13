@@ -63,7 +63,7 @@ if (!isset($_SESSION['session_id'])) {
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link ">
+            <a href="./tablero.php" class="nav-link ">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Tablero

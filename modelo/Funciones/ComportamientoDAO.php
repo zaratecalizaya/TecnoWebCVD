@@ -138,6 +138,37 @@ class ComportamientoDAO {
 		
 	}
 
+
+  public function listusuarioMovil($pagina,$cantidad){
+		require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+		//$json=$cuenta;
+    
+		$query = "SELECT u.Id,u.Nombres,u.Apellidos,u.FechaNatal,c.Nombre as Cargo,u.IdCargo,c.IdSubSector,s.IdSector,u.CI,u.Region,u.Sector,u.SubSector,u.Usuario,u.Estado,n.numero,u.Imagen,u.puntaje,FActualizacion FROM usuarios u inner join nivel n on u.idnivel=n.id inner join cargo c on u.idcargo=c.id inner join subsector s on c.idsubsector=s.id  ";
+		$result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+
+		$json = array();
+		//$json =mysqli_num_rows($result);
+		if(mysqli_num_rows($result)>0){
+				//$json['cliente'][]=nada;
+			while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+        $destado ="Deshabilitado";
+        if ($line["Estado"]==1){
+            $destado ="Habilitado";
+        }        
+				array_push($json, array($line["Id"],$line["Nombres"],$line["Apellidos"],$line["FechaNatal"],$line["Cargo"],$line["CI"],$line["Region"],$line["Sector"],$line["SubSector"],$line["Usuario"],$destado,$line["numero"],$line["puntaje"],$line["FActualizacion"],$line["Imagen"],$line["IdCargo"],$line["IdSubSector"],$line["IdSector"]));
+			}
+			
+		}
+		
+		mysqli_close($link);
+		return $json;
+		
+	}
+  
+
   public function addcomportamiento($tabla,$datos) { //añadiendo comportamiento
 
     require_once 'modelo/Conexion/connectbd.php';

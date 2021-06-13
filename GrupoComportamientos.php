@@ -63,7 +63,7 @@ if (!isset($_SESSION['session_id'])) {
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link ">
+            <a href="./tablero.php" class="nav-link ">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Tablero
@@ -187,7 +187,7 @@ if (!isset($_SESSION['session_id'])) {
           <div class="col-12">
             <div class="card card-primary">
               <div class="card-header" >
-                <h3 class="card-title">Lista de Usuarios Web</h3>
+                <h3 class="card-title">Lista de Grupos de Comportamiento</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -237,7 +237,7 @@ if (!isset($_SESSION['session_id'])) {
                       echo "<td>".$Dfechaact."</td>";
                     
                       echo '<td>
-                              <button class="btn" onclick="saveData('.$Did.',\''.$Dnombre.'\',\''.$DPuntajeMeta.'\',\''.$Darchivo.'\')"><i class="fas fa-edit"></i> Editar</button>
+                              <button class="btn" onclick="saveData('.$Did.',\''.$Dnombre.'\',\''.$DPuntajeMeta.'\')"><i class="fas fa-edit"></i> Editar</button>
                               <button class="btn" onclick="updateStatus('.$Did.')"><i class="far fa-'.$DestadoIco.'"></i>'.$Destadobtn.'</button>
                             </td>';
                       echo "</tr>";
@@ -267,7 +267,7 @@ if (!isset($_SESSION['session_id'])) {
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method="post"  >
+              <form role="form" method="post" enctype="multipart/form-data" >
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputId">ID</label>
@@ -293,7 +293,7 @@ if (!isset($_SESSION['session_id'])) {
 
                 <div class="card-footer">
                   <?php
-                    $resp= $cusuario -> ctrRegistroUsuario();
+                    $resp= $cgrupo -> ctrRegistroGrupo();
                     //echo "<script> alert(' respuesta: ".$resp." ')</script>";
                     if ($resp=="true"){
                       //echo "<script> alert(' respuesta: ".$resp." ')</script>";
@@ -356,23 +356,19 @@ if (!isset($_SESSION['session_id'])) {
 </script>
 
 <script>
-  function saveData(id, nombre, usuario){
+  function saveData(id, nombre, puntajemeta){
     document.getElementById("id").value = id;
     document.getElementById("nombre").value = nombre;
-    document.getElementById("usuario").value = usuario;
-    document.getElementById("clave").value = "";
-    document.getElementById("clave2").value = "";
-    $('#TituloUser').text("Editar Usuario");
+    document.getElementById("puntajemeta").value = puntajemeta;
+    $('#TituloUser').text("Editar Grupo");
 //    document.getElementById("TituloUser").value = "Editar Usuario";  
   }
   
   function newUser(){
     document.getElementById("id").value = 0;
     document.getElementById("nombre").value = "";
-    document.getElementById("usuario").value = "";
-    document.getElementById("clave").value = "";
-    document.getElementById("clave2").value = "";
-    $('#TituloUser').text("Agregar Usuario");
+    document.getElementById("puntajemeta").value = ""; 
+    $('#TituloUser').text("Agregar Grupo");
   //  document.getElementById("TituloUser").value = "Agregar Usuario";  
   }
   
@@ -384,11 +380,11 @@ if (!isset($_SESSION['session_id'])) {
       
       $.ajax({
         type: "POST",
-        url: "usuariowebestado.php",
+        url: "grupocomportamientoestado.php",
         data: parametros,
         success:function( msg ) {
           window.location.href = window.location.href;
-         //alert( "Data actualizada. " + msg );
+         alert( "Data actualizada. " + msg );
         }
        });
   }
