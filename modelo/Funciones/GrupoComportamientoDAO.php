@@ -118,29 +118,6 @@ class GrupoComportamientoDAO {
 
 
 
-    public function listGrupo($idGrupo){
-      require_once 'modelo/Conexion/connectbd.php';
-          // connecting to database
-          $this->db = new DB_Connect();
-          $link=$this->db->connect();
-      
-          $query = "SELECT Id,Nombre FROM grupocomportamiento WHERE Id = ".$idGrupo." order by Nombre";
-          $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
-  
-          $json = array();
-          //$json =mysqli_num_rows($result);
-          if(mysqli_num_rows($result)>0){
-              //$json['cliente'][]=nada;
-            while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-              array_push($json, array($line["Id"],$line["Nombre"]));
-            }
-        
-          }
-      
-      mysqli_close($link);
-      return $json;
-      
-    }
 
 
 
@@ -156,6 +133,11 @@ class GrupoComportamientoDAO {
           return $result;
       
     }
+
+
+
+
+
 
 
     public function listGrupoComportamiento($pagina,$cantidad){
@@ -187,6 +169,9 @@ class GrupoComportamientoDAO {
       return $json;
       
     }
+
+
+    
     
   
 }

@@ -19,14 +19,14 @@ class ComportamientoDAO {
  
     }
 	
-	   public function isuserexist($tabla, $username) {
+	   public function iscomportamientoexist($tabla, $id) {
 
         require_once 'modelo/Conexion/connectbd.php';
         // connecting to database
         $this->db = new DB_Connect();
         $link=$this->db->connect();
 		
-        if ($result = mysqli_query($link,"SELECT * from ".$tabla." WHERE Usuario = '".$username."'")) {
+        if ($result = mysqli_query($link,"SELECT * from ".$tabla." WHERE Id = '".$id."'")) {
 
           /* determinar el número de filas del resultado */
           $num_rows  = mysqli_num_rows($result);
@@ -69,6 +69,43 @@ class ComportamientoDAO {
  /**
      * agregar nuevo usuario
      */
+    public function addComportamiento($tabla,$datos) { //regusu et no es
+
+      require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+		
+             //$clave = $datos["clave"];
+          $result=mysqli_query($link,"INSERT INTO ".$tabla." (Nombre,Puntaje,IdGrupo,Estado,FActualizacion) VALUES('".$datos["nombre"]."','".$datos["puntaje"]."','".$datos["grupos"]."',1,now())");
+          return $result;
+      
+
+    }
+
+
+    public function updateComportamiento($tabla,$datos) { //regusu et no es
+
+      require_once 'modelo/Conexion/connectbd.php';
+      // connecting to database
+      $this->db = new DB_Connect();
+      $link=$this->db->connect();
+  
+      $pu=$this->iscomportamientoexist($tabla, $datos["id"]);
+      if($pu==true){
+        
+          $result=mysqli_query($link,"UPDATE ".$tabla." SET Nombre = '".$datos["nombre"]."',Puntaje='".$datos["puntaje"]."',IdGrupo='".$datos["grupos"]."' ,FActualizacion = now() where Id = ".$datos["id"]);
+          return $result;
+             
+      }else{
+        return false;
+      }
+
+
+    }
+
+
+
     public function updateuserWeb($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
@@ -92,22 +129,7 @@ class ComportamientoDAO {
 
     }
  
-    public function updatestatususerWeb($tabla,$datos) { //regusu et no es
-
-      require_once 'modelo/Conexion/connectbd.php';
-        // connecting to database
-        $this->db = new DB_Connect();
-        $link=$this->db->connect();
-		
-      	$pu=$this->isuserexist($tabla, $datos["usuario"]);
-        if($pu==true){
-          $result=mysqli_query($link,"UPDATE ".$tabla." SET estado=ABS(estado-1) where id = ".$datos["id"]);
-          return $result;
-      	}else{
-      		return false;
-      	}
-
-    }
+  
 	
 	public function listComportamientos($pagina,$cantidad){
 		require_once 'modelo/Conexion/connectbd.php';
@@ -116,7 +138,7 @@ class ComportamientoDAO {
         $link=$this->db->connect();
 		//$json=$cuenta;
     
-		$query = "SELECT Id,Nombre,Puntaje,IdGrupo,Estado,FActualizacion FROM comportamiento ";
+		$query = "SELECT c.Id,c.Nombre,c.Puntaje,gc.Nombre as Grupo,c.Estado,c.FActualizacion FROM grupocomportamiento as gc,comportamiento as c where gc.Id=c.Id ";
 		$result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
 
 		$json = array();
@@ -128,7 +150,7 @@ class ComportamientoDAO {
                 if ($line["Estado"]==1){
                     $destado ="Habilitado";
                 }        
-				array_push($json, array($line["Id"],$line["Nombre"],$line["Puntaje"],$line["IdGrupo"],$destado,$line["FActualizacion"]));
+				array_push($json, array($line["Id"],$line["Nombre"],$line["Puntaje"],$line["Grupo"],$destado,$line["FActualizacion"]));
 			}
 			
 		}
@@ -137,62 +159,20 @@ class ComportamientoDAO {
 		return $json;
 		
 	}
-
-
-  public function listusuarioMovil($pagina,$cantidad){
-		require_once 'modelo/Conexion/connectbd.php';
-        // connecting to database
-        $this->db = new DB_Connect();
-        $link=$this->db->connect();
-		//$json=$cuenta;
-    
-		$query = "SELECT u.Id,u.Nombres,u.Apellidos,u.FechaNatal,c.Nombre as Cargo,u.IdCargo,c.IdSubSector,s.IdSector,u.CI,u.Region,u.Sector,u.SubSector,u.Usuario,u.Estado,n.numero,u.Imagen,u.puntaje,FActualizacion FROM usuarios u inner join nivel n on u.idnivel=n.id inner join cargo c on u.idcargo=c.id inner join subsector s on c.idsubsector=s.id  ";
-		$result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
-
-		$json = array();
-		//$json =mysqli_num_rows($result);
-		if(mysqli_num_rows($result)>0){
-				//$json['cliente'][]=nada;
-			while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-        $destado ="Deshabilitado";
-        if ($line["Estado"]==1){
-            $destado ="Habilitado";
-        }        
-				array_push($json, array($line["Id"],$line["Nombres"],$line["Apellidos"],$line["FechaNatal"],$line["Cargo"],$line["CI"],$line["Region"],$line["Sector"],$line["SubSector"],$line["Usuario"],$destado,$line["numero"],$line["puntaje"],$line["FActualizacion"],$line["Imagen"],$line["IdCargo"],$line["IdSubSector"],$line["IdSector"]));
-			}
-			
-		}
-		
-		mysqli_close($link);
-		return $json;
-		
-	}
-  
-
-  public function addcomportamiento($tabla,$datos) { //añadiendo comportamiento
+  public function updatestatuscomportamiento($tabla,$datos) { //regusu et no es
 
     require_once 'modelo/Conexion/connectbd.php';
-    require_once 'modelo/utilitario.php';
-    $mutil = new Utils();
-    $mutil -> console_log('Entro Addcomportamiento');
       // connecting to database
       $this->db = new DB_Connect();
       $link=$this->db->connect();
-            
-            $consulta ="INSERT INTO ".$tabla." (Nombre, Puntaje, IdGrupo, IdCargo, CI, Region, Sector,SubSector, Usuario, Clave, Estado, IdNivel, Puntaje,Imagen,FActualizacion) VALUES('".$datos["Nombres"]."','".$datos["Apellidos"]."','".$datos["FechaNatal"]."','".$datos["Cargo"]."','".$datos["Ci"]."','".$datos["Region"]."','".$line["sector"]."','".$line["subsector"]."','".$datos["usuario"]."','".$clave."',0,1,0,'".$datos["Imagen"]."',now())";
-            $result=mysqli_query($link,$consulta);
-            if ($result ==true){
-              return "true";
-            }else {
-              return "Error al guardar el usuario";
-            }
-          
+  
     
-        
-        return "error al cargar la informacion de sectores";
-        
-      
-  }
+        $result=mysqli_query($link,"UPDATE ".$tabla." SET estado=ABS(estado-1) where id = ".$datos["id"]);
+        return $result;
+    
+  }  
+
+ 
   
 
 
@@ -200,9 +180,54 @@ class ComportamientoDAO {
 
  
 
+  public function listGrupos(){
+		require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+		
+        $query = "SELECT Id,Nombre FROM grupocomportamiento order by Nombre";
+        $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+
+        $json = array();
+        //$json =mysqli_num_rows($result);
+        if(mysqli_num_rows($result)>0){
+        		//$json['cliente'][]=nada;
+        	while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+          	array_push($json, array($line["Id"],$line["Nombre"]));
+          }
+			
+        }
+		
+		mysqli_close($link);
+		return $json;
+		
+	}
+
+
+  public function listGrupo($idGrupo){
+    require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
     
+        $query = "SELECT Id,Nombre FROM grupocomportamiento WHERE Id = ".$idGrupo." order by Nombre";
+        $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
 
-
+        $json = array();
+        //$json =mysqli_num_rows($result);
+        if(mysqli_num_rows($result)>0){
+            //$json['cliente'][]=nada;
+          while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            array_push($json, array($line["Id"],$line["Nombre"]));
+          }
+      
+        }
+    
+    mysqli_close($link);
+    return $json;
+    
+  }
 
 
 

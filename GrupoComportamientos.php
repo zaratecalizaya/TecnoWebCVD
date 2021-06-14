@@ -384,7 +384,7 @@ if (!isset($_SESSION['session_id'])) {
         data: parametros,
         success:function( msg ) {
           window.location.href = window.location.href;
-         alert( "Data actualizada. " + msg );
+        // alert( "Data actualizada. " + msg );
         }
        });
   }

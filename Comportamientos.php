@@ -205,22 +205,24 @@ if (!isset($_SESSION['session_id'])) {
                   </thead>
                   <tbody>
                  <?php 
-                    require_once 'Controlador/usuario.controlador.php';
+                    require_once 'Controlador/logros.controlador.php';
   
                   
-                    $cusuario = new ControladorUsuario();
-                    $list=  $cusuario -> ctrListarUsuariosWeb(1,1000);
+                    $clogro = new ControladorLogro();
+                    $list=  $clogro -> ctrListarComportamientos(1,1000);
                     
                     while (count($list)>0){
-                      $User = array_shift($list);
+                      $Comportamiento = array_shift($list);
                       echo "<tr>";
-                      $Did = array_shift($User);
+                      $Did = array_shift($Comportamiento);
                       echo "<td>".$Did."</td>";
-                      $Dnombre = array_shift($User);
+                      $Dnombre = array_shift($Comportamiento);
                       echo "<td>".$Dnombre."</td>";
-                      $Dusuario = array_shift($User);
-                      echo "<td>".$Dusuario."</td>";
-                      $Destado = array_shift($User);
+                      $Dpuntaje = array_shift($Comportamiento);
+                      echo "<td>".$Dpuntaje."</td>";
+                      $Didgrupo = array_shift($Comportamiento);
+                      echo "<td>".$Didgrupo."</td>";
+                      $Destado = array_shift($Comportamiento);
                       $Destadobtn="Habilitar";
                       $DestadoIco="thumbs-up";
                       echo "<td>".$Destado."</td>";
@@ -228,12 +230,12 @@ if (!isset($_SESSION['session_id'])) {
                         $Destadobtn="Deshabilitar";
                         $DestadoIco="thumbs-down";
                       }
-                      $Dfechaact = array_shift($User);
+                      $Dfechaact = array_shift($Comportamiento);
                       echo "<td>".$Dfechaact."</td>";
                     
                       echo '<td>
-                              <button class="btn" onclick="saveData('.$Did.',\''.$Dnombre.'\',\''.$Dusuario.'\')"><i class="fas fa-edit"></i> Editar</button>
-                              <button class="btn" onclick="updateStatus('.$Did.',\''.$Dusuario.'\')"><i class="far fa-'.$DestadoIco.'"></i>'.$Destadobtn.'</button>
+                              <button class="btn" onclick="saveData('.$Did.',\''.$Dnombre.'\',\''.$Dpuntaje.'\',\''.$Didgrupo.'\')"><i class="fas fa-edit"></i> Editar</button>
+                              <button class="btn" onclick="updateStatus('.$Did.')"><i class="far fa-'.$DestadoIco.'"></i>'.$Destadobtn.'</button>
                             </td>';
                       echo "</tr>";
                     }
@@ -282,10 +284,10 @@ if (!isset($_SESSION['session_id'])) {
                     <select class="form-control select2" id="grupos" name="grupos"  style="width: 100%;"> 
                     <?php
                       
-                      require_once 'Controlador/usuario.controlador.php';
+                      require_once 'Controlador/logros.controlador.php';
                      
-                      $cusuario = new ControladorUsuario();
-                      $list=  $cusuario -> ctrListarSectores();
+                      $cusuario = new ControladorLogro();
+                      $list=  $cusuario -> ctrListarGrupo();
                     
                       while (count($list)>0){
                         $User = array_shift($list);
@@ -305,7 +307,7 @@ if (!isset($_SESSION['session_id'])) {
 
                 <div class="card-footer">
                   <?php
-                    $resp= $cusuario -> ctrRegistroUsuario();
+                    $resp= $clogro -> ctrRegistroComportamiento();
                     //echo "<script> alert(' respuesta: ".$resp." ')</script>";
                     if ($resp=="true"){
                       //echo "<script> alert(' respuesta: ".$resp." ')</script>";
@@ -368,42 +370,43 @@ if (!isset($_SESSION['session_id'])) {
 </script>
 
 <script>
-  function saveData(id, nombre, usuario){
+  function saveData(id, nombre,puntaje,idgrupo){
     document.getElementById("id").value = id;
     document.getElementById("nombre").value = nombre;
-    document.getElementById("usuario").value = usuario;
-    document.getElementById("clave").value = "";
-    document.getElementById("clave2").value = "";
-    $('#TituloUser').text("Editar Usuario");
+    document.getElementById("puntaje").value = puntaje;
+    document.getElementById("grupos").value = idgrupo;
+ 
+    $('#TituloUser').text("Editar Comportamiento");
 //    document.getElementById("TituloUser").value = "Editar Usuario";  
   }
   
   function newUser(){
     document.getElementById("id").value = 0;
     document.getElementById("nombre").value = "";
-    document.getElementById("usuario").value = "";
-    document.getElementById("clave").value = "";
-    document.getElementById("clave2").value = "";
-    $('#TituloUser').text("Agregar Usuario");
+    document.getElementById("puntaje").value = "";
+    document.getElementById("grupos").value = "";
+    
+    $('#TituloUser').text("Agregar Comportamiento");
   //  document.getElementById("TituloUser").value = "Agregar Usuario";  
   }
   
-  function updateStatus(id, usuario){
+  function updateStatus(id){
       var parametros = {
                 "id" : id,
-                "usuario" : usuario
+              
         };
       
       $.ajax({
         type: "POST",
-        url: "usuariowebestado.php",
+        url: "comportamientoestado.php",
         data: parametros,
         success:function( msg ) {
           window.location.href = window.location.href;
-         //alert( "Data actualizada. " + msg );
+       //  alert( "Data actualizada. " + msg );
         }
        });
   }
+  
   
 </script>
 
