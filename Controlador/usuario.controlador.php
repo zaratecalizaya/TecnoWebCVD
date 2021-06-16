@@ -140,7 +140,22 @@ class ControladorUsuario{
     }
     
     
+    public function ctrContarUsuarios(){
+      
+            
+      $tabla = "usuarios";
+      $Usuariod = new UsuarioDAO();
+      $respuesta = $Usuariod ->contarUsuarios();
+      
+      return $respuesta;
+      
     
+}
+
+
+
+
+
     public function ctrActualizarEstadoUsuario($id,$usuario){
       
             

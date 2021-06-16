@@ -138,7 +138,7 @@ if (!isset($_SESSION['session_id'])) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./reporte1.php" class="nav-link">
+                <a href="./ReporteComportamientos.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Reporte de comportamientos</p>
                 </a>

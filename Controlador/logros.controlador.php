@@ -3,7 +3,8 @@
 
   require_once 'modelo/Funciones/GrupoComportamientoDAO.php';
   require_once 'modelo/Funciones/ComportamientoDAO.php';
-
+  require_once 'modelo/Funciones/NivelesDAO.php';
+  require_once 'modelo/Funciones/LogrosDAO.php';
 class ControladorLogro{
   
     /* ==============================
@@ -92,7 +93,7 @@ class ControladorLogro{
     public function ctrContarLogros(){
       
             
-            $tabla = "logro";
+            $tabla = "grupocomportamiento";
             $Logrosd = new LogrosDAO();
             $respuesta = $Logrosd -> contarLogros();
             
@@ -100,7 +101,26 @@ class ControladorLogro{
             
           
     }
+
+
+    public function ctrContarReconocimientos(){
+      
+            
+      $tabla = "reconocimiento";
+      $Logrosd = new LogrosDAO();
+      $respuesta = $Logrosd -> contarReconocimientos();
+      
+      return $respuesta;
+      
     
+}
+
+
+   
+
+    
+    
+
 
     public function ctrListarComportamientos($pagina,$cantidad){
       
@@ -110,6 +130,18 @@ class ControladorLogro{
       $respuesta = $Comportamientod ->  listComportamientos($pagina,$cantidad);
       
       return $respuesta;
+    }
+
+
+    public function ctrlistTablero($pagina,$cantidad){
+          
+      $tabla = "reconocimiento";
+      $Reconocimientod = new LogrosDAO();
+      $respuesta = $Reconocimientod ->  listReconocimiento($pagina,$cantidad);
+      
+      return $respuesta;
+
+
     }
       
 
@@ -244,17 +276,23 @@ class ControladorLogro{
       
         }else{
           if (preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*$/',$_POST["nombre"])){
+            
               $datos = array("id"=>$_POST["id"],
               "nombre"=>$_POST["nombre"],
               "puntaje"=>$_POST["puntaje"],
               "grupos"=>$_POST["grupos"]
               );
-           echo $datos["puntaje"];
+              
+
+
+              //    echo $datos["id"],$datos["nombre"],$datos["puntaje"],$datos["grupos"];
+
+           //echo $datos["puntaje"];
               $tabla = "comportamiento";
               $Usuariod = new ComportamientoDAO();
               $respuesta = $Usuariod ->updateComportamiento($tabla,$datos);
         
-              //return $respuesta;
+              return $respuesta;
               if ($respuesta==true){
                 return "true";
               }else{
@@ -263,6 +301,11 @@ class ControladorLogro{
                    
           }else{
             return "Se ha introducido Caracteres invalidos en el nombre";
+
+            ;
+
+             
+
           }
         }
       
@@ -275,18 +318,93 @@ class ControladorLogro{
 
 
 
-      public function ctrListarGrupoComportamientosTabla($pagina,$cantidad){
+      public function ctrListarNivelTabla($pagina,$cantidad){
       
             
-       $tabla = "grupocomportamiento";
-       $GrupoComportamientod = new GrupoComportamientoDAO();
-        $respuesta = $GrupoComportamientod -> listGrupoComportamiento($pagina,$cantidad);
-  
+       $tabla = "nivel";
+       $Niveld = new NivelesDAO();
+        $respuesta = $Niveld -> listNivel($pagina,$cantidad);
+    
         return $respuesta;
   
       }
 
-
+      public function ctrRegistroNivel(){
+      
+        if(isset($_POST["id"])){
+         
+            if(($_POST["id"])==0){
+              if (preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*$/',$_POST["nombre"])){
+    
+                    $datos = array("nombre"=>$_POST["nombre"],
+                           "numero"=>$_POST["numero"],
+                          "puntajemin"=>$_POST["puntajemin"],
+                          "grupomin"=>$_POST["grupomin"]
+                           
+                         
+                           );
+                           
+              
+            
+                    $tabla = "nivel";
+                    $Usuariod = new NivelesDAO();
+                    $respuesta = $Usuariod -> addNivel($tabla,$datos);
+                   // return $respuesta;  
+                    if ($respuesta==true){
+                      return "true";
+                    }else{
+                      return $respuesta;  
+                    }
+    
+    
+    
+                
+              }else{
+                return "Se ha introducido Caracteres invalidos en el nombre";
+              }              
+          
+            }else{
+              if (preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*$/',$_POST["nombre"])){
+                
+                  $datos = array("id"=>$_POST["id"],
+                  "nombre"=>$_POST["nombre"],
+                  "numero"=>$_POST["numero"],
+                  "puntajemin"=>$_POST["puntajemin"],
+                  "grupomin"=>$_POST["grupomin"]
+                  );
+                  
+    
+    
+                  //    echo $datos["id"],$datos["nombre"],$datos["puntaje"],$datos["grupos"];
+    
+               //echo $datos["puntaje"];
+                  $tabla = "nivel";
+                  $Usuariod = new NivelesDAO();
+                  $respuesta = $Usuariod ->updateNivel($tabla,$datos);
+            
+                  return $respuesta;
+                  if ($respuesta==true){
+                    return "true";
+                  }else{
+                    return $respuesta;  
+                  }
+                       
+              }else{
+                return "Se ha introducido Caracteres invalidos en el nombre";
+    
+                ;
+    
+                 
+    
+              }
+            }
+          
+        }else{
+          return "";
+        }
+        
+    }
+    
 
       public function ctrActualizarEstadoGrupoComportamiento($id){
       
@@ -346,6 +464,18 @@ class ControladorLogro{
           
     }
     
+
+    public function ctrListarGrupoCompotamientosTabla($pagina,$cantidad){
+      
+            
+      $tabla = "grupocomportamiento";
+      $Grupod = new GrupoComportamientoDAO();
+       $respuesta = $Grupod -> listGrupoComportamiento($pagina,$cantidad);
+   
+       return $respuesta;
+ 
+     }
+
     
 }
 

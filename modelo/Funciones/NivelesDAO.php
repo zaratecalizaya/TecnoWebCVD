@@ -1,6 +1,6 @@
 <?php
  
-class ComportamientoDAO {
+class NivelesDAO {
  
     private $db;
     // constructor
@@ -19,7 +19,7 @@ class ComportamientoDAO {
  
     }
 	
-	   public function iscomportamientoexist($tabla, $id) {
+	   public function isnivelexist($tabla, $id) {
 
         require_once 'modelo/Conexion/connectbd.php';
         // connecting to database
@@ -47,29 +47,7 @@ class ComportamientoDAO {
     /**
      * agregar nuevo usuario
      */
-    public function adduserWeb($tabla,$datos) { //regusu et no es
-
-      require_once 'modelo/Conexion/connectbd.php';
-        // connecting to database
-        $this->db = new DB_Connect();
-        $link=$this->db->connect();
-		
-      	$pu=$this->isuserexist($tabla, $datos["usuario"]);
-        if($pu==false){
-          $clave = md5($datos["clave"]);
-          //$clave = $datos["clave"];
-          $result=mysqli_query($link,"INSERT INTO ".$tabla." (Nombre,Usuario,Clave,Estado) VALUES('".$datos["nombre"]."','".$datos["usuario"]."','".$clave."',1)");
-          return $result;
-      	}else{
-      		return "el usuario ya existe";
-      	}
-
-    }
- 
- /**
-     * agregar nuevo usuario
-     */
-    public function addComportamiento($tabla,$datos) { //regusu et no es
+    public function addNivel($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
         // connecting to database
@@ -77,24 +55,24 @@ class ComportamientoDAO {
         $link=$this->db->connect();
 		
              //$clave = $datos["clave"];
-          $result=mysqli_query($link,"INSERT INTO ".$tabla." (Nombre,Puntaje,IdGrupo,Estado,FActualizacion) VALUES('".$datos["nombre"]."','".$datos["puntaje"]."','".$datos["grupos"]."',1,now())");
+          $result=mysqli_query($link,"INSERT INTO ".$tabla." (Nombre,Numero,PuntajeMin,GruposMin) VALUES('".$datos["nombre"]."','".$datos["numero"]."','".$datos["puntajemin"]."','".$datos["grupomin"]."')");
           return $result;
       
 
     }
 
 
-    public function updateComportamiento($tabla,$datos ){
+    public function updateNivel($tabla,$datos ){
   
       require_once 'modelo/Conexion/connectbd.php';
       // connecting to database
       $this->db = new DB_Connect();
       $link=$this->db->connect();
   
-      $pu=$this->iscomportamientoexist($tabla, $datos["id"]);
+      $pu=$this->isnivelexist($tabla, $datos["id"]);
       if($pu==true){
         
-          $result=mysqli_query($link,"UPDATE ".$tabla." SET Nombre ='".$datos["nombre"]."',Puntaje='".$datos["puntaje"]."' ,IdGrupo='".$datos["grupos"]."' ,FActualizacion = now() where comportamiento.IdGrupo=grupocomportamiento.IdGrupo and Id = ".$datos["id"]);
+          $result=mysqli_query($link,"UPDATE ".$tabla." SET Nombre ='".$datos["nombre"]."',Numero='".$datos["numero"]."' ,PuntajeMin='".$datos["puntajemin"]."' ,GruposMin='".$datos["grupomin"]."'  where Id = ".$datos["id"]);
           return $result;
              
       }else{
@@ -131,34 +109,33 @@ class ComportamientoDAO {
  
   
 	
-	public function listComportamientos($pagina,$cantidad){
-		require_once 'modelo/Conexion/connectbd.php';
-        // connecting to database
-        $this->db = new DB_Connect();
-        $link=$this->db->connect();
-		//$json=$cuenta;
+
+    public function listNivel($pagina,$cantidad){
+      require_once 'modelo/Conexion/connectbd.php';
+          // connecting to database
+          $this->db = new DB_Connect();
+          $link=$this->db->connect();
+      //$json=$cuenta;
+      
     
-		$query = "SELECT c.Id,c.Nombre,c.Puntaje,gc.Nombre as Grupo,c.Estado,c.FActualizacion FROM grupocomportamiento as gc,comportamiento as c where gc.Id=c.Id ";
-		$result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
-
-		$json = array();
-		//$json =mysqli_num_rows($result);
-		if(mysqli_num_rows($result)>0){
-				//$json['cliente'][]=nada;
-			while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                $destado ="Deshabilitado";
-                if ($line["Estado"]==1){
-                    $destado ="Habilitado";
-                }        
-				array_push($json, array($line["Id"],$line["Nombre"],$line["Puntaje"],$line["Grupo"],$destado,$line["FActualizacion"]));
-			}
-			
-		}
-		
-		mysqli_close($link);
-		return $json;
-		
-	}
+      $query = "SELECT Id,Nombre,Numero,PuntajeMin,GruposMin FROM nivel ";
+      $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+    
+      $json = array();
+      //$json =mysqli_num_rows($result);
+      if(mysqli_num_rows($result)>0){
+          //$json['cliente'][]=nada;
+        while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+          
+          array_push($json, array($line["Id"],$line["Nombre"],$line["Numero"],$line["PuntajeMin"],$line["GruposMin"]));
+        }
+        
+      }
+      
+      mysqli_close($link);
+      return $json;
+      
+    }
 
 
 
@@ -166,7 +143,11 @@ class ComportamientoDAO {
 
 
 
-  
+
+
+
+
+
   public function updatestatuscomportamiento($tabla,$datos) { //regusu et no es
 
     require_once 'modelo/Conexion/connectbd.php';

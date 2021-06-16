@@ -133,7 +133,7 @@ if (!isset($_SESSION['session_id'])) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./reporte1.php" class="nav-link">
+                <a href="./ReporteComportamientos.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Reporte de comportamientos</p>
                 </a>
@@ -315,7 +315,9 @@ if (!isset($_SESSION['session_id'])) {
                     }elseif($resp=="false"){
                       //echo "<script> alert(' respuesta: al parecer fue falso XD')</script>";
                     }else{
+                      if ($resp!=""){
                       echo "<script> alert(' respuesta: ".$resp." ')</script>";
+                    }
                     }
                     
                   ?>
@@ -362,19 +364,32 @@ if (!isset($_SESSION['session_id'])) {
 <script>
   $(function () {
     $("#example1").DataTable({
-      "responsive": true,
+      
       "autoWidth": false,
     });
     
+     //Initialize Select2 Elements
+    $('.select2').select2()
+
+//Initialize Select2 Elements
+$('.select2bs4').select2({
+  theme: 'bootstrap4'
+})
+
+
+
+
+
+
   });
 </script>
 
 <script>
-  function saveData(id, nombre,puntaje,idgrupo){
+  function saveData(id, nombre,puntaje,grupo){
     document.getElementById("id").value = id;
     document.getElementById("nombre").value = nombre;
     document.getElementById("puntaje").value = puntaje;
-    document.getElementById("grupos").value = idgrupo;
+    document.getElementById("grupos").value = grupo;
  
     $('#TituloUser').text("Editar Comportamiento");
 //    document.getElementById("TituloUser").value = "Editar Usuario";  

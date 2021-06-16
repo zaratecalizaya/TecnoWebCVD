@@ -182,7 +182,7 @@ class LogrosDAO {
 		//$json=$cuenta;
     
 
-		$query = "SELECT count(Id) as cantidad FROM logro where estado=1 ";
+		$query = "SELECT count(Id) as cantidad FROM grupocomportamiento where estado=1 ";
 		$result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
 
 		$json = 0;
@@ -198,6 +198,44 @@ class LogrosDAO {
 		
 	}
 	
+   
+  
+
+
+
+
+  
+  public function contarReconocimientos(){
+		require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+		//$json=$cuenta;
+    
+
+		$query = "SELECT count(Id) as cantidad FROM reconocimiento  ";
+		$result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+
+		$json = 0;
+		//$json =mysqli_num_rows($result);
+		if(mysqli_num_rows($result)>0){
+				//$json['cliente'][]=nada;
+			if ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+        $json=$line["cantidad"];
+			}
+		}
+		mysqli_close($link);
+		return $json;
+		
+	}
+	
+   
+  
+
+
+
+
+
 	public function getusuario($Nick){
 		require_once 'modelo/Conexion/connectbd.php';
         // connecting to database
@@ -289,6 +327,36 @@ class LogrosDAO {
   return $json;
   
  }
+
+
+ public function listReconocimiento($pagina,$cantidad){
+  require_once 'modelo/Conexion/connectbd.php';
+      // connecting to database
+      $this->db = new DB_Connect();
+      $link=$this->db->connect();
+  //$json=$cuenta;
+  
+
+  $query = "SELECT r.Id as RId,Nombres,Nombre,Comentario,r.FActualizacion as RFActualizacion FROM comportamiento,reconocimiento as r ,usuarios where r.IdComportamiento=comportamiento.Id and r.IdUsuario=usuarios.Id order by r.id DESC LIMIT 10";
+  $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+
+  $json = array();
+  //$json =mysqli_num_rows($result);
+  if(mysqli_num_rows($result)>0){
+      //$json['cliente'][]=nada;
+    while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+       
+      array_push($json, array($line["RId"],$line["Nombres"],$line["Nombre"],$line["Comentario"],$line["RFActualizacion"]));
+    }
+    
+  }
+  
+  mysqli_close($link);
+  return $json;
+  
+ }
+
+
 
 
 }

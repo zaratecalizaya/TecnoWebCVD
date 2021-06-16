@@ -320,6 +320,33 @@ class UsuarioDAO {
 		return $json;
 		
 	}
+
+  public function contarUsuarios(){
+		require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+		//$json=$cuenta;
+    
+
+		$query = "SELECT count(Id) as cantidad FROM usuarios where estado=1 ";
+		$result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+
+		$json = 0;
+		//$json =mysqli_num_rows($result);
+		if(mysqli_num_rows($result)>0){
+				//$json['cliente'][]=nada;
+			if ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+        $json=$line["cantidad"];
+			}
+		}
+		mysqli_close($link);
+		return $json;
+		
+	}
+
+
+
   
   /**
      * agregar nuevo usuario

@@ -133,7 +133,7 @@ if (!isset($_SESSION['session_id'])) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./reporte1.php" class="nav-link">
+                <a href="./ReporteComportamientos.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Reporte de comportamientos</p>
                 </a>
@@ -208,7 +208,7 @@ if (!isset($_SESSION['session_id'])) {
                 <?php 
                     require_once 'Controlador/logros.controlador.php';
                     $cgrupo = new ControladorLogro();
-                    $list=  $cgrupo -> ctrListarGrupoComportamientosTabla(1,1000);
+                    $list=  $cgrupo -> ctrListarGrupoCompotamientosTabla(1,1000);
                     
                     while (count($list)>0){
                       $Grupo = array_shift($list);
@@ -301,7 +301,10 @@ if (!isset($_SESSION['session_id'])) {
                     }elseif($resp=="false"){
                       //echo "<script> alert(' respuesta: al parecer fue falso XD')</script>";
                     }else{
-                      echo "<script> alert(' respuesta: ".$resp." ')</script>";
+                      if ($resp!=""){
+                        echo "<script> alert(' respuesta: ".$resp." ')</script>";
+                      }
+                      
                     }
                     
                   ?>
