@@ -14,7 +14,7 @@ if (!isset($_SESSION['session_id'])) {
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
-      <img src="dist/img/minilogobago.png" alt="Bago Logo" class="brand-image img-circle elevation-3"
+      <img src="imagenes/minilogobago.png" alt="Bago Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
       <span class="brand-text font-weight-light">Bago</span>
     </a>
@@ -40,7 +40,7 @@ if (!isset($_SESSION['session_id'])) {
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link active">
+            <a href="./tablero.php" class="nav-link active">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Tablero
@@ -80,15 +80,15 @@ if (!isset($_SESSION['session_id'])) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Competencias.php" class="nav-link ">
+                <a href="./Comportamientos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Competencias</p>
+                  <p>Comportamientos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./GrupoCompetencias.php" class="nav-link ">
+                <a href="./GrupoComportamientos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Grupos Competencias</p>
+                  <p>Grupos de Comportamientos</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -110,9 +110,9 @@ if (!isset($_SESSION['session_id'])) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./reporte1.php" class="nav-link">
+                <a href="./ReporteComportamientos.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Reporte de competencias</p>
+                  <p>Reporte de comportamiento</p>
                 </a>
               </li>
               <li class="nav-item">
@@ -163,8 +163,18 @@ if (!isset($_SESSION['session_id'])) {
   
                   
     $cusuario = new ControladorUsuario();
-    $listuser=  $cusuario -> ctrContarUsuariosMovil();
+    $Dcantidad=  $cusuario -> ctrContarUsuarios();
+  
     $clogro = new ControladorLogro();
+    $Dcantidadlo= $clogro ->ctrContarLogros();
+
+  
+
+    $creconocimiento = new ControladorLogro();
+    $Dcantidadre= $creconocimiento ->ctrContarReconocimientos();
+
+  
+
   //  $listuser=  $cusuario -> ctrListarUsuariosMovil(1,1000);
       
     ?>
@@ -179,8 +189,10 @@ if (!isset($_SESSION['session_id'])) {
 
               <div class="info-box-content">
                 <span class="info-box-text">Usuarios</span>
-                <span class="info-box-number">
-                  <?php echo $listuser ?>
+                <span class="info-box-number" >
+                  <?php
+                    echo $Dcantidad;
+                   ?>
                 </span>
               </div>
               <!-- /.info-box-content -->
@@ -194,7 +206,13 @@ if (!isset($_SESSION['session_id'])) {
 
               <div class="info-box-content">
                 <span class="info-box-text">Logros</span>
-                <span class="info-box-number">10</span>
+                <span class="info-box-number">
+                <?php
+                    echo $Dcantidadlo;
+                ?>
+                
+                
+                </span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -210,8 +228,15 @@ if (!isset($_SESSION['session_id'])) {
               <span class="info-box-icon bg-info elevation-1"><i class="fas fa-medal"></i></span>
 
               <div class="info-box-content">
-                <span class="info-box-text">Logros Enviados</span>
-                <span class="info-box-number">760</span>
+                <span class="info-box-text">Reconocimientos</span>
+                <span class="info-box-number">
+                <?php
+                    echo $Dcantidadre;
+                ?>
+                
+                
+                
+                </span>
               </div>
               <!-- /.info-box-content -->
             </div>
@@ -226,17 +251,17 @@ if (!isset($_SESSION['session_id'])) {
         <!-- /.row -->
 
         <!-- Main row -->
-        <div class="row">
+        
           <!-- Left col -->
-          <div class="col-md-8">
+        
             <!-- MAP & BOX PANE -->
             
             
 
             <!-- TABLE: LATEST ORDERS -->
-            <div class="card">
+            <div class="card   card-primary">
               <div class="card-header border-transparent">
-                <h3 class="card-title">Latest Orders</h3>
+                <h3 class="card-title">Top 10 de Reconocimientos</h3>
 
                 <div class="card-tools">
                   <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -248,136 +273,65 @@ if (!isset($_SESSION['session_id'])) {
                 </div>
               </div>
               <!-- /.card-header -->
-              <div class="card-body p-0">
+              <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table m-0">
+                  <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                      <th>Order ID</th>
-                      <th>Item</th>
-                      <th>Status</th>
-                      <th>Popularity</th>
-                    </tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Comportamiento</th>
+                    <th>Comentarios</th>
+                    <th>Fecha Actualizacion</th>
+                   
+                  </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                      <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                      <td>Call of Duty IV</td>
-                      <td><span class="badge badge-success">Shipped</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                      <td>Samsung Smart TV</td>
-                      <td><span class="badge badge-warning">Pending</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                      <td>iPhone 6 Plus</td>
-                      <td><span class="badge badge-danger">Delivered</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                      <td>Samsung Smart TV</td>
-                      <td><span class="badge badge-info">Processing</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#00c0ef" data-height="20">90,80,-90,70,-61,83,63</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                      <td>Samsung Smart TV</td>
-                      <td><span class="badge badge-warning">Pending</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><a href="pages/examples/invoice.html">OR7429</a></td>
-                      <td>iPhone 6 Plus</td>
-                      <td><span class="badge badge-danger">Delivered</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                      <td>Call of Duty IV</td>
-                      <td><span class="badge badge-success">Shipped</span></td>
-                      <td>
-                        <div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-                      </td>
-                    </tr>
+      
+                    <?php
+                  require_once 'Controlador/logros.controlador.php' ;
+                  $ctablero =  new ControladorLogro();
+                  $list=$ctablero->ctrlistTablero(1,1000);
+                  
+                  while (count($list)>0){
+                   
+                    $Tablero = array_shift($list);
+                    echo "<tr>";
+                    $Did = array_shift($Tablero);
+                    echo "<td>".$Did."</td>";
+                    $Dnombres = array_shift($Tablero);
+                    echo "<td>".$Dnombres."</td>";
+                    $Dnombre = array_shift($Tablero);
+                    echo "<td>".$Dnombre."</td>";
+                    $Dcomentario = array_shift($Tablero);
+                    echo "<td>".$Dcomentario."</td>";
+                  
+                    $Dfechaact = array_shift($Tablero);
+                      echo "<td>".$Dfechaact."</td>";
+                    
+                    
+                  
+                  
+                  
+                  }
+                  
+                
+
+                  ?>  
                     </tbody>
                   </table>
                 </div>
                 <!-- /.table-responsive -->
               </div>
               <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
-                <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
-              </div>
               <!-- /.card-footer -->
             </div>
             <!-- /.card -->
-          </div>
+          
           <!-- /.col -->
 
-          <div class="col-md-4">
-            <!-- Info Boxes Style 2 -->
-            <div class="info-box mb-3 bg-warning">
-              <span class="info-box-icon"><i class="fas fa-tag"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Inventory</span>
-                <span class="info-box-number">5,200</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-            <div class="info-box mb-3 bg-success">
-              <span class="info-box-icon"><i class="far fa-heart"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Mentions</span>
-                <span class="info-box-number">92,050</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-            <div class="info-box mb-3 bg-danger">
-              <span class="info-box-icon"><i class="fas fa-cloud-download-alt"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Downloads</span>
-                <span class="info-box-number">114,381</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-            <div class="info-box mb-3 bg-info">
-              <span class="info-box-icon"><i class="far fa-comment"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">Direct Messages</span>
-                <span class="info-box-number">163,921</span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-
-          </div>
           <!-- /.col -->
-        </div>
+        
         <!-- /.row -->
       </div><!--/. container-fluid -->
     </section>
@@ -404,10 +358,10 @@ if (!isset($_SESSION['session_id'])) {
 <!-- overlayScrollbars -->
 <script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->
-<script src="dist/js/adminlte.js"></script>
+<script src="js/adminlte.js"></script>
 
 <!-- OPTIONAL SCRIPTS -->
-<script src="dist/js/demo.js"></script>
+<script src="js/demo.js"></script>
 
 <!-- PAGE PLUGINS -->
 <!-- jQuery Mapael -->
@@ -418,7 +372,7 @@ if (!isset($_SESSION['session_id'])) {
 <!-- ChartJS -->
 <script src="plugins/chart.js/Chart.min.js"></script>
 
-<!-- PAGE SCRIPTS -->
-<script src="dist/js/pages/dashboard2.js"></script>
+<!-- PAGE SCRIPTS
+<script src="js/pages/dashboard2.js"></script>  -->
 </body>
 </html>

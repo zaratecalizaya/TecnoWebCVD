@@ -65,7 +65,6 @@ class UsuarioDAO {
       	}
 
     }
- 
  /**
      * agregar nuevo usuario
      */
@@ -321,6 +320,59 @@ class UsuarioDAO {
 		return $json;
 		
 	}
+
+  public function contarUsuarios(){
+		require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+		//$json=$cuenta;
+    
+
+		$query = "SELECT count(Id) as cantidad FROM usuarios where estado=1 ";
+		$result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+
+		$json = 0;
+		//$json =mysqli_num_rows($result);
+		if(mysqli_num_rows($result)>0){
+				//$json['cliente'][]=nada;
+			if ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+        $json=$line["cantidad"];
+			}
+		}
+		mysqli_close($link);
+		return $json;
+		
+	}
+  public function listcantidaduser($region,$sector,$subsector,$cargo){
+  	require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+		
+        $query = "select usuarios.Usuario as nombreus from  usuarios, cargo where usuarios.IdCargo=cargo.Id 
+        and region like '$region%' and cargo.Nombre like '$cargo%'  and usuarios.Sector like '$sector%' and usuarios.SubSector like '$subsector%'";
+        $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+
+        $json = array();
+        //$json =mysqli_num_rows($result);
+        if(mysqli_num_rows($result)>0){
+        		//$json['cliente'][]=nada;
+        	while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+          	array_push($json, array($line["nombreus"]));
+          }
+			
+        }
+		
+		mysqli_close($link);
+		return $json;
+
+
+
+
+  }
+
+
   
   /**
      * agregar nuevo usuario
