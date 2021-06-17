@@ -9,7 +9,7 @@
 
 
 
-    require_once 'datos/funciones_bd.php';
+    include ("funciones.php");
     $db = new funciones_BD();
     // regproducto($Nombre,$Codp,$Precio,$Imagen,$Coduni,$Codsup)
     if($db->regcliente($Nombre,$FechaNatal,$Telefono,$Correo,$Genero)){
