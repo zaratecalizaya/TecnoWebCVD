@@ -508,7 +508,7 @@ if (!isset($_SESSION['session_id'])) {
   });
 </script>
 
-<script language="javascript">
+<script  >
   
   $(document).ready(function () {
   $('#listUsuarioMovil').DataTable({

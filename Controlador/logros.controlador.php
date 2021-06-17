@@ -1,6 +1,7 @@
 <?php
 
 
+
   require_once 'modelo/Funciones/GrupoComportamientoDAO.php';
   require_once 'modelo/Funciones/ComportamientoDAO.php';
   require_once 'modelo/Funciones/NivelesDAO.php';
@@ -88,7 +89,11 @@ class ControladorLogro{
 
 
 
+  
 
+
+
+    
 
     public function ctrContarLogros(){
       

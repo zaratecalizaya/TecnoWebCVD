@@ -294,7 +294,17 @@ class ControladorUsuario{
         
     }
     
+    public function ctrBuscar($region,$sector,$subsector,$cargo){  
+      
+            
+      $tabla = "usuarios";
+      $Usuariod = new UsuarioDAO();
+      $respuesta = $Usuariod -> listcantidaduser($region,$sector,$subsector,$cargo);
+      
+      return $respuesta;
+      
     
+   }
 }
 
 ?>

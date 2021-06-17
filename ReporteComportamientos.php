@@ -181,24 +181,145 @@ if (!isset($_SESSION['session_id'])) {
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <section class="content hero-image" >
+
+
+ <form role="form" enctype="multipart/form-data" method="post"  >
+  <section class="content hero-image" >
       <div class="container-fluid" >
         <div class="row">
           <div class="col-12">
-            <div class="card card-primary">
-              <div class="card-header" >
-                <h3 class="card-title">Reporte de comportamientos</h3>
-              </div>
-              <!-- /.card-header -->
+        
+ <div class="card card-primary">
+           <div class="card-header" >
+                <h3 class="card-title">Busquedas</h3>
+            </div>
+   <table  class="table table-bordered table-striped">
+        <thead  >
+          <tr>
+
+
+        <th>
+       <div class="col">
+    
+          <div class="mb-3">
+            <label for="disabledSelect" class="form-label">Region: </label>
+      
+             <select class="form-control select2"  id="region" name="region" style="width: 100%;">
+               <option selected="selected">BENI</option>
+                      <option>COCHABAMBA</option>
+                      <option>EL ALTO</option>
+                      <option>LA PAZ</option>                    
+                      <option>NACIONAL</option>
+                      <option>ORURO</option>
+                      <option>PANDO</option>
+                      <option>POTOSI</option>
+                      <option>SANTA CRUZ</option>
+                      <option>SUCRE</option>
+                      <option>TARIJA</option>
+
+             </select>
+         </div>
+       </div>
+       </th>
+ 
+      <th>
+       <div class="col order-1">
+    
+          <div class="mb-3">
+            <label for="disabledSelect" class="form-label">Sector: </label>
+      
+               <select class="form-control select2" id="sector" name="sector"  style="width: 100%;"> 
+                    <?php
+                      
+                      require_once 'Controlador/usuario.controlador.php';
+                     
+                      $cusuario = new ControladorUsuario();
+                      $list=  $cusuario -> ctrListarSectores();
+                    
+                      while (count($list)>0){
+                        $User = array_shift($list);
+                        $Did = array_shift($User);
+                        $Dnombres = array_shift($User);
+                        echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
+                      }
+                    ?>
+               </select>
+          </div>
+       </div>
+     </th>  
+    <th>
+     <div class="col order-1">
+     
+       <div class="mb-3">
+         <label for="disabledSelect" class="form-label">Subsector: </label>
+      
+         <select class="form-control select2" id="subsector" name="subsector"  style="width: 100%;"> 
+                    <?php
+                      
+                      require_once 'Controlador/usuario.controlador.php';
+                     
+                      $cusuario = new ControladorUsuario();
+                      $list=  $cusuario -> ctrListarSubSectores(4);
+                    
+                      while (count($list)>0){
+                        $User = array_shift($list);
+                        $Did = array_shift($User);
+                        $Dnombres = array_shift($User);
+                        echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
+                      }
+                    ?>
+         </select>
+       </div>
+    </div>
+    </th>
+ 
+
+
+    <th>
+    <div class="col order-5">
+      <div class="mb-3">
+         <label for="disabledSelect" class="form-label">Cargo: </label>
+      
+          <select class="form-control select2"  id="cargo" name="cargo" style="width: 100%;">
+            <?php
+                      
+                      require_once 'Controlador/usuario.controlador.php';
+                     
+                      $cusuario = new ControladorUsuario();
+                      $list=  $cusuario -> ctrListarCargo(9);
+                    
+                      while (count($list)>0){
+                        $User = array_shift($list);
+                        $Did = array_shift($User);
+                        $Dnombres = array_shift($User);
+                        echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
+                      }
+                    ?>
+          </select>
+     </div>
+    </div>
+    </th>
+
+
+
+     <th>
+     <button type="button" class="btn btn-success">Buscar</button>
+     <br>
+     <br>
+    </th>
+
+    </thead>
+  </table> 
+
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Id</th>
-                    <th>Nombre usuario</th>
-                    <th>Comportamiento</th>
-                    <th>Puntaje Minimo</th>
-                    <th>Grupos Minimo</th>
+                    <th>nombre</th>
+                   
+                    <th>Cantidad de reconocimiento</th>
+                    <th>Cantidad comportamiento</th>
+                    
                     <th>Acciones</th>
                   </thead>
                   <tbody>
@@ -206,47 +327,47 @@ if (!isset($_SESSION['session_id'])) {
                     require_once 'Controlador/logros.controlador.php';
   
                   
-                    $clogro = new ControladorLogro();
-                    $list=  $clogro -> ctrListarNivelTabla(1,1000);
+                    $cuser = new ControladorUsuario ();
+                    $list=  $cuser ->  ctrBuscar($_POST['region'],$_POST['sector'],$_POST['subsector'],$_POST['cargo']);
                     
                     while (count($list)>0){
-                      $Nivel = array_shift($list);
+                      $cont = array_shift($list);
                       echo "<tr>";
-                      $Did = array_shift($Nivel);
-                      echo "<td>".$Did."</td>";
-                      $Dnombre = array_shift($Nivel);
+                      $Dnombre= array_shift($cont);
                       echo "<td>".$Dnombre."</td>";
-                      $Dnumero = array_shift($Nivel);
-                      echo "<td>".$Dnumero."</td>";
-                      $Dpuntajemin = array_shift($Nivel);
-                      echo "<td>".$Dpuntajemin."</td>";
-                      $Dgrupomin = array_shift($Nivel);
-                      echo "<td>".$Dgrupomin."</td>";
-                    
-                      echo '<td>
-                              <button class="btn" onclick="saveData('.$Did.',\''.$Dnombre.'\',\''.$Dnumero.'\',\''.$Dpuntajemin.'\',\''.$Dgrupomin.'\')"><i class="fas fa-edit"></i> Editar</button>
-                            
-                            </td>';
+                           
                       echo "</tr>";
                     }
                     
-                    ?> 
+                  ?> 
                     
                   
                   </tbody>
+
+
+
                 </table>
               </div>
-              <!-- /.card-body -->
-            </div>
-            
+
+
+
+
+
+
+
+</div>
+
+
+</div>
         
- 
-          </div>
+        
+    </div>
           <!-- /.col -->
-        </div>
+      
         <!-- /.row -->
  
     </section>
+    </form>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -286,33 +407,46 @@ if (!isset($_SESSION['session_id'])) {
       "autoWidth": false,
     });
 
-    
+    $('.select2').select2()
+
+//Initialize Select2 Elements
+$('.select2bs4').select2({
+  theme: 'bootstrap4'
+})
     
   });
 </script>
 
+<script language="javascript">
+$("#sector").on('change', function () {
+        $("#sector option:selected").each(function () {
+            var id_category = $(this).val();
+            $.post("AjaxSubsector.php", { id_category: id_category }, function(data) {
+                $("#subsector").html(data);
+                $("#subsector option:selected").each(function () {
+                  var id_category = $(this).val();
+                  $.post("AjaxCargo.php", { id_category: id_category }, function(data) {
+                    $("#cargo").html(data);
+                  });			
+                });   
+            });			
+        });
+  });
+  $("#subsector").on('change', function () {
+        $("#subsector option:selected").each(function () {
+            var id_category = $(this).val();
+            $.post("AjaxCargo.php", { id_category: id_category }, function(data) {
+                $("#cargo").html(data);
+            });			
+        });
+  });
+
+
+</script>
+
 <script>
-  function saveData(id, nombre,numero,puntajemin,grupomin){
-    document.getElementById("id").value = id;
-    document.getElementById("nombre").value = nombre;
-    document.getElementById("numero").value = numero;
-    document.getElementById("puntajemin").value = puntajemin;
-    document.getElementById("grupomin").value = grupomin;
  
-    $('#TituloUser').text("Editar Nivel");
-//    document.getElementById("TituloUser").value = "Editar Usuario";  
-  }
-  
-  function newUser(){
-    document.getElementById("id").value = 0;
-    document.getElementById("nombre").value = "";
-    document.getElementById("numero").value = "";
-    document.getElementById("puntajemin").value = "";
-    document.getElementById("grupomin").value = "";
-    
-    $('#TituloUser').text("Agregar Nivel");
-  //  document.getElementById("TituloUser").value = "Agregar Usuario";  
-  }
+ 
   
   function updateStatus(id){
       var parametros = {
