@@ -23,7 +23,7 @@
 <body class="hold-transition login-page hero-image">
 <div class="login-box">
   <div class="login-logo">
-    <a href="tablero.php"><img src="images/Logo_Bago-completo_blanco.png" height="150" width="350" alt="Logo Image" ></a>
+    <a href="tablero.php"><img src="imagenes/Logo_Bago-completo_blanco.png" height="150" width="350" alt="Logo Image" ></a>
   </div>
   <!-- /.login-logo -->
   <div class="card">

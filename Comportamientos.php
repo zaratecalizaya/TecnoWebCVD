@@ -167,12 +167,12 @@ if (!isset($_SESSION['session_id'])) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-white">Usuarios Web</h1>
+            <h1 class="m-0 text-white">Comportamientos</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="tablero.php">Inicio</a></li>
-              <li class="breadcrumb-item active text-white">Usuarios Web</li>
+              <li class="breadcrumb-item active text-white">Comportamientos</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -187,7 +187,7 @@ if (!isset($_SESSION['session_id'])) {
           <div class="col-12">
             <div class="card card-primary">
               <div class="card-header" >
-                <h3 class="card-title">Lista de Usuarios Web</h3>
+                <h3 class="card-title">Lista de Comportamientos</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -196,30 +196,33 @@ if (!isset($_SESSION['session_id'])) {
                   <tr>
                     <th>Id</th>
                     <th>Nombre</th>
-                    <th>Usuario</th>
+                    <th>Puntaje</th>
+                    <th>Grupo</th>
                     <th>Estado</th>
                     <th>Fecha Actualizacion</th>
                     <th>Acciones</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <?php
-                    require_once 'Controlador/usuario.controlador.php';
+                 <?php 
+                    require_once 'Controlador/logros.controlador.php';
   
                   
-                    $cusuario = new ControladorUsuario();
-                    $list=  $cusuario -> ctrListarUsuariosWeb(1,1000);
+                    $clogro = new ControladorLogro();
+                    $list=  $clogro -> ctrListarComportamientos(1,1000);
                     
                     while (count($list)>0){
-                      $User = array_shift($list);
+                      $Comportamiento = array_shift($list);
                       echo "<tr>";
-                      $Did = array_shift($User);
+                      $Did = array_shift($Comportamiento);
                       echo "<td>".$Did."</td>";
-                      $Dnombre = array_shift($User);
+                      $Dnombre = array_shift($Comportamiento);
                       echo "<td>".$Dnombre."</td>";
-                      $Dusuario = array_shift($User);
-                      echo "<td>".$Dusuario."</td>";
-                      $Destado = array_shift($User);
+                      $Dpuntaje = array_shift($Comportamiento);
+                      echo "<td>".$Dpuntaje."</td>";
+                      $Didgrupo = array_shift($Comportamiento);
+                      echo "<td>".$Didgrupo."</td>";
+                      $Destado = array_shift($Comportamiento);
                       $Destadobtn="Habilitar";
                       $DestadoIco="thumbs-up";
                       echo "<td>".$Destado."</td>";
@@ -227,17 +230,17 @@ if (!isset($_SESSION['session_id'])) {
                         $Destadobtn="Deshabilitar";
                         $DestadoIco="thumbs-down";
                       }
-                      $Dfechaact = array_shift($User);
+                      $Dfechaact = array_shift($Comportamiento);
                       echo "<td>".$Dfechaact."</td>";
                     
                       echo '<td>
-                              <button class="btn" onclick="saveData('.$Did.',\''.$Dnombre.'\',\''.$Dusuario.'\')"><i class="fas fa-edit"></i> Editar</button>
-                              <button class="btn" onclick="updateStatus('.$Did.',\''.$Dusuario.'\')"><i class="far fa-'.$DestadoIco.'"></i>'.$Destadobtn.'</button>
+                              <button class="btn" onclick="saveData('.$Did.',\''.$Dnombre.'\',\''.$Dpuntaje.'\',\''.$Didgrupo.'\')"><i class="fas fa-edit"></i> Editar</button>
+                              <button class="btn" onclick="updateStatus('.$Did.')"><i class="far fa-'.$DestadoIco.'"></i>'.$Destadobtn.'</button>
                             </td>';
                       echo "</tr>";
                     }
                     
-                    ?>
+                    ?> 
                     
                   
                   </tbody>
@@ -255,8 +258,8 @@ if (!isset($_SESSION['session_id'])) {
  
         <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title"><label id="TituloUser">Agregar Usuario</label> </h3> 
-                <button id="nuevousuario" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Usuario</button>
+                <h3 class="card-title"><label id="TituloUser">Agregar Comportamientos</label> </h3> 
+                <button id="nuevoComportamiento" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Comportamiento</button>
                 
               </div>
               <!-- /.card-header -->
@@ -272,24 +275,39 @@ if (!isset($_SESSION['session_id'])) {
                     <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese su Nombre">
                   </div>
                   <div class="form-group">
-                    <label for="InputUsuario">Usuario</label>
-                    <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Ingrese su Usuario">
+                    <label for="InputUsuario">Puntaje</label>
+                    <input type="text" class="form-control" id="puntaje" name="puntaje" placeholder="Ingrese el Puntaje">
                   </div>
+                   
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Contraseña</label>
-                    <input type="password" class="form-control" id="clave" name="clave" placeholder="Ingrese su Contraseña">
+                    <label>Grupos de comportamiento</label>
+                    <select class="form-control select2" id="grupos" name="grupos"  style="width: 100%;"> 
+                    <?php
+                      
+                      require_once 'Controlador/logros.controlador.php';
+                     
+                      $cusuario = new ControladorLogro();
+                      $list=  $cusuario -> ctrListarGrupo();
+                    
+                      while (count($list)>0){
+                        $User = array_shift($list);
+                        $Did = array_shift($User);
+                        $Dnombres = array_shift($User);
+                        echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
+                      }
+                    ?>
+                    </select>
                   </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword2">Repita su Contraseña</label>
-                    <input type="password" class="form-control" id="clave2" name="clave2" placeholder="Repita su Contraseña">
-                  </div>
+
+
+
                   
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
                   <?php
-                    $resp= $cusuario -> ctrRegistroUsuario();
+                    $resp= $clogro -> ctrRegistroComportamiento();
                     //echo "<script> alert(' respuesta: ".$resp." ')</script>";
                     if ($resp=="true"){
                       //echo "<script> alert(' respuesta: ".$resp." ')</script>";
@@ -297,7 +315,9 @@ if (!isset($_SESSION['session_id'])) {
                     }elseif($resp=="false"){
                       //echo "<script> alert(' respuesta: al parecer fue falso XD')</script>";
                     }else{
+                      if ($resp!=""){
                       echo "<script> alert(' respuesta: ".$resp." ')</script>";
+                    }
                     }
                     
                   ?>
@@ -344,50 +364,64 @@ if (!isset($_SESSION['session_id'])) {
 <script>
   $(function () {
     $("#example1").DataTable({
-      "responsive": true,
+      
       "autoWidth": false,
     });
     
+     //Initialize Select2 Elements
+    $('.select2').select2()
+
+//Initialize Select2 Elements
+$('.select2bs4').select2({
+  theme: 'bootstrap4'
+})
+
+
+
+
+
+
   });
 </script>
 
 <script>
-  function saveData(id, nombre, usuario){
+  function saveData(id, nombre,puntaje,grupo){
     document.getElementById("id").value = id;
     document.getElementById("nombre").value = nombre;
-    document.getElementById("usuario").value = usuario;
-    document.getElementById("clave").value = "";
-    document.getElementById("clave2").value = "";
-    $('#TituloUser').text("Editar Usuario");
+    document.getElementById("puntaje").value = puntaje;
+    document.getElementById("grupos").value = grupo;
+ 
+    $('#TituloUser').text("Editar Comportamiento");
 //    document.getElementById("TituloUser").value = "Editar Usuario";  
   }
   
   function newUser(){
     document.getElementById("id").value = 0;
     document.getElementById("nombre").value = "";
-    document.getElementById("usuario").value = "";
-    document.getElementById("clave").value = "";
-    document.getElementById("clave2").value = "";
-    $('#TituloUser').text("Agregar Usuario");
+    document.getElementById("puntaje").value = "";
+    document.getElementById("grupos").value = "";
+    
+    $('#TituloUser').text("Agregar Comportamiento");
   //  document.getElementById("TituloUser").value = "Agregar Usuario";  
   }
   
-  function updateStatus(id, usuario){
+  function updateStatus(id){
       var parametros = {
                 "id" : id,
-                "usuario" : usuario
+              
         };
       
       $.ajax({
         type: "POST",
-        url: "usuariowebestado.php",
+        url: "comportamientoestado.php",
         data: parametros,
         success:function( msg ) {
           window.location.href = window.location.href;
-         //alert( "Data actualizada. " + msg );
+       //  alert( "Data actualizada. " + msg );
         }
        });
   }
+  
   
 </script>
 

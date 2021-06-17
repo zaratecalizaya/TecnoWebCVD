@@ -167,12 +167,12 @@ if (!isset($_SESSION['session_id'])) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-white">Usuarios Web</h1>
+            <h1 class="m-0 text-white">Grupos de Comportamiento</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="tablero.php">Inicio</a></li>
-              <li class="breadcrumb-item active text-white">Usuarios Web</li>
+              <li class="breadcrumb-item active text-white">Grupos de Comportamiento</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -187,7 +187,7 @@ if (!isset($_SESSION['session_id'])) {
           <div class="col-12">
             <div class="card card-primary">
               <div class="card-header" >
-                <h3 class="card-title">Lista de Usuarios Web</h3>
+                <h3 class="card-title">Lista de Grupos de Comportamiento</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -196,30 +196,36 @@ if (!isset($_SESSION['session_id'])) {
                   <tr>
                     <th>Id</th>
                     <th>Nombre</th>
-                    <th>Usuario</th>
+                    <th>Puntaje Meta</th>
+                    <th>Imagen</th>
                     <th>Estado</th>
                     <th>Fecha Actualizacion</th>
                     <th>Acciones</th>
                   </tr>
                   </thead>
                   <tbody>
-                  <?php
-                    require_once 'Controlador/usuario.controlador.php';
-  
-                  
-                    $cusuario = new ControladorUsuario();
-                    $list=  $cusuario -> ctrListarUsuariosWeb(1,1000);
+                  <!--datos de la lista -->
+                <?php 
+                    require_once 'Controlador/logros.controlador.php';
+                    $cgrupo = new ControladorLogro();
+                    $list=  $cgrupo -> ctrListarGrupoCompotamientosTabla(1,1000);
                     
                     while (count($list)>0){
-                      $User = array_shift($list);
+                      $Grupo = array_shift($list);
                       echo "<tr>";
-                      $Did = array_shift($User);
+                      $Did = array_shift($Grupo);
                       echo "<td>".$Did."</td>";
-                      $Dnombre = array_shift($User);
+                      $Dnombre = array_shift($Grupo);
                       echo "<td>".$Dnombre."</td>";
-                      $Dusuario = array_shift($User);
-                      echo "<td>".$Dusuario."</td>";
-                      $Destado = array_shift($User);
+                      $DPuntajeMeta = array_shift($Grupo);
+                      echo "<td>".$DPuntajeMeta."</td>";
+                      $Darchivo = array_shift($Grupo);
+                      if ($Darchivo!=""){
+                        echo "<td><a href='".$Darchivo."' target='_blank'><img src='".$Darchivo."' width='100'></a></td>";  
+                      }else{
+                        echo "<td></td>";
+                      }
+                      $Destado = array_shift($Grupo);
                       $Destadobtn="Habilitar";
                       $DestadoIco="thumbs-up";
                       echo "<td>".$Destado."</td>";
@@ -227,12 +233,12 @@ if (!isset($_SESSION['session_id'])) {
                         $Destadobtn="Deshabilitar";
                         $DestadoIco="thumbs-down";
                       }
-                      $Dfechaact = array_shift($User);
+                      $Dfechaact = array_shift($Grupo);
                       echo "<td>".$Dfechaact."</td>";
                     
                       echo '<td>
-                              <button class="btn" onclick="saveData('.$Did.',\''.$Dnombre.'\',\''.$Dusuario.'\')"><i class="fas fa-edit"></i> Editar</button>
-                              <button class="btn" onclick="updateStatus('.$Did.',\''.$Dusuario.'\')"><i class="far fa-'.$DestadoIco.'"></i>'.$Destadobtn.'</button>
+                              <button class="btn" onclick="saveData('.$Did.',\''.$Dnombre.'\',\''.$DPuntajeMeta.'\')"><i class="fas fa-edit"></i> Editar</button>
+                              <button class="btn" onclick="updateStatus('.$Did.')"><i class="far fa-'.$DestadoIco.'"></i>'.$Destadobtn.'</button>
                             </td>';
                       echo "</tr>";
                     }
@@ -255,41 +261,39 @@ if (!isset($_SESSION['session_id'])) {
  
         <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title"><label id="TituloUser">Agregar Usuario</label> </h3> 
-                <button id="nuevousuario" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Usuario</button>
+                <h3 class="card-title"><label id="TituloUser">Agregar Grupo</label> </h3> 
+                <button id="nuevogrupo" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Grupo</button>
                 
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method="post"  >
+              <form role="form" method="post" enctype="multipart/form-data" >
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputId">ID</label>
                     <input type="number"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputNombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese su Nombre">
+                    <label for="exampleInputNombre">Nombre del Grupo</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el Nombre">
                   </div>
                   <div class="form-group">
-                    <label for="InputUsuario">Usuario</label>
-                    <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Ingrese su Usuario">
+                    <label for="InputUsuario">Puntaje de Meta</label>
+                    <input type="text" class="form-control" id="puntajemeta" name="puntajemeta" placeholder="Ingrese el Puntaje Meta">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputPassword1">Contraseña</label>
-                    <input type="password" class="form-control" id="clave" name="clave" placeholder="Ingrese su Contraseña">
+                    <label for="InputUsuario">Imagen</label>
+                   <input type="hidden" name="MAX_FILE_SIZE" value="512000" />
+                    <p><input name="subir_archivo" type="file" /></p>
                   </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword2">Repita su Contraseña</label>
-                    <input type="password" class="form-control" id="clave2" name="clave2" placeholder="Repita su Contraseña">
-                  </div>
+                 
                   
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
                   <?php
-                    $resp= $cusuario -> ctrRegistroUsuario();
+                    $resp= $cgrupo -> ctrRegistroGrupo();
                     //echo "<script> alert(' respuesta: ".$resp." ')</script>";
                     if ($resp=="true"){
                       //echo "<script> alert(' respuesta: ".$resp." ')</script>";
@@ -297,7 +301,10 @@ if (!isset($_SESSION['session_id'])) {
                     }elseif($resp=="false"){
                       //echo "<script> alert(' respuesta: al parecer fue falso XD')</script>";
                     }else{
-                      echo "<script> alert(' respuesta: ".$resp." ')</script>";
+                      if ($resp!=""){
+                        echo "<script> alert(' respuesta: ".$resp." ')</script>";
+                      }
+                      
                     }
                     
                   ?>
@@ -352,39 +359,35 @@ if (!isset($_SESSION['session_id'])) {
 </script>
 
 <script>
-  function saveData(id, nombre, usuario){
+  function saveData(id, nombre, puntajemeta){
     document.getElementById("id").value = id;
     document.getElementById("nombre").value = nombre;
-    document.getElementById("usuario").value = usuario;
-    document.getElementById("clave").value = "";
-    document.getElementById("clave2").value = "";
-    $('#TituloUser').text("Editar Usuario");
+    document.getElementById("puntajemeta").value = puntajemeta;
+    $('#TituloUser').text("Editar Grupo");
 //    document.getElementById("TituloUser").value = "Editar Usuario";  
   }
   
   function newUser(){
     document.getElementById("id").value = 0;
     document.getElementById("nombre").value = "";
-    document.getElementById("usuario").value = "";
-    document.getElementById("clave").value = "";
-    document.getElementById("clave2").value = "";
-    $('#TituloUser').text("Agregar Usuario");
+    document.getElementById("puntajemeta").value = ""; 
+    $('#TituloUser').text("Agregar Grupo");
   //  document.getElementById("TituloUser").value = "Agregar Usuario";  
   }
   
-  function updateStatus(id, usuario){
+  function updateStatus(id){
       var parametros = {
                 "id" : id,
-                "usuario" : usuario
+              
         };
       
       $.ajax({
         type: "POST",
-        url: "usuariowebestado.php",
+        url: "grupocomportamientoestado.php",
         data: parametros,
         success:function( msg ) {
           window.location.href = window.location.href;
-         //alert( "Data actualizada. " + msg );
+        // alert( "Data actualizada. " + msg );
         }
        });
   }

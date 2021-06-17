@@ -167,12 +167,12 @@ if (!isset($_SESSION['session_id'])) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-white">Usuarios Web</h1>
+            <h1 class="m-0 text-white">Reportes</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="tablero.php">Inicio</a></li>
-              <li class="breadcrumb-item active text-white">Usuarios Web</li>
+              <li class="breadcrumb-item active text-white">Reportes</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -181,134 +181,193 @@ if (!isset($_SESSION['session_id'])) {
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <section class="content hero-image" >
+
+
+ <form role="form" enctype="multipart/form-data" method="post"  >
+  <section class="content hero-image" >
       <div class="container-fluid" >
         <div class="row">
           <div class="col-12">
-            <div class="card card-primary">
-              <div class="card-header" >
-                <h3 class="card-title">Lista de Usuarios Web</h3>
-              </div>
-              <!-- /.card-header -->
+        
+ <div class="card card-primary">
+           <div class="card-header" >
+                <h3 class="card-title">Busquedas</h3>
+            </div>
+   <table  class="table table-bordered table-striped">
+        <thead  >
+          <tr>
+
+
+        <th>
+       <div class="col">
+    
+          <div class="mb-3">
+            <label for="disabledSelect" class="form-label">Region: </label>
+      
+             <select class="form-control select2"  id="region" name="region" style="width: 100%;">
+               <option selected="selected">BENI</option>
+                      <option>COCHABAMBA</option>
+                      <option>EL ALTO</option>
+                      <option>LA PAZ</option>                    
+                      <option>NACIONAL</option>
+                      <option>ORURO</option>
+                      <option>PANDO</option>
+                      <option>POTOSI</option>
+                      <option>SANTA CRUZ</option>
+                      <option>SUCRE</option>
+                      <option>TARIJA</option>
+
+             </select>
+         </div>
+       </div>
+       </th>
+ 
+      <th>
+       <div class="col order-1">
+    
+          <div class="mb-3">
+            <label for="disabledSelect" class="form-label">Sector: </label>
+      
+               <select class="form-control select2" id="sector" name="sector"  style="width: 100%;"> 
+                    <?php
+                      
+                      require_once 'Controlador/usuario.controlador.php';
+                     
+                      $cusuario = new ControladorUsuario();
+                      $list=  $cusuario -> ctrListarSectores();
+                    
+                      while (count($list)>0){
+                        $User = array_shift($list);
+                        $Did = array_shift($User);
+                        $Dnombres = array_shift($User);
+                        echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
+                      }
+                    ?>
+               </select>
+          </div>
+       </div>
+     </th>  
+    <th>
+     <div class="col order-1">
+     
+       <div class="mb-3">
+         <label for="disabledSelect" class="form-label">Subsector: </label>
+      
+         <select class="form-control select2" id="subsector" name="subsector"  style="width: 100%;"> 
+                    <?php
+                      
+                      require_once 'Controlador/usuario.controlador.php';
+                     
+                      $cusuario = new ControladorUsuario();
+                      $list=  $cusuario -> ctrListarSubSectores(4);
+                    
+                      while (count($list)>0){
+                        $User = array_shift($list);
+                        $Did = array_shift($User);
+                        $Dnombres = array_shift($User);
+                        echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
+                      }
+                    ?>
+         </select>
+       </div>
+    </div>
+    </th>
+ 
+
+
+    <th>
+    <div class="col order-5">
+      <div class="mb-3">
+         <label for="disabledSelect" class="form-label">Cargo: </label>
+      
+          <select class="form-control select2"  id="cargo" name="cargo" style="width: 100%;">
+            <?php
+                      
+                      require_once 'Controlador/usuario.controlador.php';
+                     
+                      $cusuario = new ControladorUsuario();
+                      $list=  $cusuario -> ctrListarCargo(9);
+                    
+                      while (count($list)>0){
+                        $User = array_shift($list);
+                        $Did = array_shift($User);
+                        $Dnombres = array_shift($User);
+                        echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
+                      }
+                    ?>
+          </select>
+     </div>
+    </div>
+    </th>
+
+
+
+     <th>
+     <button type="button" class="btn btn-success">Buscar</button>
+     <br>
+     <br>
+    </th>
+
+    </thead>
+  </table> 
+
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Usuario</th>
-                    <th>Estado</th>
-                    <th>Fecha Actualizacion</th>
+                    <th>nombre</th>
+                   
+                    <th>Cantidad de reconocimiento</th>
+                    <th>Cantidad comportamiento</th>
+                    
                     <th>Acciones</th>
-                  </tr>
                   </thead>
                   <tbody>
-                  <?php
-                    require_once 'Controlador/usuario.controlador.php';
+                 <?php 
+                    require_once 'Controlador/logros.controlador.php';
   
                   
-                    $cusuario = new ControladorUsuario();
-                    $list=  $cusuario -> ctrListarUsuariosWeb(1,1000);
+                    $cuser = new ControladorUsuario ();
+                    $list=  $cuser ->  ctrBuscar($_POST['region'],$_POST['sector'],$_POST['subsector'],$_POST['cargo']);
                     
                     while (count($list)>0){
-                      $User = array_shift($list);
+                      $cont = array_shift($list);
                       echo "<tr>";
-                      $Did = array_shift($User);
-                      echo "<td>".$Did."</td>";
-                      $Dnombre = array_shift($User);
+                      $Dnombre= array_shift($cont);
                       echo "<td>".$Dnombre."</td>";
-                      $Dusuario = array_shift($User);
-                      echo "<td>".$Dusuario."</td>";
-                      $Destado = array_shift($User);
-                      $Destadobtn="Habilitar";
-                      $DestadoIco="thumbs-up";
-                      echo "<td>".$Destado."</td>";
-                      if ($Destado=="Habilitado"){
-                        $Destadobtn="Deshabilitar";
-                        $DestadoIco="thumbs-down";
-                      }
-                      $Dfechaact = array_shift($User);
-                      echo "<td>".$Dfechaact."</td>";
-                    
-                      echo '<td>
-                              <button class="btn" onclick="saveData('.$Did.',\''.$Dnombre.'\',\''.$Dusuario.'\')"><i class="fas fa-edit"></i> Editar</button>
-                              <button class="btn" onclick="updateStatus('.$Did.',\''.$Dusuario.'\')"><i class="far fa-'.$DestadoIco.'"></i>'.$Destadobtn.'</button>
-                            </td>';
+                           
                       echo "</tr>";
                     }
                     
-                    ?>
+                  ?> 
                     
                   
                   </tbody>
+
+
+
                 </table>
               </div>
-              <!-- /.card-body -->
-            </div>
-            
+
+
+
+
+
+
+
+</div>
+
+
+</div>
         
- 
-          </div>
+        
+    </div>
           <!-- /.col -->
-        </div>
+      
         <!-- /.row -->
  
-        <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title"><label id="TituloUser">Agregar Usuario</label> </h3> 
-                <button id="nuevousuario" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Usuario</button>
-                
-              </div>
-              <!-- /.card-header -->
-              <!-- form start -->
-              <form role="form" method="post"  >
-                <div class="card-body">
-                  <div class="form-group">
-                    <label for="exampleInputId">ID</label>
-                    <input type="number"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputNombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese su Nombre">
-                  </div>
-                  <div class="form-group">
-                    <label for="InputUsuario">Usuario</label>
-                    <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Ingrese su Usuario">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword1">Contraseña</label>
-                    <input type="password" class="form-control" id="clave" name="clave" placeholder="Ingrese su Contraseña">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputPassword2">Repita su Contraseña</label>
-                    <input type="password" class="form-control" id="clave2" name="clave2" placeholder="Repita su Contraseña">
-                  </div>
-                  
-                </div>
-                <!-- /.card-body -->
-
-                <div class="card-footer">
-                  <?php
-                    $resp= $cusuario -> ctrRegistroUsuario();
-                    //echo "<script> alert(' respuesta: ".$resp." ')</script>";
-                    if ($resp=="true"){
-                      //echo "<script> alert(' respuesta: ".$resp." ')</script>";
-                       echo "<meta http-equiv='refresh' content='0'>";
-                    }elseif($resp=="false"){
-                      //echo "<script> alert(' respuesta: al parecer fue falso XD')</script>";
-                    }else{
-                      echo "<script> alert(' respuesta: ".$resp." ')</script>";
-                    }
-                    
-                  ?>
-                  
-                  <input type="submit" class="btn btn-primary" value="Enviar">
-                </div>
-              </form>
-            </div>
-            <!-- /.card -->
-      </div><!--/. container-fluid -->
     </section>
+    </form>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -344,50 +403,68 @@ if (!isset($_SESSION['session_id'])) {
 <script>
   $(function () {
     $("#example1").DataTable({
-      "responsive": true,
+      
       "autoWidth": false,
     });
+
+    $('.select2').select2()
+
+//Initialize Select2 Elements
+$('.select2bs4').select2({
+  theme: 'bootstrap4'
+})
     
   });
 </script>
 
+<script language="javascript">
+$("#sector").on('change', function () {
+        $("#sector option:selected").each(function () {
+            var id_category = $(this).val();
+            $.post("AjaxSubsector.php", { id_category: id_category }, function(data) {
+                $("#subsector").html(data);
+                $("#subsector option:selected").each(function () {
+                  var id_category = $(this).val();
+                  $.post("AjaxCargo.php", { id_category: id_category }, function(data) {
+                    $("#cargo").html(data);
+                  });			
+                });   
+            });			
+        });
+  });
+  $("#subsector").on('change', function () {
+        $("#subsector option:selected").each(function () {
+            var id_category = $(this).val();
+            $.post("AjaxCargo.php", { id_category: id_category }, function(data) {
+                $("#cargo").html(data);
+            });			
+        });
+  });
+
+
+</script>
+
 <script>
-  function saveData(id, nombre, usuario){
-    document.getElementById("id").value = id;
-    document.getElementById("nombre").value = nombre;
-    document.getElementById("usuario").value = usuario;
-    document.getElementById("clave").value = "";
-    document.getElementById("clave2").value = "";
-    $('#TituloUser').text("Editar Usuario");
-//    document.getElementById("TituloUser").value = "Editar Usuario";  
-  }
+ 
+ 
   
-  function newUser(){
-    document.getElementById("id").value = 0;
-    document.getElementById("nombre").value = "";
-    document.getElementById("usuario").value = "";
-    document.getElementById("clave").value = "";
-    document.getElementById("clave2").value = "";
-    $('#TituloUser').text("Agregar Usuario");
-  //  document.getElementById("TituloUser").value = "Agregar Usuario";  
-  }
-  
-  function updateStatus(id, usuario){
+  function updateStatus(id){
       var parametros = {
                 "id" : id,
-                "usuario" : usuario
+              
         };
       
       $.ajax({
         type: "POST",
-        url: "usuariowebestado.php",
+        url: "comportamientoestado.php",
         data: parametros,
         success:function( msg ) {
           window.location.href = window.location.href;
-         //alert( "Data actualizada. " + msg );
+       //  alert( "Data actualizada. " + msg );
         }
        });
   }
+  
   
 </script>
 
