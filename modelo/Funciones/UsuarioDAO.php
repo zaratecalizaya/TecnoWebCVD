@@ -367,6 +367,33 @@ class UsuarioDAO {
    return $json;
  }
 
+
+   
+ public function sumandopuntaje($id){
+  require_once 'modelo/Conexion/connectbd.php';
+  // connecting to database
+  $this->db = new DB_Connect();
+  $link=$this->db->connect();
+  //$json=$cuenta;
+
+
+ $query = "SELECT count(Id) as cantidad FROM reconocimiento as r where r.IdUsuario='".$id."' ";
+ $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+
+ $json = 0;
+  //$json =mysqli_num_rows($result);
+   if(mysqli_num_rows($result)>0){
+  //$json['cliente'][]=nada;
+   if ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+  $json=$line["cantidad"];
+            }
+        }
+   mysqli_close($link);
+ return $json;
+}
+
+
+
   public function listcantidaduser($tabla,$datos){
   	require_once 'modelo/Conexion/connectbd.php';
         // connecting to database
@@ -379,7 +406,7 @@ class UsuarioDAO {
          $fecha=$datos["fecha"];
 
 
-        $query = "SELECT u.id, u.Nombres from usuarios u inner join cargo c on c.Id=u.IdCargo inner join subsector ss on ss.id=c.IdSubSector inner join sector s on s.id=ss.IdSector inner join reconocimiento r on u.Id=r.IdUsuario and u.Id=r.IdColega     where (1=1) " ;
+        $query = "SELECT u.id, u.Nombres from usuarios u inner join cargo c on c.Id=u.IdCargo inner join subsector ss on ss.id=c.IdSubSector inner join sector s on s.id=ss.IdSector  where (1=1) " ;
 		    
         if ($region!=""){
           $query = $query." and u.region ='".$region."'" ;
@@ -417,7 +444,7 @@ class UsuarioDAO {
                 }
                  $contador=$this->cantidadreconocimiento($line["id"]);
 
-
+               
 
           	array_push($json, array($line["id"] ,$line["Nombres"],$contador));
           }
