@@ -193,6 +193,30 @@ if (!isset($_SESSION['session_id'])) {
            <div class="card-header" >
                 <h3 class="card-title">Busquedas</h3>
             </div>
+
+       <table class="table table-bordered table-striped">
+       <thead>
+       <tr>
+       <th>
+ <div class="col">
+    
+     <div class="col order-5">
+        <label for="disabledSelect" class="form-label">Fecha: </label>
+
+         <select class="form-control select2"  id="fecha" name="fecha" style="width: 15%;">
+          <option selected="selected">seleccione</option>
+                <option>DIA</option>
+                <option>MES</option>
+                <option>AÑO</option>
+         </select>
+    </div>
+ </div>
+
+
+       </th>
+       </tr>
+       </thead>
+       </table>     
    <table  class="table table-bordered table-striped">
         <thead  >
           <tr>
@@ -205,7 +229,8 @@ if (!isset($_SESSION['session_id'])) {
             <label for="disabledSelect" class="form-label">Region: </label>
       
              <select class="form-control select2"  id="region" name="region" style="width: 100%;">
-               <option selected="selected">BENI</option>
+               <option selected="selected">seleccione</option>
+                      <option>BENI</option>
                       <option>COCHABAMBA</option>
                       <option>EL ALTO</option>
                       <option>LA PAZ</option>                    
@@ -229,6 +254,9 @@ if (!isset($_SESSION['session_id'])) {
             <label for="disabledSelect" class="form-label">Sector: </label>
       
                <select class="form-control select2" id="sector" name="sector"  style="width: 100%;"> 
+               <option selected>seleccione</option>
+                    
+                    
                     <?php
                       
                       require_once 'Controlador/usuario.controlador.php';
@@ -254,6 +282,9 @@ if (!isset($_SESSION['session_id'])) {
          <label for="disabledSelect" class="form-label">Subsector: </label>
       
          <select class="form-control select2" id="subsector" name="subsector"  style="width: 100%;"> 
+                    
+                    
+         <option selected>Seleccione</option>
                     <?php
                       
                       require_once 'Controlador/usuario.controlador.php';
@@ -281,7 +312,8 @@ if (!isset($_SESSION['session_id'])) {
          <label for="disabledSelect" class="form-label">Cargo: </label>
       
           <select class="form-control select2"  id="cargo" name="cargo" style="width: 100%;">
-            <?php
+          <option selected>Seleccione</option>
+                   <?php
                       
                       require_once 'Controlador/usuario.controlador.php';
                      
@@ -294,7 +326,7 @@ if (!isset($_SESSION['session_id'])) {
                         $Dnombres = array_shift($User);
                         echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
                       }
-                    ?>
+            ?>
           </select>
      </div>
     </div>
@@ -302,9 +334,24 @@ if (!isset($_SESSION['session_id'])) {
 
 
 
+
+
+
+
      <th>
-     <button type="button" class="btn btn-success">Buscar</button>
-     <br>
+     <div class="card-footer">
+                  <?php
+             //       $resp= $cusuario -> ctrListarCargoUsuario();
+                      
+                    
+                  ?>
+                  
+                  <input type="submit" class="btn btn-success" value="Buscar">
+                </div>
+
+
+     
+     
      <br>
     </th>
 
@@ -315,27 +362,39 @@ if (!isset($_SESSION['session_id'])) {
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th>nombre</th>
+                    <th>Id</th>
+                    <th>Nombre</th>
                    
                     <th>Cantidad de reconocimiento</th>
-                    <th>Cantidad comportamiento</th>
+                    
                     
                     <th>Acciones</th>
+                    </tr>
                   </thead>
                   <tbody>
                  <?php 
-                    require_once 'Controlador/logros.controlador.php';
+                    require_once 'Controlador/usuario.controlador.php';
   
                   
-                    $cuser = new ControladorUsuario ();
-                    $list=  $cuser ->  ctrBuscar($_POST['region'],$_POST['sector'],$_POST['subsector'],$_POST['cargo']);
+                    $cuser = new ControladorUsuario();
+                    $list=  $cuser -> ctrListarCargoUsuario();
                     
                     while (count($list)>0){
                       $cont = array_shift($list);
                       echo "<tr>";
+                      $Did= array_shift($cont);
+                      echo "<td>".$Did."</td>";
+                      
                       $Dnombre= array_shift($cont);
                       echo "<td>".$Dnombre."</td>";
-                           
+                      $Dcantidad= array_shift($cont);
+                      echo "<td>".$Dcantidad."</td>";
+                      
+                      
+                      echo '<td><button class="btn" onclick="deleteData('.$Did.')"><i class="fas fa-trash"></i> Eliminar</button></td>';
+
+
+
                       echo "</tr>";
                     }
                     

@@ -70,6 +70,60 @@ class ControladorUsuario{
         }
         
     }
+
+
+
+ public function ctrListarCargoUsuario(){
+  if(isset($_POST["region"])){
+    $datos = array("id_cargo"=>$_POST["cargo"],
+    "region"=>$_POST["region"],
+    "id_subsector"=>$_POST["subsector"],
+   "id_sector"=>$_POST["sector"],
+   "fecha"=>$_POST["fecha"],
+
+  );
+
+
+    $tabla = "usuarios";
+     $Usuariod = new UsuarioDAO();   
+     $respuesta = $Usuariod -> listcantidaduser($tabla,$datos);
+
+     return $respuesta;
+
+
+
+
+
+
+
+     
+     
+  }else{
+    $datos = array("id_cargo"=>0,
+    "region"=>"",
+    "id_subsector"=>0,
+   "id_sector"=>0,
+   "fecha"=>""
+  
+  );
+
+    $tabla = "usuarios";
+     $Usuariod = new UsuarioDAO();   
+     $respuesta = $Usuariod -> listcantidaduser($tabla,$datos);
+
+     return $respuesta;
+
+
+
+
+
+
+     
+  }
+  
+            
+
+ }
   
     public function ctrListarUsuariosWeb($pagina,$cantidad){
       

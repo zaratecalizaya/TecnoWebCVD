@@ -6,7 +6,36 @@ if (!isset($_SESSION['session_id'])) {
 ?>
 <?php include("encabezado.php"); ?>
 
-<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Bago</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="css/adminlte.min.css">
+  <!-- Bago style -->
+  <link rel="stylesheet" href="css/bagostyle.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  
+</head>
+
+
+
+
+
+<body class="hold-transition sidebar-mini">
 <div class="wrapper">
   <?php include("barrasup.php"); ?>
 
@@ -32,6 +61,10 @@ if (!isset($_SESSION['session_id'])) {
         </div>
         
       </div>
+
+
+
+
 
       <!-- Sidebar Menu -->
       <!-- Sidebar Menu -->
@@ -140,11 +173,11 @@ if (!isset($_SESSION['session_id'])) {
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <div class="content-header">
+    <div class="content-header hero-image">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Tablero</h1>
+            <h1 class="m-0 text-white">Tablero</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -179,7 +212,7 @@ if (!isset($_SESSION['session_id'])) {
       
     ?>
     <!-- Main content -->
-    <section class="content">
+    <section class="content hero-image">
       <div class="container-fluid">
         <!-- Info boxes -->
         <div class="row">

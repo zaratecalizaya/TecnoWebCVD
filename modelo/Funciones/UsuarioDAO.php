@@ -119,7 +119,7 @@ class UsuarioDAO {
 		$query = "SELECT Id,Nombre,Usuario,Estado,FActualizacion FROM usuariosweb ";
 		$result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
 
-		$json = array();
+  	$json = array();
 		//$json =mysqli_num_rows($result);
 		if(mysqli_num_rows($result)>0){
 				//$json['cliente'][]=nada;
@@ -344,22 +344,82 @@ class UsuarioDAO {
 		return $json;
 		
 	}
-  public function listcantidaduser($region,$sector,$subsector,$cargo){
+   public function cantidadreconocimiento($id){
+    require_once 'modelo/Conexion/connectbd.php';
+    // connecting to database
+    $this->db = new DB_Connect();
+    $link=$this->db->connect();
+    //$json=$cuenta;
+
+
+   $query = "SELECT count(Id) as cantidad FROM reconocimiento as r where r.IdUsuario='".$id."' ";
+   $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+
+   $json = 0;
+    //$json =mysqli_num_rows($result);
+     if(mysqli_num_rows($result)>0){
+    //$json['cliente'][]=nada;
+     if ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+    $json=$line["cantidad"];
+              }
+          }
+     mysqli_close($link);
+   return $json;
+ }
+
+  public function listcantidaduser($tabla,$datos){
   	require_once 'modelo/Conexion/connectbd.php';
         // connecting to database
         $this->db = new DB_Connect();
         $link=$this->db->connect();
-		
-        $query = "select usuarios.Usuario as nombreus from  usuarios, cargo where usuarios.IdCargo=cargo.Id 
-        and region like '$region%' and cargo.Nombre like '$cargo%'  and usuarios.Sector like '$sector%' and usuarios.SubSector like '$subsector%'";
+         $cargo=$datos["id_cargo"];
+         $region=$datos["region"];
+         $subsector=$datos["id_subsector"];
+         $sector=$datos["id_sector"];
+         $fecha=$datos["fecha"];
+
+
+        $query = "SELECT u.id, u.Nombres from usuarios u inner join cargo c on c.Id=u.IdCargo inner join subsector ss on ss.id=c.IdSubSector inner join sector s on s.id=ss.IdSector inner join reconocimiento r on u.Id=r.IdUsuario and u.Id=r.IdColega     where (1=1) " ;
+		    
+        if ($region!=""){
+          $query = $query." and u.region ='".$region."'" ;
+        }
+
+        if ($subsector!=0){
+          $query = $query." and ss.Id =".$subsector ;
+        }
+        
+        if ($sector!=0){
+          $query = $query." and s.Id =".$sector ;
+        }
+        
+        if ($cargo!=0){
+          $query = $query." and c.Id =".$cargo ;
+        }
+
         $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
 
         $json = array();
         //$json =mysqli_num_rows($result);
         if(mysqli_num_rows($result)>0){
+
+
+
+
         		//$json['cliente'][]=nada;
         	while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-          	array_push($json, array($line["nombreus"]));
+
+          //  $query = $query." and r.IdUsuario =".$line["id"] ;
+                if($fecha == "DIA"){
+                  $query = $query." and  (date(r.FActualizacion) BETWEEN '2021-06-15' AND '2021-06-15')";
+                
+                  array_push($json, array($line["id"] ,$line["Nombres"],$line["cantidad"]));
+                }
+                 $contador=$this->cantidadreconocimiento($line["id"]);
+
+
+
+          	array_push($json, array($line["id"] ,$line["Nombres"],$contador));
           }
 			
         }
