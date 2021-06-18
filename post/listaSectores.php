@@ -1,16 +1,21 @@
 <?php
- if(isset($_POST["Usuario"])){
+ if(isset($_POST["lista"])){
     
-    $Usuario= $_POST['Usuario'];
-    $Clave=$_POST['Clave'];
+    $lista= $_POST['lista'];
     
     include ("funciones.php");
-            $datos = array("usuario"=>$Usuario,
-                           "clave"=>$Clave);
+            $Carga = new Funciones();
+            $respuesta ="";
             
-            $tabla = "usuarios";
-            $Usuariod = new Funciones();
-            $respuesta = $Usuariod -> loginUsermovil($datos);
+            if($lista=="sector"){
+              $respuesta = $Carga -> CargarComboSector();
+            }
+            if($lista=="subsector"){
+              $respuesta = $Carga -> CargarComboSubSector();
+            }
+            if($lista=="cargo"){
+              $respuesta = $Carga -> CargarComboInicial();
+            }
             
             //return $respuesta;
             if (is_null( $respuesta)){
