@@ -223,6 +223,21 @@ class ControladorUsuario{
             
           
     }
+
+
+    public function ctrEliminarRegistro($id,$usuario){
+      
+            
+      $tabla = "usuarios";
+      $datos = array("id"=>$id,
+                     "usuario"=>$usuario);
+      $Usuariod = new UsuarioDAO();
+      $respuesta = $Usuariod -> updatestatususer($tabla,$datos);
+      
+      return $respuesta;
+      
+    
+}
     
     public function ctrActualizarEstadoUsuarioMovil($id,$usuario){
       

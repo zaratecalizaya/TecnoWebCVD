@@ -366,7 +366,7 @@ if (!isset($_SESSION['session_id'])) {
                     <th>Nombre</th>
                    
                     <th>Cantidad de reconocimiento</th>
-                    
+                    <th>Puntaje</th>                    
                     
                     <th>Acciones</th>
                     </tr>
@@ -390,6 +390,8 @@ if (!isset($_SESSION['session_id'])) {
                       $Dcantidad= array_shift($cont);
                       echo "<td>".$Dcantidad."</td>";
                       
+                      $Dsumando= array_shift($cont);
+                      echo "<td>".$Dsumando."</td>";                     
                       
                       echo '<td><button class="btn" onclick="deleteData('.$Did.')"><i class="fas fa-trash"></i> Eliminar</button></td>';
 
@@ -524,7 +526,26 @@ $("#sector").on('change', function () {
        });
   }
   
+  function Delete(id){
+    var parametros = {
+                "id" : id,
+              
+        };
+      
+      $.ajax({
+        type: "POST",
+        url: "comportamientoestado.php",
+        data: parametros,
+        success:function( msg ) {
+          window.location.href = window.location.href;
+       //  alert( "Data actualizada. " + msg );
+        }
+       });
+ }
   
+
+
+
 </script>
 
 <!-- Usuario SCRIPTS -->

@@ -377,7 +377,7 @@ class UsuarioDAO {
   //$json=$cuenta;
 
 
- $query = "SELECT count(Id) as cantidad FROM reconocimiento as r where r.IdUsuario='".$id."' ";
+ $query = "SELECT ifnull(Sum(r.Cantidad),0)  as cantidad FROM usuariogrupo as r where r.IdUsuario='".$id."' ";
  $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
 
  $json = 0;
@@ -404,9 +404,9 @@ class UsuarioDAO {
          $subsector=$datos["id_subsector"];
          $sector=$datos["id_sector"];
          $fecha=$datos["fecha"];
+       $fullname='';
 
-
-        $query = "SELECT u.id, u.Nombres from usuarios u inner join cargo c on c.Id=u.IdCargo inner join subsector ss on ss.id=c.IdSubSector inner join sector s on s.id=ss.IdSector  where (1=1) " ;
+        $query = "SELECT u.id, u.Nombres, u.Apellidos from usuarios u inner join cargo c on c.Id=u.IdCargo inner join subsector ss on ss.id=c.IdSubSector inner join sector s on s.id=ss.IdSector  where (1=1) " ;
 		    
         if ($region!=""){
           $query = $query." and u.region ='".$region."'" ;
@@ -424,29 +424,36 @@ class UsuarioDAO {
           $query = $query." and c.Id =".$cargo ;
         }
 
+        if($fecha == "SEMANA"){
+          $query = $query." r.FActualizacion + INTERVAL 7 DAY";
+        
+        
+        }
+
+
         $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+
+        
+
+
 
         $json = array();
         //$json =mysqli_num_rows($result);
         if(mysqli_num_rows($result)>0){
-
-
-
-
         		//$json['cliente'][]=nada;
         	while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 
           //  $query = $query." and r.IdUsuario =".$line["id"] ;
-                if($fecha == "DIA"){
-                  $query = $query." and  (date(r.FActualizacion) BETWEEN '2021-06-15' AND '2021-06-15')";
-                
-                  array_push($json, array($line["id"] ,$line["Nombres"],$line["cantidad"]));
-                }
-                 $contador=$this->cantidadreconocimiento($line["id"]);
-
                
+         
+                  
 
-          	array_push($json, array($line["id"] ,$line["Nombres"],$contador));
+                $fullname=$line["Nombres"]."   ".$line["Apellidos"];
+                 $contador=$this->cantidadreconocimiento($line["id"]);
+                 $sumando=$this->sumandopuntaje($line["id"]);
+                 
+                 
+          	array_push($json, array($line["id"] ,$fullname,$contador,$sumando));
           }
 			
         }
