@@ -206,6 +206,7 @@ if (!isset($_SESSION['session_id'])) {
          <select class="form-control select2"  id="fecha" name="fecha" style="width: 15%;">
           <option selected="selected">seleccione</option>
                 <option>DIA</option>
+                <option>SEMANA</option>
                 <option>MES</option>
                 <option>AÑO</option>
          </select>
@@ -368,7 +369,7 @@ if (!isset($_SESSION['session_id'])) {
                     <th>Cantidad de reconocimiento</th>
                     <th>Puntaje</th>                    
                     
-                    <th>Acciones</th>
+                    
                     </tr>
                   </thead>
                   <tbody>
@@ -393,8 +394,7 @@ if (!isset($_SESSION['session_id'])) {
                       $Dsumando= array_shift($cont);
                       echo "<td>".$Dsumando."</td>";                     
                       
-                      echo '<td><button class="btn" onclick="deleteData('.$Did.')"><i class="fas fa-trash"></i> Eliminar</button></td>';
-
+                 
 
 
                       echo "</tr>";
@@ -526,22 +526,6 @@ $("#sector").on('change', function () {
        });
   }
   
-  function Delete(id){
-    var parametros = {
-                "id" : id,
-              
-        };
-      
-      $.ajax({
-        type: "POST",
-        url: "comportamientoestado.php",
-        data: parametros,
-        success:function( msg ) {
-          window.location.href = window.location.href;
-       //  alert( "Data actualizada. " + msg );
-        }
-       });
- }
   
 
 

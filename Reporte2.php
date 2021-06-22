@@ -27,9 +27,6 @@ if (!isset($_SESSION['session_id'])) {
   <link rel="stylesheet" href="css/bagostyle.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-   <!-- Select2 -->
-   <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
-  <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   
 </head>
 
@@ -170,12 +167,12 @@ if (!isset($_SESSION['session_id'])) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-white">Comportamientos</h1>
+            <h1 class="m-0 text-white">Reportes Comentarios</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="tablero.php">Inicio</a></li>
-              <li class="breadcrumb-item active text-white">Comportamientos</li>
+              <li class="breadcrumb-item active text-white">Reportes Comentarios</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -184,159 +181,163 @@ if (!isset($_SESSION['session_id'])) {
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <section class="content hero-image" >
+
+
+ <form role="form" enctype="multipart/form-data" method="post"  >
+  <section class="content hero-image" >
       <div class="container-fluid" >
         <div class="row">
           <div class="col-12">
-            <div class="card card-primary">
-              <div class="card-header" >
-                <h3 class="card-title">Lista de Comportamientos</h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <table id="listacomportamiento" class="table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Puntaje</th>
-                    <th>Grupo</th>
-                    <th>Estado</th>
-                    <th>Fecha Actualizacion</th>
-                    <th>Acciones</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    <?php 
-                      require_once 'Controlador/logros.controlador.php';
-   
-                  
-                       $clogro = new ControladorLogro();
-                       $list=  $clogro -> ctrListarComportamientos(1,1000);
-                    
-                       while (count($list)>0){
-                      $Comportamiento = array_shift($list);
-                      echo "<tr>";
-                      $Did = array_shift($Comportamiento);
-                      echo "<td>".$Did."</td>";
-                      $Dnombre = array_shift($Comportamiento);
-                      echo "<td>".$Dnombre."</td>";
-                      $Dpuntaje = array_shift($Comportamiento);
-                      echo "<td>".$Dpuntaje."</td>";
-                      $Didgrupo = array_shift($Comportamiento);
-                      echo "<td>".$Didgrupo."</td>";
-                      $Destado = array_shift($Comportamiento);
-                      $Destadobtn="Habilitar";
-                      $DestadoIco="thumbs-up";
-                      echo "<td>".$Destado."</td>";
-                      if ($Destado=="Habilitado"){
-                        $Destadobtn="Deshabilitar";
-                        $DestadoIco="thumbs-down";
-                      }
-                      $Dfechaact = array_shift($Comportamiento);
-                      echo "<td>".$Dfechaact."</td>";
-                    
-                      echo '<td>
-                              <button class="btn" onclick="saveData('.$Did.',\''.$Dnombre.'\',\''.$Dpuntaje.'\',\''.$Didgrupo.'\')"><i class="fas fa-edit"></i> Editar</button>
-                              <button class="btn" onclick="updateStatus('.$Did.')"><i class="far fa-'.$DestadoIco.'"></i>'.$Destadobtn.'</button>
-                       </td>';
-                      echo "</tr>";
-                      }
-                    
-                   ?> 
-                    
-                  
-                  </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            
         
+ <div class="card card-primary">
+           <div class="card-header" >
+                <h3 class="card-title">Busquedas</h3>
+            </div>
+
+       <table class="table table-bordered table-striped">
+       <thead>
+
+       </tr>
+       </thead>
+       </table>     
+   <table  class="table table-bordered table-striped">
+        <thead  >
+          <tr>
+
+
+        <th>
+       <div class="col">
+    
+          <div class="mb-3">
+            <label for="disabledSelect" class="form-label">Region: </label>
+      
+             <select class="form-control select2"  id="region" name="region" style="width: 100%;">
+               <option selected="selected">seleccione</option>
+                      <option>BENI</option>
+                      <option>COCHABAMBA</option>
+                      <option>EL ALTO</option>
+                      <option>LA PAZ</option>                    
+                      <option>NACIONAL</option>
+                      <option>ORURO</option>
+                      <option>PANDO</option>
+                      <option>POTOSI</option>
+                      <option>SANTA CRUZ</option>
+                      <option>SUCRE</option>
+                      <option>TARIJA</option>
+
+             </select>
+         </div>
+       </div>
+       </th>
  
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
+      <th>
+     </th>  
+    <th>
+    </th>
  
-        <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title"><label id="TituloUser">Agregar Comportamientos</label> </h3> 
-                <button id="nuevoComportamiento" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Comportamiento</button>
-                
-              </div>
-              <!-- /.card-header -->
-              <!-- form start -->
-              <form role="form" method="post"  >
-                <div class="card-body">
-                  <div class="form-group">
-                    <label for="exampleInputId">ID</label>
-                    <input type="number"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
-                  </div>
-                  <div class="form-group">
-                    <label for="exampleInputNombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese su Nombre">
-                  </div>
-                  <div class="form-group">
-                    <label for="InputUsuario">Puntaje</label>
-                    <input type="text" class="form-control" id="puntaje" name="puntaje" placeholder="Ingrese el Puntaje">
-                  </div>
-                   
-                  <div class="form-group">
-                    <label>Grupos de comportamiento</label>
-                    <select class="form-control select2" id="grupos" name="grupos"  style="width: 100%;"> 
-                    <?php
-                      
-                      require_once 'Controlador/logros.controlador.php';
-                     
-                      $cusuario = new ControladorLogro();
-                      $list=  $cusuario -> ctrListarGrupo();
-                    
-                      while (count($list)>0){
-                        $User = array_shift($list);
-                        $Did = array_shift($User);
-                        $Dnombres = array_shift($User);
-                        echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
-                      }
-                    ?>
-                    </select>
-                  </div>
+
+
+    <th>
+    </th>
 
 
 
-                  
-                </div>
-                <!-- /.card-body -->
 
-                <div class="card-footer">
+
+
+
+     <th>
+     <div class="card-footer">
                   <?php
-                    $resp= $clogro -> ctrRegistroComportamiento();
-                    //echo "<script> alert(' respuesta: ".$resp." ')</script>";
-                    if ($resp=="true"){
-                      //echo "<script> alert(' respuesta: ".$resp." ')</script>";
-                       echo "<meta http-equiv='refresh' content='0'>";
-                    }elseif($resp=="false"){
-                      //echo "<script> alert(' respuesta: al parecer fue falso XD')</script>";
-                    }else{
-                      if ($resp!=""){
-                      echo "<script> alert(' respuesta: ".$resp." ')</script>";
-                    }
-                    }
+             //       $resp= $cusuario -> ctrListarCargoUsuario();
+                      
                     
                   ?>
                   
-                  <input type="submit" class="btn btn-primary" value="Enviar">
-
-
-
-
-                  
+                  <input type="submit" class="btn btn-success" value="Buscar">
                 </div>
-              </form>
-            </div>
-            <!-- /.card -->
-      </div><!--/. container-fluid -->
+
+
+     
+     
+     <br>
+    </th>
+
+    </thead>
+  </table> 
+
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                  <th>Acciones</th>
+                    <th>Id</th>
+                    <th>Compañero</th>
+                    <th>Logo</th>
+                    <th>Reconocimiento</th>
+                    <th>Comentario</th>                    
+                    <th>Acciones</th>
+                   
+                    </tr>
+                  </thead>
+                  <tbody>
+                 <?php 
+                    require_once 'Controlador/usuario.controlador.php';
+  
+                  
+                    $cuser = new ControladorUsuario();
+                    $list=  $cuser -> ctrListarCargoUsuario();
+                    
+                    while (count($list)>0){
+                      $cont = array_shift($list);
+                      echo "<tr>";
+                      $Did= array_shift($cont);
+                      echo "<td>".$Did."</td>";
+                      
+                      $Dnombre= array_shift($cont);
+                      echo "<td>".$Dnombre."</td>";
+                      $Dcantidad= array_shift($cont);
+                      echo "<td>".$Dcantidad."</td>";
+                      
+                      $Dsumando= array_shift($cont);
+                      echo "<td>".$Dsumando."</td>";                     
+                      
+                      echo '<td><button class="btn" onclick=""><i class="fas fa-trash"></i> Eliminar</button></td>';
+
+
+
+                      echo "</tr>";
+                    }
+                    
+                  ?> 
+                    
+                  
+                  </tbody>
+
+
+
+                </table>
+              </div>
+
+
+
+
+
+
+
+</div>
+
+
+</div>
+        
+        
+    </div>
+          <!-- /.col -->
+      
+        <!-- /.row -->
+ 
     </section>
+    </form>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -372,58 +373,50 @@ if (!isset($_SESSION['session_id'])) {
 <script>
   $(function () {
     $("#example1").DataTable({
-      "responsive":true,
-      "autoWidth": false
+      
+      "autoWidth": false,
     });
-    
-     //Initialize Select2 Elements
+
     $('.select2').select2()
 
 //Initialize Select2 Elements
 $('.select2bs4').select2({
   theme: 'bootstrap4'
 })
-
-
-
-
-
-
+    
   });
 </script>
 
+<script language="javascript">
+$("#sector").on('change', function () {
+        $("#sector option:selected").each(function () {
+            var id_category = $(this).val();
+            $.post("AjaxSubsector.php", { id_category: id_category }, function(data) {
+                $("#subsector").html(data);
+                $("#subsector option:selected").each(function () {
+                  var id_category = $(this).val();
+                  $.post("AjaxCargo.php", { id_category: id_category }, function(data) {
+                    $("#cargo").html(data);
+                  });			
+                });   
+            });			
+        });
+  });
+  $("#subsector").on('change', function () {
+        $("#subsector option:selected").each(function () {
+            var id_category = $(this).val();
+            $.post("AjaxCargo.php", { id_category: id_category }, function(data) {
+                $("#cargo").html(data);
+            });			
+        });
+  });
+
+
+</script>
+
 <script>
-
-$(document).ready(function () {
-  $('#listacomportamiento').DataTable({
-    "scrollX": true
-  });
-  $('.dataTables_length').addClass('bs-select');
-  });
-    
-
-
-
-
-  function saveData(id, nombre,puntaje,grupo){
-    document.getElementById("id").value = id;
-    document.getElementById("nombre").value = nombre;
-    document.getElementById("puntaje").value = puntaje;
-    document.getElementById("grupos").value = grupo;
  
-    $('#TituloUser').text("Editar Comportamiento");
-//    document.getElementById("TituloUser").value = "Editar Usuario";  
-  }
-  
-  function newUser(){
-    document.getElementById("id").value = 0;
-    document.getElementById("nombre").value = "";
-    document.getElementById("puntaje").value = "";
-    document.getElementById("grupos").value = "";
-    
-    $('#TituloUser').text("Agregar Comportamiento");
-  //  document.getElementById("TituloUser").value = "Agregar Usuario";  
-  }
+ 
   
   function updateStatus(id){
       var parametros = {
@@ -443,6 +436,9 @@ $(document).ready(function () {
   }
   
   
+
+
+
 </script>
 
 <!-- Usuario SCRIPTS -->
@@ -458,8 +454,6 @@ $(document).ready(function () {
 <script src="plugins/chart.js/Chart.min.js"></script>
 <!-- sweetalert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<!-- Select2 -->
-<script src="plugins/select2/js/select2.full.min.js"></script>
 
 <!-- PAGE SCRIPTS -->
 </body>

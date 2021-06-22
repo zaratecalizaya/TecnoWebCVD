@@ -406,7 +406,7 @@ class UsuarioDAO {
          $fecha=$datos["fecha"];
        $fullname='';
 
-        $query = "SELECT u.id, u.Nombres, u.Apellidos from usuarios u inner join cargo c on c.Id=u.IdCargo inner join subsector ss on ss.id=c.IdSubSector inner join sector s on s.id=ss.IdSector  where (1=1) " ;
+        $query = "SELECT u.id, u.Nombres, u.Apellidos from usuarios u inner join cargo c on c.Id=u.IdCargo inner join subsector ss on ss.id=c.IdSubSector inner join sector s on s.id=ss.IdSector,reconocimiento as r   where (1=1) and r.IdUsuario=u.id and r.IdColega=u.id" ;
 		    
         if ($region!=""){
           $query = $query." and u.region ='".$region."'" ;
@@ -424,11 +424,13 @@ class UsuarioDAO {
           $query = $query." and c.Id =".$cargo ;
         }
 
-        if($fecha == "SEMANA"){
-          $query = $query." r.FActualizacion + INTERVAL 7 DAY";
-        
-        
+        if($fecha == "DIA"){
+          $query = $query."and day(r.FActualizacion)=day(current_date()) ";
         }
+
+
+
+
 
 
         $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
