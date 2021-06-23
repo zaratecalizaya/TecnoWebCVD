@@ -231,6 +231,13 @@ if (!isset($_SESSION['session_id'])) {
        </th>
  
       <th>
+      <div class="col order-1">
+    
+    <div class="mb-3">
+      <label for="disabledSelect" class="form-label">Sector: </label>
+   <input type="text" value=" agregue el nombre">
+    </div>
+ </div>
      </th>  
     <th>
     </th>
@@ -249,8 +256,7 @@ if (!isset($_SESSION['session_id'])) {
      <th>
      <div class="card-footer">
                   <?php
-             //       $resp= $cusuario -> ctrListarCargoUsuario();
-                      
+             //       
                     
                   ?>
                   
@@ -270,7 +276,8 @@ if (!isset($_SESSION['session_id'])) {
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                  <th>Acciones</th>
+                  <th></th>
+                  <th>Perfil</th>
                     <th>Id</th>
                     <th>Compañero</th>
                     <th>Logo</th>

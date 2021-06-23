@@ -344,9 +344,9 @@ class UsuarioDAO {
 		return $json;
 		
 	}
-   public function cantidadreconocimiento($id){
+  public function cantidadreconocimiento($id){
     require_once 'modelo/Conexion/connectbd.php';
-    // connecting to database
+        // connecting to database
     $this->db = new DB_Connect();
     $link=$this->db->connect();
     //$json=$cuenta;
@@ -355,14 +355,14 @@ class UsuarioDAO {
    $query = "SELECT count(Id) as cantidad FROM reconocimiento as r where r.IdUsuario='".$id."' ";
    $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
 
-   $json = 0;
-    //$json =mysqli_num_rows($result);
+    $json = 0;
+       //$json =mysqli_num_rows($result);
      if(mysqli_num_rows($result)>0){
-    //$json['cliente'][]=nada;
-     if ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-    $json=$line["cantidad"];
-              }
-          }
+       //$json['cliente'][]=nada;
+       if ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+          $json=$line["cantidad"];
+       }
+    }
      mysqli_close($link);
    return $json;
  }
@@ -370,26 +370,26 @@ class UsuarioDAO {
 
    
  public function sumandopuntaje($id){
-  require_once 'modelo/Conexion/connectbd.php';
-  // connecting to database
-  $this->db = new DB_Connect();
-  $link=$this->db->connect();
-  //$json=$cuenta;
+    require_once 'modelo/Conexion/connectbd.php';
+    // connecting to database
+    $this->db = new DB_Connect();
+    $link=$this->db->connect();
+    //$json=$cuenta;
 
 
- $query = "SELECT ifnull(Sum(r.Cantidad),0)  as cantidad FROM usuariogrupo as r where r.IdUsuario='".$id."' ";
- $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+      $query = "SELECT ifnull(Sum(r.Cantidad),0)  as cantidad FROM usuariogrupo as r where r.IdUsuario='".$id."' ";
+      $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
 
- $json = 0;
-  //$json =mysqli_num_rows($result);
+      $json = 0;
+     //$json =mysqli_num_rows($result);
    if(mysqli_num_rows($result)>0){
-  //$json['cliente'][]=nada;
-   if ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-  $json=$line["cantidad"];
-            }
-        }
+         //$json['cliente'][]=nada;
+    if ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+             $json=$line["cantidad"];
+    }
+   }
    mysqli_close($link);
- return $json;
+    return $json;
 }
 
 
@@ -404,41 +404,44 @@ class UsuarioDAO {
          $subsector=$datos["id_subsector"];
          $sector=$datos["id_sector"];
          $fecha=$datos["fecha"];
-       $fullname='';
+         $fullname='';
 
-        $query = "SELECT u.id, u.Nombres, u.Apellidos from usuarios u inner join cargo c on c.Id=u.IdCargo inner join subsector ss on ss.id=c.IdSubSector inner join sector s on s.id=ss.IdSector,reconocimiento as r   where (1=1) and r.IdUsuario=u.id and r.IdColega=u.id" ;
+        $query = "SELECT u.id, u.Nombres, u.Apellidos from usuarios u inner join cargo c on c.Id=u.IdCargo inner join subsector ss on ss.id=c.IdSubSector inner join sector s on s.id=ss.IdSector inner join reconocimiento as r on r.IdUsuario=u.Id   where (1=1) " ;
 		    
-        if ($region!=""){
-          $query = $query." and u.region ='".$region."'" ;
-        }
+          if ($region!=""){
+              $query = $query." and u.region ='".$region."'" ;
+          }
 
-        if ($subsector!=0){
-          $query = $query." and ss.Id =".$subsector ;
-        }
+          if ($subsector!=0){
+              $query = $query." and ss.Id =".$subsector ;
+          }
         
-        if ($sector!=0){
-          $query = $query." and s.Id =".$sector ;
-        }
+           if ($sector!=0){
+                $query = $query." and s.Id =".$sector ;
+           }
         
-        if ($cargo!=0){
-          $query = $query." and c.Id =".$cargo ;
+          if ($cargo!=0){
+                $query = $query." and c.Id =".$cargo ;
+          }
+
+        if($fecha != ""){
+          if($fecha == "DIA"){
+            $query = $query." and day(r.FActualizacion)=day(current_date())";
+          }
+            
+          if($fecha == "SEMANA"){
+            $query = $query." and day(r.FActualizacion)>=day(current_date())-7 and day(r.FActualizacion)<=day(current_date())";
+          } 
+          if($fecha == "MES"){
+            $query = $query." and month(r.FActualizacion)=month(current_date())";
+          }
+          
+          if($fecha == "AÑO"){
+            $query = $query." and year(r.FActualizacion)=year(current_date())";
+          }
         }
-
-        if($fecha == "DIA"){
-          $query = $query."and day(r.FActualizacion)=day(current_date()) ";
-        }
-
-
-
-
-
 
         $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
-
-        
-
-
-
         $json = array();
         //$json =mysqli_num_rows($result);
         if(mysqli_num_rows($result)>0){

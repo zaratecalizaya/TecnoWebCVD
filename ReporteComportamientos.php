@@ -27,6 +27,9 @@ if (!isset($_SESSION['session_id'])) {
   <link rel="stylesheet" href="css/bagostyle.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   
 </head>
 
@@ -255,7 +258,7 @@ if (!isset($_SESSION['session_id'])) {
             <label for="disabledSelect" class="form-label">Sector: </label>
       
                <select class="form-control select2" id="sector" name="sector"  style="width: 100%;"> 
-               <option selected>seleccione</option>
+               <option selected="selected">seleccione</option>
                     
                     
                     <?php
@@ -285,7 +288,7 @@ if (!isset($_SESSION['session_id'])) {
          <select class="form-control select2" id="subsector" name="subsector"  style="width: 100%;"> 
                     
                     
-         <option selected>Seleccione</option>
+         <option selected="selected">seleccione</option>
                     <?php
                       
                       require_once 'Controlador/usuario.controlador.php';
@@ -313,7 +316,7 @@ if (!isset($_SESSION['session_id'])) {
          <label for="disabledSelect" class="form-label">Cargo: </label>
       
           <select class="form-control select2"  id="cargo" name="cargo" style="width: 100%;">
-          <option selected>Seleccione</option>
+          <option selected="selected">seleccione</option>
                    <?php
                       
                       require_once 'Controlador/usuario.controlador.php';
@@ -340,15 +343,12 @@ if (!isset($_SESSION['session_id'])) {
 
 
      <th>
-     <div class="card-footer">
-                  <?php
-             //       $resp= $cusuario -> ctrListarCargoUsuario();
-                      
-                    
-                  ?>
-                  
-                  <input type="submit" class="btn btn-success" value="Buscar">
-                </div>
+      <div class="card-footer">
+         
+        
+
+        <input type="submit" class="btn btn-success" value="Buscar">
+      </div>
 
 
      
@@ -359,27 +359,24 @@ if (!isset($_SESSION['session_id'])) {
     </thead>
   </table> 
 
-              <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
+         <div class="card-body">
+           <table id="listrecomendacion" class="table table-bordered table-striped">
                   <thead>
-                  <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                   
-                    <th>Cantidad de reconocimiento</th>
-                    <th>Puntaje</th>                    
-                    
-                    
+                    <tr>
+                     <th>Id</th>
+                     <th>Nombre</th>
+                     <th>Cantidad de reconocimiento</th>
+                     <th>Puntaje</th>                   
                     </tr>
                   </thead>
-                  <tbody>
-                 <?php 
+               <tbody>
+                <?php 
                     require_once 'Controlador/usuario.controlador.php';
   
                   
                     $cuser = new ControladorUsuario();
                     $list=  $cuser -> ctrListarCargoUsuario();
-                    
+                   
                     while (count($list)>0){
                       $cont = array_shift($list);
                       echo "<tr>";
@@ -398,17 +395,11 @@ if (!isset($_SESSION['session_id'])) {
 
 
                       echo "</tr>";
-                    }
-                    
-                  ?> 
-                    
-                  
-                  </tbody>
-
-
-
-                </table>
-              </div>
+                    }               
+                ?>   
+              </tbody>
+          </table>
+        </div>
 
 
 
@@ -474,6 +465,9 @@ if (!isset($_SESSION['session_id'])) {
 $('.select2bs4').select2({
   theme: 'bootstrap4'
 })
+
+
+
     
   });
 </script>
@@ -509,22 +503,6 @@ $("#sector").on('change', function () {
  
  
   
-  function updateStatus(id){
-      var parametros = {
-                "id" : id,
-              
-        };
-      
-      $.ajax({
-        type: "POST",
-        url: "comportamientoestado.php",
-        data: parametros,
-        success:function( msg ) {
-          window.location.href = window.location.href;
-       //  alert( "Data actualizada. " + msg );
-        }
-       });
-  }
   
   
 
@@ -545,7 +523,8 @@ $("#sector").on('change', function () {
 <script src="plugins/chart.js/Chart.min.js"></script>
 <!-- sweetalert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+<!-- Select2 -->
+<script src="plugins/select2/js/select2.full.min.js"></script>
 <!-- PAGE SCRIPTS -->
 </body>
 </html>
