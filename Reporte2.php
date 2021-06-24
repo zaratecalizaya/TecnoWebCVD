@@ -8,7 +8,7 @@ if (!isset($_SESSION['session_id'])) {
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+<meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Bago</title>
   <!-- Tell the browser to be responsive to screen width -->
@@ -27,7 +27,10 @@ if (!isset($_SESSION['session_id'])) {
   <link rel="stylesheet" href="css/bagostyle.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  
+   <!-- Select2 -->
+   <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
+  <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
+   
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -230,30 +233,16 @@ if (!isset($_SESSION['session_id'])) {
        </div>
        </th>
  
-      <th>
-      <div class="col order-1">
+       <th>
+  <div class="col order-1">
     
     <div class="mb-3">
-      <label for="disabledSelect" class="form-label">Sector: </label>
-   <input type="text" value=" agregue el nombre">
+      <label for="disabledSelect" class="form-label">Usuario: </label>
+        <input type="text" id="datos" name="datos" placeholder="Ingrese Nombre o Apellido">
     </div>
  </div>
-     </th>  
-    <th>
-    </th>
- 
-
-
-    <th>
-    </th>
-
-
-
-
-
-
-
-     <th>
+ </th>
+    <th>   
      <div class="card-footer">
                   <?php
              //       
@@ -272,70 +261,77 @@ if (!isset($_SESSION['session_id'])) {
     </thead>
   </table> 
 
-              <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
+  <div class="card-body">
+                <table id="listacomportamientos" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                  <th></th>
+                   
                   <th>Perfil</th>
                     <th>Id</th>
+                    <th>Usuario</th>
                     <th>Compañero</th>
                     <th>Logo</th>
-                    <th>Reconocimiento</th>
+                    <th>Comportamiento</th>
                     <th>Comentario</th>                    
                     <th>Acciones</th>
-                   
-                    </tr>
+                   </tr>
                   </thead>
                   <tbody>
-                 <?php 
+                    <?php 
                     require_once 'Controlador/usuario.controlador.php';
   
                   
                     $cuser = new ControladorUsuario();
-                    $list=  $cuser -> ctrListarCargoUsuario();
-                    
-                    while (count($list)>0){
-                      $cont = array_shift($list);
+                    $list=  $cuser -> ctrListarPerfilUsuario();
+  
+                       while (count($list)>0){
+                      $perfil = array_shift($list);
                       echo "<tr>";
-                      $Did= array_shift($cont);
+                      echo '<td>
+                      <button class="btn" onclick="updateStatus('.$Did.')"><i class="fa fa-user" aria-hidden="true"></i>'.$Destadobtn.'</button></td>';
+
+                      $Did= array_shift($perfil);
                       echo "<td>".$Did."</td>";
                       
-                      $Dnombre= array_shift($cont);
-                      echo "<td>".$Dnombre."</td>";
-                      $Dcantidad= array_shift($cont);
-                      echo "<td>".$Dcantidad."</td>";
+                      $Dusuario= array_shift($perfil);
+                      echo "<td>".$Dusuario."</td>";
+                      $Dcolega= array_shift($perfil);
+                      echo "<td>".$Dcolega."</td>";
                       
-                      $Dsumando= array_shift($cont);
-                      echo "<td>".$Dsumando."</td>";                     
+                      $Dlogo= array_shift($perfil);  
+                      if ($Dlogo!=""){
+                        echo "<td><a href='".$Dlogo."' target='_blank'><img loading='lazy' src='".$Dlogo."' width='50'></a></td>";  
+                      }else{
+                        echo "<td></td>";
+                      }
+                      $Dcomportamiento= array_shift($perfil);
+                      echo "<td>".$Dcomportamiento."</td>";
                       
-                      echo '<td><button class="btn" onclick=""><i class="fas fa-trash"></i> Eliminar</button></td>';
+                      $Dcomentario= array_shift($perfil);
+                      echo "<td>".$Dcomentario."</td>";
 
-
-
+                      echo '<td>
+                        <button class="btn" onclick="dateDelete('.$Did.')"><i class="fa fa-trash"></i>'."eliminar".'</button>
+                       </td>';
                       echo "</tr>";
-                    }
+                      }
                     
-                  ?> 
+                   ?> 
                     
                   
                   </tbody>
-
-
-
                 </table>
-              </div>
+              </div>    
 
 
 
 
 
 
+ </div>
 
-</div>
 
-
-</div>
+ </div>
         
         
     </div>
@@ -394,38 +390,22 @@ $('.select2bs4').select2({
   });
 </script>
 
-<script language="javascript">
-$("#sector").on('change', function () {
-        $("#sector option:selected").each(function () {
-            var id_category = $(this).val();
-            $.post("AjaxSubsector.php", { id_category: id_category }, function(data) {
-                $("#subsector").html(data);
-                $("#subsector option:selected").each(function () {
-                  var id_category = $(this).val();
-                  $.post("AjaxCargo.php", { id_category: id_category }, function(data) {
-                    $("#cargo").html(data);
-                  });			
-                });   
-            });			
-        });
-  });
-  $("#subsector").on('change', function () {
-        $("#subsector option:selected").each(function () {
-            var id_category = $(this).val();
-            $.post("AjaxCargo.php", { id_category: id_category }, function(data) {
-                $("#cargo").html(data);
-            });			
-        });
-  });
 
 
-</script>
 
 <script>
  
  
-  
-  function updateStatus(id){
+$(document).ready(function () {
+  $('#listacomportamientos').DataTable({
+    "scrollX": true
+  });
+  $('.dataTables_length').addClass('bs-select');
+  });
+    
+
+
+  function dateDelete(id){
       var parametros = {
                 "id" : id,
               
@@ -437,7 +417,7 @@ $("#sector").on('change', function () {
         data: parametros,
         success:function( msg ) {
           window.location.href = window.location.href;
-       //  alert( "Data actualizada. " + msg );
+         alert( "Data eliminado. " + msg );
         }
        });
   }
@@ -461,6 +441,9 @@ $("#sector").on('change', function () {
 <script src="plugins/chart.js/Chart.min.js"></script>
 <!-- sweetalert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<!-- Select2 -->
+<script src="plugins/select2/js/select2.full.min.js"></script>
+
 
 <!-- PAGE SCRIPTS -->
 </body>

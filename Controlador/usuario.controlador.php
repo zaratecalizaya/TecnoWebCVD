@@ -233,14 +233,13 @@ class ControladorUsuario{
     }
 
 
-    public function ctrEliminarRegistro($id,$usuario){
+    public function ctrEliminarRegistro($id){
       
             
-      $tabla = "usuarios";
-      $datos = array("id"=>$id,
-                     "usuario"=>$usuario);
+      $tabla = "reconocimiento";
+      $datos = array("id"=>$id);
       $Usuariod = new UsuarioDAO();
-      $respuesta = $Usuariod -> updatestatususer($tabla,$datos);
+      $respuesta = $Usuariod -> datedelete($tabla,$datos);
       
       return $respuesta;
       
@@ -382,6 +381,59 @@ class ControladorUsuario{
       
     
    }
+
+  public function ctrListarPerfilUsuario(){
+  
+  
+    
+    $region=$_POST["region"];
+    $datos=$_POST["datos"];
+  
+    if($region!="seleccione"){
+    if(isset($_POST["region"]) ){
+  
+      $datos = array( "region"=>$_POST["region"],
+      "datos"=>$_POST["datos"] );
+      $tabla = "usuarios";
+      $Usuariod = new UsuarioDAO();   
+      $respuesta = $Usuariod -> listperfildeuser($tabla,$datos);
+  
+      return $respuesta;
+       
+       
+    }  
+   }else{
+    $datos = array("datos"=>$_POST["datos"],
+      "region"=>""
+ 
+    
+      );
+  
+       $tabla = "usuarios";
+       $Usuariod = new UsuarioDAO();   
+       $respuesta = $Usuariod -> listperfildeuser($tabla,$datos);
+  
+       return $respuesta;
+  
+
+   }
+   $datos = array("datos"=>"",
+      "region"=>""
+      );
+  
+       $tabla = "usuarios";
+       $Usuariod = new UsuarioDAO();   
+       $respuesta = $Usuariod -> listperfildeuser($tabla,$datos);
+  
+       return $respuesta;
+  }
+    
+
+
+
+
+
+
 }
 
 ?>

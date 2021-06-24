@@ -107,6 +107,21 @@ class UsuarioDAO {
       	}
 
     }
+
+
+    public function datedelete($tabla,$datos) { //regusu et no es
+
+      require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+		
+          $result=mysqli_query($link,"DELETE  FROM".$tabla." where id = ".$datos["id"]);
+    
+    }
+
+
+
 	
 	public function listusuarioWeb($pagina,$cantidad){
 		require_once 'modelo/Conexion/connectbd.php';
@@ -470,6 +485,115 @@ class UsuarioDAO {
 
 
   }
+
+
+  public function nombreusuario($id){
+    require_once 'modelo/Conexion/connectbd.php';
+    // connecting to database
+    $this->db = new DB_Connect();
+    $link=$this->db->connect();
+    //$json=$cuenta;
+
+
+      $query = "SELECT u.Nombres, u.Apellidos FROM usuarios  u inner join reconocimiento r on u.id=r.IdColega where r.Id='".$id."' ";
+      $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+
+      $json = '';
+     //$json =mysqli_num_rows($result);
+   if(mysqli_num_rows($result)>0){
+         //$json['cliente'][]=nada;
+    if ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+             $json=$line["Nombres"]."   ".$line["Apellidos"];
+    }
+   }
+   mysqli_close($link);
+    return $json;
+}
+
+public function iddusuario($id){
+  require_once 'modelo/Conexion/connectbd.php';
+  // connecting to database
+  $this->db = new DB_Connect();
+  $link=$this->db->connect();
+  //$json=$cuenta;
+
+
+    $query = "SELECT r.IdUsuario FROM reconocimiento   r  where r.Id='".$id."' ";
+    $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+
+    $json = 0;
+   //$json =mysqli_num_rows($result);
+ if(mysqli_num_rows($result)>0){
+       //$json['cliente'][]=nada;
+  if ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+           $json=$line["IdUsuario"];
+  }
+ }
+ mysqli_close($link);
+  return $json;
+}
+
+
+
+
+  
+
+  public function listperfildeuser($tabla,$datos){
+    //
+  	require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+         
+         $region=$datos["region"];
+         $nombre=$datos["datos"];
+         
+         $fullname='';
+         $empleado='';
+         
+        $query = "SELECT   r.Id , u.Nombres,u.Apellidos, gc.Imagen,c.Nombre as comportamiento, r.Comentario from usuarios  u inner join reconocimiento   r on  u.Id=r.IdUsuario    inner JOIN comportamiento c on r.IdComportamiento=c.Id inner join grupocomportamiento gc on gc.Id=c.IdGrupo    where (1=1) " ;
+		    
+          if ($region!="" ){
+              $query = $query." and u.region ='".$region."'" ;
+          }
+          
+          if ($nombre!="" ){
+            $query = $query." and u.Nombres like  '%".$nombre."%' or u.Apellidos like '%".$nombre."%'" ;
+        } 
+        
+
+        $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+        $json = array();
+        //$json =mysqli_num_rows($result);
+        if(mysqli_num_rows($result)>0){
+        		//$json['cliente'][]=nada;
+        	while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+
+          //  $query = $query." and r.IdUsuario =".$line["id"] ;
+               
+         
+                  
+
+                $fullname=$line["Nombres"]."   ".$line["Apellidos"];
+                
+                 //$idUsuario=$this->iddusuario($line["Id"]);
+                 $empleado=$this->nombreusuario($line["Id"]); 
+                 
+          	array_push($json, array($line["Id"],$fullname,$empleado,$line["Imagen"],$line["comportamiento"],$line["Comentario"]));
+          }
+			
+        }
+		
+		mysqli_close($link);
+		return $json;
+
+
+
+
+  }
+
+
+
 
 
   
