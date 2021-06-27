@@ -116,7 +116,7 @@ class UsuarioDAO {
         $this->db = new DB_Connect();
         $link=$this->db->connect();
 		
-          $result=mysqli_query($link,"DELETE  FROM".$tabla." where id = ".$datos["id"]);
+          $result=mysqli_query($link,"DELETE from ".$tabla." where id = ".$datos["id"]);
     
     }
 
@@ -551,7 +551,7 @@ public function iddusuario($id){
          $fullname='';
          $empleado='';
          
-        $query = "SELECT   r.Id , u.Nombres,u.Apellidos, gc.Imagen,c.Nombre as comportamiento, r.Comentario from usuarios  u inner join reconocimiento   r on  u.Id=r.IdUsuario    inner JOIN comportamiento c on r.IdComportamiento=c.Id inner join grupocomportamiento gc on gc.Id=c.IdGrupo    where (1=1) " ;
+        $query = "SELECT   r.Id ,r.IdUsuario, u.Nombres,u.Apellidos, gc.Imagen,c.Nombre as comportamiento, r.Comentario from usuarios  u inner join reconocimiento   r on  u.Id=r.IdUsuario    inner JOIN comportamiento c on r.IdComportamiento=c.Id inner join grupocomportamiento gc on gc.Id=c.IdGrupo    where (1=1) " ;
 		    
           if ($region!="" ){
               $query = $query." and u.region ='".$region."'" ;
@@ -579,7 +579,7 @@ public function iddusuario($id){
                  //$idUsuario=$this->iddusuario($line["Id"]);
                  $empleado=$this->nombreusuario($line["Id"]); 
                  
-          	array_push($json, array($line["Id"],$fullname,$empleado,$line["Imagen"],$line["comportamiento"],$line["Comentario"]));
+          	array_push($json, array($line["Id"],$line["IdUsuario"],$fullname,$empleado,$line["Imagen"],$line["comportamiento"],$line["Comentario"]));
           }
 			
         }
@@ -592,6 +592,36 @@ public function iddusuario($id){
 
   }
 
+  public function imagenUser($tabla,$datos){
+    //
+  	require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+         
+         $id=$datos["id"];
+        
+        $query = "SELECT Imagen from usuarios    where id='".$id."' " ;
+        $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+        $json = array();
+        //$json =mysqli_num_rows($result);
+        if(mysqli_num_rows($result)>0){
+        		//$json['cliente'][]=nada;
+        	while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+
+          //  $query = $query." and r.IdUsuario =".$line["id"] ;         
+          	array_push($json, array($line["Imagen"]));
+          }
+			
+        }
+		
+		mysqli_close($link);
+		return $json;
+
+
+
+
+  }
 
 
 

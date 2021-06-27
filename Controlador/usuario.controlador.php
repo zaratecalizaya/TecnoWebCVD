@@ -430,9 +430,17 @@ class ControladorUsuario{
     
 
 
-
-
-
+  public function ctrImagenUsuario($id){
+      $datos=array("id"=>$id);
+            
+    $tabla = "usuarios";
+    $Usuariod = new UsuarioDAO();
+    $respuesta = $Usuariod ->imagenUser($tabla,$datos);
+    
+    return $respuesta;
+    
+  
+}
 
 }
 

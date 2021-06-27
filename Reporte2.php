@@ -31,6 +31,12 @@ if (!isset($_SESSION['session_id'])) {
    <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
    
+<!--section modal-->
+
+
+
+
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -183,7 +189,85 @@ if (!isset($_SESSION['session_id'])) {
     </div>
     <!-- /.content-header -->
 
+
     <!-- Main content -->
+      
+<?php
+    require_once 'Controlador/usuario.controlador.php';
+    
+  
+                  
+    ///$cusuario = new ControladorUsuario();
+   // $DImagen=  $cusuario -> ctrImagenUsuario();
+    //$DIma= array_shift($DImagen); 
+  
+
+  
+
+  //  $listuser=  $cusuario -> ctrListarUsuariosMovil(1,1000);
+      
+    ?>
+
+
+
+
+
+
+   <div  class="container" >
+    <div class="modal fade" tabindex="-1" id="modal1">
+      <div class="modal-dialog modal-xl  modal-dialog-scrollable">
+
+       <div class="modal-content">
+         <div class="modal-header">
+         <label for="">perfil del usuario: </label> 
+         </div>
+         <div class="modal-body">
+
+         <div class="row" id="row">
+                <div class="col1" id="col1">
+                <?php
+
+                        
+                     
+                   //    if ($DIma!=""){
+                     //   echo "<td><a href='".$DIma."' target='_blank'><img loading='lazy' src='".$DIma."' width='50'></a></td>";
+                      //}else{
+                       // echo "<td> esta vacio</td>";
+                      //}
+                 
+                 ?>
+  
+
+
+                </div>
+                <div class="col2"id="col2">
+                <input type="number"  id="id" name="id" > <br>
+             <label for="" id="lnombre" >Nombre:</label> <br>
+             <label for="">Cargo:</label> <br>
+             <label for="">Puntaje:</label> <br>
+             <label for="">Logros:</label> <br>
+
+                </div>
+                <div class="col3"id="col3">col-10</div>
+            </div>
+                    
+
+
+
+        
+             
+            
+         </div>
+         <div class="modal-footer">
+              <button class="btn btn-danger" data-dismiss='modal'>&times;</button>
+         </div>
+       </div>
+      </div>
+     </div>
+   </div>
+
+
+
 
 
  <form role="form" enctype="multipart/form-data" method="post"  >
@@ -197,77 +281,71 @@ if (!isset($_SESSION['session_id'])) {
                 <h3 class="card-title">Busquedas</h3>
             </div>
 
-       <table class="table table-bordered table-striped">
-       <thead>
-
-       </tr>
-       </thead>
-       </table>     
-   <table  class="table table-bordered table-striped">
-        <thead  >
-          <tr>
+   
 
 
-        <th>
-       <div class="col">
+              <div class="card-body">
+
+
+                <table  class="table table-bordered table-striped" >
+                  <thead  >
+                            <tr>
+
+
+                               <th >
+                                   <div class="col">
     
-          <div class="mb-3">
-            <label for="disabledSelect" class="form-label">Region: </label>
+                                      <div class="mb-3">
+                                         <label for="disabledSelect" class="form-label">Region: </label>
       
-             <select class="form-control select2"  id="region" name="region" style="width: 100%;">
-               <option selected="selected">seleccione</option>
-                      <option>BENI</option>
-                      <option>COCHABAMBA</option>
-                      <option>EL ALTO</option>
-                      <option>LA PAZ</option>                    
-                      <option>NACIONAL</option>
-                      <option>ORURO</option>
-                      <option>PANDO</option>
-                      <option>POTOSI</option>
-                      <option>SANTA CRUZ</option>
-                      <option>SUCRE</option>
-                      <option>TARIJA</option>
+                                             <select class="form-control select2"  id="region" name="region" style="width: 80%;">
+                                                  <option selected="selected">seleccione</option>
+                                                       <option>BENI</option>
+                                                       <option>COCHABAMBA</option>
+                                                       <option>EL ALTO</option>
+                                                       <option>LA PAZ</option>                    
+                                                       <option>NACIONAL</option>
+                                                       <option>ORURO</option>
+                                                       <option>PANDO</option>
+                                                       <option>POTOSI</option>
+                                                       <option>SANTA CRUZ</option>
+                                                       <option>SUCRE</option>
+                                                       <option>TARIJA</option>
 
-             </select>
-         </div>
-       </div>
-       </th>
+                                            </select>
+                                      </div>
+                                   </div>
+                              </th>
  
-       <th>
-  <div class="col order-1">
+                               <th >
+                                   <div class="col-sm-3">
     
-    <div class="mb-3">
-      <label for="disabledSelect" class="form-label">Usuario: </label>
-        <input type="text" id="datos" name="datos" placeholder="Ingrese Nombre o Apellido">
-    </div>
- </div>
- </th>
-    <th>   
-     <div class="card-footer">
-                  <?php
-             //       
-                    
-                  ?>
-                  
-                  <input type="submit" class="btn btn-success" value="Buscar">
-                </div>
+                                       <div class="mb-3">
+                                           <label for="disabledSelect" class="form-label">Usuario: </label>
+                                              <input type="text" id="datos" name="datos" placeholder="Ingrese Nombre o Apellido">
+                                      </div>
+                                   </div>
+                               </th>
+                               <th >   
+
+                                      <div class="col-sm-3" >
+                
+                                         <input type="submit" class="btn btn-success" value="Buscar">
+                                     </div>
+                                          <br>
+                               </th>
+
+                  </thead>
+                </table> 
 
 
-     
-     
-     <br>
-    </th>
 
-    </thead>
-  </table> 
-
-  <div class="card-body">
                 <table id="listacomportamientos" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                   
+                  <th>Id</th>
                   <th>Perfil</th>
-                    <th>Id</th>
+                    
                     <th>Usuario</th>
                     <th>Compañero</th>
                     <th>Logo</th>
@@ -287,11 +365,15 @@ if (!isset($_SESSION['session_id'])) {
                        while (count($list)>0){
                       $perfil = array_shift($list);
                       echo "<tr>";
-                      echo '<td>
-                      <button class="btn" onclick="updateStatus('.$Did.')"><i class="fa fa-user" aria-hidden="true"></i>'.$Destadobtn.'</button></td>';
-
+                      
                       $Did= array_shift($perfil);
                       echo "<td>".$Did."</td>";
+ 
+                      $Didusuario= array_shift($perfil);
+                      
+                      echo '<td>
+                      <button  class="open" type="button" onclick="obtenerinfo('.$Didusuario.')" data-toggle='.modal.' data-target=#'.modal1.' ><i class="fa fa-user" aria-hidden="true"></i></button></td>';
+                     
                       
                       $Dusuario= array_shift($perfil);
                       echo "<td>".$Dusuario."</td>";
@@ -311,8 +393,12 @@ if (!isset($_SESSION['session_id'])) {
                       echo "<td>".$Dcomentario."</td>";
 
                       echo '<td>
-                        <button class="btn" onclick="dateDelete('.$Did.')"><i class="fa fa-trash"></i>'."eliminar".'</button>
-                       </td>';
+                      <button  class="btn" type="button" onclick="dateDelete('.$Did.')"  ><i class="fa fa-trash"></i>ELIMINAR </button></td>';
+                    
+
+                      
+
+                    
                       echo "</tr>";
                       }
                     
@@ -342,7 +428,7 @@ if (!isset($_SESSION['session_id'])) {
     </section>
     </form>
     <!-- /.content -->
-  </div>
+ </div>
   <!-- /.content-wrapper -->
 
   <!-- Control Sidebar -->
@@ -377,6 +463,7 @@ if (!isset($_SESSION['session_id'])) {
   $(function () {
     $("#example1").DataTable({
       
+
       "autoWidth": false,
     });
 
@@ -411,17 +498,43 @@ $(document).ready(function () {
               
         };
       
-      $.ajax({
+        $.ajax({
         type: "POST",
-        url: "comportamientoestado.php",
+        url: "EliminarDato.php",
         data: parametros,
         success:function( msg ) {
           window.location.href = window.location.href;
-         alert( "Data eliminado. " + msg );
+       //  alert( "Data actualizada. " + msg );
         }
        });
   }
   
+  function getFoto(id){
+      var parametros = {
+                "id" : id,
+              
+        };
+      
+        $.ajax({
+        type: "POST",
+        url: "tarjetasinfo.php",
+        data: parametros,
+        success:function( msg ) {
+          window.location.href = window.location.href;
+       //  alert( "Data actualizada. " + msg );
+        }
+       });
+  }
+
+
+  function obtenerinfo(id){
+    document.getElementById("id").value = id;
+    document.getElementById("lnombre").innerHTML ="Nombre:"+id.toString();
+    ///var prueba = this->getFoto(id);
+    
+ 
+  //    document.getElementById("TituloUser").value = "Editar Usuario";  
+  }
   
 
 
@@ -430,6 +543,7 @@ $(document).ready(function () {
 
 <!-- Usuario SCRIPTS -->
 <script src="build/js/Usuarios.js"></script>
+
 
 <!-- PAGE PLUGINS -->
 <!-- jQuery Mapael -->

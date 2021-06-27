@@ -20,9 +20,26 @@
   #listacomportamiento th, td {
     white-space: nowrap;
   }
+  #col1 {
+    border: black;
+   background:white;
+    width: 40%;
+ }
+ #col2 {
+    border: black;
+    background: white;
+    width: 20%;
+ }
+ #col3 {
+  border: black;
+  background: white;
+  width: 40%;
+}
+ #row {
+   display: flex;
+   width: 100%;
+ }
   
-
-
 
   table.dataTable thead .sorting:after,
   table.dataTable thead .sorting:before,
