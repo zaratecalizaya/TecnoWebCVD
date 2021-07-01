@@ -77,7 +77,7 @@ if (!isset($_SESSION['session_id'])) {
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 Usuarios
                 <i class="right fas fa-angle-left"></i>
@@ -100,7 +100,7 @@ if (!isset($_SESSION['session_id'])) {
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <i class="nav-icon fas fa-trophy"></i>
               <p>
                 Logros
                 <i class="right fas fa-angle-left"></i>
@@ -155,9 +155,19 @@ if (!isset($_SESSION['session_id'])) {
                   <p>Reporte 3</p>
                 </a>
               </li>
+              
             </ul>
           </li>
-          
+          <li class="nav-item ">
+            <a href="./Configuraciones.php" class="nav-link">
+              <i class="nav-icon fa fa-cogs"></i>
+              <p>
+                Configuraciones
+              
+              </p>
+            </a>
+           
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

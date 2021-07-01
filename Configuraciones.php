@@ -27,9 +27,6 @@ if (!isset($_SESSION['session_id'])) {
   <link rel="stylesheet" href="css/bagostyle.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <!-- Select2 -->
-  <link rel="stylesheet" href="plugins/select2/css/select2.min.css">
-  <link rel="stylesheet" href="plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
   
 </head>
 
@@ -98,7 +95,7 @@ if (!isset($_SESSION['session_id'])) {
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon  fas fa-trophy"></i>
+              <i class="nav-icon fas fa-trophy"></i>
               <p>
                 Logros
                 <i class="right fas fa-angle-left"></i>
@@ -160,13 +157,11 @@ if (!isset($_SESSION['session_id'])) {
               <i class="nav-icon fa fa-cogs"></i>
               <p>
                 Configuraciones
-              
+        
               </p>
             </a>
-          
+         
           </li>
-           
-          
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
@@ -181,12 +176,12 @@ if (!isset($_SESSION['session_id'])) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-white">Reportes</h1>
+            <h1 class="m-0 text-white">Configuracion</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="tablero.php">Inicio</a></li>
-              <li class="breadcrumb-item active text-white">Reportes</li>
+              <li class="breadcrumb-item active text-white">Configuracion</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -195,125 +190,97 @@ if (!isset($_SESSION['session_id'])) {
     <!-- /.content-header -->
 
     <!-- Main content -->
-
-
- <form role="form" enctype="multipart/form-data" method="post"  >
-  <section class="content hero-image" >
+    <section class="content hero-image" >
       <div class="container-fluid" >
         <div class="row">
           <div class="col-12">
-        
- <div class="card card-primary">
-           <div class="card-header" >
-                <h3 class="card-title">Busquedas</h3>
-            </div>
-
-       <table class="table table-bordered table-striped">
-       <thead>
-       <tr>
-       <th>
- <div class="col">
-    
-     <div class="col order-5">
-        <label for="start" class="form-label"  >Fecha Inicio: </label>
-        <input type="date" id="fechaini" name="fechaini" style="margin-left: 20px"  data-inputmask-inputformat="yyyy/mm/dd" data-mask  min="2021-06-01" max="2071-07-01">
-  
-       <label for="start" class="form-label" style="margin-left: 40px">Fecha Fin:   </label>
-
-       <input type="date" id="fechafin" name="fechafin" style="margin-left: 20px" data-inputmask-inputformat="yyyy/mm/dd" data-mask  min="2021-06-01" max="2071-07-01">
-          
-    </div>
- </div>
-
-
-       </th>
-       
-       <th >   
-
-         <div class="col-sm-3" >
-
-              <input type="submit" class="btn btn-success" value="Buscar">
-        </div>
-           
-        </th>
-
-
-
-       </tr>
-       </thead>
-       </table>     
- 
-         <div class="card-body">
-           <table id="list" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                     <th>Id</th>
-                     <th>Usuario</th>
-                     <th>Logros </th>
-                     <th>Nombre </th>
-                     <th>Cantidad</th>                   
-                    </tr>
-                  </thead>
-               <tbody>
-                <?php 
-                    require_once 'Controlador/usuario.controlador.php';
-  
-                  
-                    $cuser = new ControladorUsuario();
-                    $list=  $cuser -> ctrListarlogroscantidad();
-                   
-                    while (count($list)>0){
-                      $cont = array_shift($list);
-                      echo "<tr>";
-                      $Did= array_shift($cont);
-                      echo "<td>".$Did."</td>";
-                      
-                      $Dnombre= array_shift($cont);
-                      echo "<td>".$Dnombre."</td>";
-
-                      $Darchivo = array_shift($cont);
-                      if ($Darchivo!=""){
-                        echo "<td><img src='".$Darchivo."' width='50'></td>";  
-                      }else{
-                        echo "<td></td>";
-                      }
-
-
-                      $Dlogro= array_shift($cont);
-                      echo "<td>".$Dlogro."</td>";
-                      
-                      $Dcantidad= array_shift($cont);
-                      echo "<td>".$Dcantidad."</td>";                     
-                   
+          <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title"><label id="TituloUser">Em@il</label> </h3> 
+               
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" method="post"  >
+                <div class="card-body">
                  
+                  <div class="form-group">
+                    <label for="exampleInputNombre">De :</label>
+                    <span class="input-group-text">
+                    <i class="fas fa-envelope">
+                    </i>
+                    
+                    </span>
+                    <input type="email" class="form-control" id="nombre" name="nombre" placeholder="Ingrese su correo">
+                  </div>
+                  <div class="form-group">
+                    <label for="InputUsuario">Para:</label>
+                    <input type="email" class="form-control" id="numero" name="numero" placeholder="Destinatario">
+                  </div>
+                   
+                   
+                         
 
 
-                      echo "</tr>";
-                    }               
-                ?>   
-              </tbody>
-          </table>
+                  
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                 
+                  
+                  <input type="submit" class="btn btn-primary" value="Enviar">
+                </div>
+              </form>
         </div>
-
-
-
-
-
-
-
-</div>
-
-
-</div>
+            
         
-        
-    </div>
+ 
+          </div>
           <!-- /.col -->
-      
+        </div>
         <!-- /.row -->
  
+        <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title"><label id="TituloUser">Configuraciones</label> </h3> 
+             
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" method="post"  >
+                <div class="card-body">
+                 
+                  <div class="form-group">
+                    <label for="exampleInputNombre">Estado</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="">
+                  </div>
+                  <div class="form-group">
+                    <label for="InputUsuario">Numero</label>
+                    <input type="text" class="form-control" id="numero" name="numero" placeholder="">
+                  </div>
+                   
+                   
+                  <div class="form-group">
+                    <label for="InputUsuario">Puntaje Minimo</label>
+                    <input type="text" class="form-control" id="puntajemin" name="puntajemin" placeholder="">
+                  </div>
+                  
+                                
+                  
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+               
+                  
+                  <input type="submit" class="btn btn-primary" value="Enviar">
+                </div>
+              </form>
+        </div>
+            <!-- /.card -->
+      </div><!--/. container-fluid -->
     </section>
-    </form>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -328,8 +295,6 @@ if (!isset($_SESSION['session_id'])) {
   <?php include("pie.php"); ?>
 </div>
 <!-- ./wrapper -->
-
-
 
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
@@ -351,39 +316,60 @@ if (!isset($_SESSION['session_id'])) {
 <script>
   $(function () {
     $("#example1").DataTable({
-      "responsive":true,
+      "responsive": true,
       "autoWidth": false,
     });
 
-    $('.select2').select2()
-
-//Initialize Select2 Elements
-$('.select2bs4').select2({
-  theme: 'bootstrap4'
-});
-
-
-
+    
     
   });
 </script>
 
-
-
 <script>
+  function saveData(id, nombre,numero,puntajemin,grupomin){
+    document.getElementById("id").value = id;
+    document.getElementById("nombre").value = nombre;
+    document.getElementById("numero").value = numero;
+    document.getElementById("puntajemin").value = puntajemin;
+    document.getElementById("grupomin").value = grupomin;
  
- 
+    $('#TituloUser').text("Editar Nivel");
+//    document.getElementById("TituloUser").value = "Editar Usuario";  
+  }
+  
+  function newUser(){
+    document.getElementById("id").value = 0;
+    document.getElementById("nombre").value = "";
+    document.getElementById("numero").value = "";
+    document.getElementById("puntajemin").value = "";
+    document.getElementById("grupomin").value = "";
+    
+    $('#TituloUser').text("Agregar Nivel");
+  //  document.getElementById("TituloUser").value = "Agregar Usuario";  
+  }
+  
+  function updateStatus(id){
+      var parametros = {
+                "id" : id,
+              
+        };
+      
+      $.ajax({
+        type: "POST",
+        url: "comportamientoestado.php",
+        data: parametros,
+        success:function( msg ) {
+          window.location.href = window.location.href;
+       //  alert( "Data actualizada. " + msg );
+        }
+       });
+  }
   
   
-  
-
-
-
 </script>
 
 <!-- Usuario SCRIPTS -->
 <script src="build/js/Usuarios.js"></script>
-
 
 <!-- PAGE PLUGINS -->
 <!-- jQuery Mapael -->
@@ -395,9 +381,6 @@ $('.select2bs4').select2({
 <script src="plugins/chart.js/Chart.min.js"></script>
 <!-- sweetalert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<!-- Select2 -->
-<script src="plugins/select2/js/select2.full.min.js"></script>
-
 
 <!-- PAGE SCRIPTS -->
 </body>
