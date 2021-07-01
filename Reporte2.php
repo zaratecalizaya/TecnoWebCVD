@@ -218,48 +218,52 @@ if (!isset($_SESSION['session_id'])) {
       <div class="modal-dialog modal-xl  modal-dialog-scrollable">
 
        <div class="modal-content">
-         <div class="modal-header">
-         <label for="">perfil del usuario: </label> 
+         <div class="modal-header hero-image">
+         <label for="" style="color:white">Perfil del Usuario: </label> 
+         <button class="btn btn-danger" data-dismiss='modal'>&times;</button>
          </div>
          <div class="modal-body">
 
          <div class="row" id="row">
                 <div class="col1" id="col1">
-                <?php
-
-                        
-                     
-                   //    if ($DIma!=""){
-                     //   echo "<td><a href='".$DIma."' target='_blank'><img loading='lazy' src='".$DIma."' width='50'></a></td>";
-                      //}else{
-                       // echo "<td> esta vacio</td>";
-                      //}
-                 
-                 ?>
-  
+                
+                <img  id="myImag" src="" width='150'>
 
 
                 </div>
                 <div class="col2"id="col2">
-                <input type="number"  id="id" name="id" > <br>
+             
              <label for="" id="lnombre" >Nombre:</label> <br>
-             <label for="">Cargo:</label> <br>
-             <label for="">Puntaje:</label> <br>
-             <label for="">Logros:</label> <br>
+             <label for="" id="lcargo">Cargo:</label> <br>
+             <label for="" id="Puntaje">Puntaje:</label> <br>
+             <label for="" id="Logros">Logros:</label> <br>
 
                 </div>
-                <div class="col3"id="col3">col-10</div>
+                <div class="col3"id="col3"></div>
             </div>
                     
+             
+            <table  class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                  <th>Comentarios</th>
+                  <th>Compañero</th>
+                  <th>Logro</th>
+                  </tr>
+                  </thead>
+                  <tbody id="listar">
+             
+                  
+                  </tbody>
+                </table>
 
-
-
+  
         
              
             
          </div>
-         <div class="modal-footer">
-              <button class="btn btn-danger" data-dismiss='modal'>&times;</button>
+         <div class="modal-footer hero-image">
+      
          </div>
        </div>
       </div>
@@ -318,7 +322,7 @@ if (!isset($_SESSION['session_id'])) {
                               </th>
  
                                <th >
-                                   <div class="col-sm-3">
+                                   <div class="col">
     
                                        <div class="mb-3">
                                            <label for="disabledSelect" class="form-label">Usuario: </label>
@@ -361,7 +365,7 @@ if (!isset($_SESSION['session_id'])) {
                   
                     $cuser = new ControladorUsuario();
                     $list=  $cuser -> ctrListarPerfilUsuario();
-  
+                            
                        while (count($list)>0){
                       $perfil = array_shift($list);
                       echo "<tr>";
@@ -509,7 +513,7 @@ $(document).ready(function () {
        });
   }
   
-  function getFoto(id){
+  function getNombre(id){
       var parametros = {
                 "id" : id,
               
@@ -519,20 +523,151 @@ $(document).ready(function () {
         type: "POST",
         url: "tarjetasinfo.php",
         data: parametros,
-        success:function( msg ) {
-          window.location.href = window.location.href;
-       //  alert( "Data actualizada. " + msg );
+        success:function(respuesta ) {
+          //window.location.href = window.location.href;
+
+        document.getElementById("lnombre").innerHTML ="Nombre: "+respuesta;  
+                
+    
         }
        });
   }
 
 
-  function obtenerinfo(id){
-    document.getElementById("id").value = id;
-    document.getElementById("lnombre").innerHTML ="Nombre:"+id.toString();
-    ///var prueba = this->getFoto(id);
+  function getCargo(id){
+      var parametros = {
+                "id" : id,
+              
+        };
+      
+        $.ajax({
+        type: "POST",
+        url: "tarjetacargo.php",
+        data: parametros,
+        success:function(respuesta ) {
+          //window.location.href = window.location.href;
+
+        document.getElementById("lcargo").innerHTML ="Cargo: "+respuesta;  
+                
     
- 
+        }
+       });
+  }
+      
+  function getPuntaje(id){
+      var parametros = {
+                "id" : id,
+              
+        };
+      
+        $.ajax({
+        type: "POST",
+        url: "tarjetapuntaje.php",
+        data: parametros,
+        success:function(respuesta ) {
+          //window.location.href = window.location.href;
+     //  console.log(respuesta);
+    document.getElementById("Puntaje").innerHTML ="Puntaje :"+respuesta.toString();  
+                
+    
+        }
+       });
+  }
+
+
+  function getLogro(id){
+      var parametros = {
+                "id" : id,
+              
+        };
+      
+        $.ajax({
+        type: "POST",
+        url: "tarjetalogros.php",
+        data: parametros,
+        success:function(respuesta ) {
+          //window.location.href = window.location.href;
+  //   console.log(respuesta);
+    document.getElementById("Logros").innerHTML ="Logros :"+respuesta.toString();  
+        }
+       });
+  }
+
+
+
+  function getImagen(id){
+      var parametros = {
+                "id" : id,
+              
+        };
+      
+        $.ajax({
+        type: "POST",
+        url: "tarjetaimagen.php",
+        data: parametros,
+        success:function(respuesta ) {
+          //window.location.href = window.location.href;
+   // console.log(respuesta);
+             document.getElementById("myImag").src=respuesta;  
+        }
+       });
+  }
+    
+  
+  
+  function getTabla(id){
+      var parametros = {
+                "id" : id,
+              
+        };
+      
+        $.ajax({
+        type: "POST",
+        url: "tarjetalistarmodal.php",
+        data: parametros,
+        success:function(respuesta ) {
+          //window.location.href = window.location.href;
+
+          
+          console.log(respuesta.length);
+          console.log(respuesta);
+       var html='';
+       var i;
+
+       const text = respuesta;
+      const myArr = JSON.parse(text);
+
+      
+      console.log(myArr.length);
+          console.log(myArr);
+      for(i=0;i<myArr.length;i++){
+
+            html+='<tr>'+
+          
+          '<td>'+myArr[i][0]+'</td>'+
+          '<td>'+myArr[i][1]+'</td>'+
+          '<td><img src= "'+ myArr[i][2]+'"width=60></td>'+
+         '</tr>';
+         
+        
+        }
+        $('#listar').html(html);
+       }
+       
+      });
+  }
+    
+
+
+   function obtenerinfo(id){
+   // document.getElementById("id").value = id;
+    //document.getElementById("lnombre").innerHTML ="Nombre:"+id.toString();
+     getNombre(id);
+     getCargo(id);
+     getLogro(id);
+     getPuntaje(id);
+     getImagen(id);
+     getTabla(id)
   //    document.getElementById("TituloUser").value = "Editar Usuario";  
   }
   

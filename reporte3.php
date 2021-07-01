@@ -216,155 +216,31 @@ if (!isset($_SESSION['session_id'])) {
 
 
        </th>
+       
+       <th >   
+
+         <div class="col-sm-3" >
+
+              <input type="submit" class="btn btn-success" value="Buscar">
+        </div>
+           
+        </th>
+
+
+
        </tr>
        </thead>
        </table>     
-   <table  class="table table-bordered table-striped">
-        <thead  >
-          <tr>
-
-
-        <th>
-       <div class="col">
-    
-          <div class="mb-3">
-            <label for="disabledSelect" class="form-label">Region: </label>
-      
-             <select class="form-control select2"  id="region" name="region" style="width: 100%;">
-               <option selected="selected">seleccione</option>
-                      <option>BENI</option>
-                      <option>COCHABAMBA</option>
-                      <option>EL ALTO</option>
-                      <option>LA PAZ</option>                    
-                      <option>NACIONAL</option>
-                      <option>ORURO</option>
-                      <option>PANDO</option>
-                      <option>POTOSI</option>
-                      <option>SANTA CRUZ</option>
-                      <option>SUCRE</option>
-                      <option>TARIJA</option>
-
-             </select>
-         </div>
-       </div>
-       </th>
  
-      <th>
-       <div class="col order-1">
-    
-          <div class="mb-3">
-            <label for="disabledSelect" class="form-label">Sector: </label>
-      
-               <select class="form-control select2" id="sector" name="sector"  style="width: 100%;"> 
-               <option selected="selected">seleccione</option>
-                    
-                    
-                    <?php
-                      
-                      require_once 'Controlador/usuario.controlador.php';
-                     
-                      $cusuario = new ControladorUsuario();
-                      $list=  $cusuario -> ctrListarSectores();
-                    
-                      while (count($list)>0){
-                        $User = array_shift($list);
-                        $Did = array_shift($User);
-                        $Dnombres = array_shift($User);
-                        echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
-                      }
-                    ?>
-               </select>
-          </div>
-       </div>
-     </th>  
-    <th>
-     <div class="col order-1">
-     
-       <div class="mb-3">
-         <label for="disabledSelect" class="form-label">Subsector: </label>
-      
-         <select class="form-control select2" id="subsector" name="subsector"  style="width: 100%;"> 
-                    
-                    
-         <option selected="selected">seleccione</option>
-                    <?php
-                      
-                      require_once 'Controlador/usuario.controlador.php';
-                     
-                      $cusuario = new ControladorUsuario();
-                      $list=  $cusuario -> ctrListarSubSectores(4);
-                    
-                      while (count($list)>0){
-                        $User = array_shift($list);
-                        $Did = array_shift($User);
-                        $Dnombres = array_shift($User);
-                        echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
-                      }
-                    ?>
-         </select>
-       </div>
-    </div>
-    </th>
- 
-
-
-    <th>
-    <div class="col order-5">
-      <div class="mb-3">
-         <label for="disabledSelect" class="form-label">Cargo: </label>
-      
-          <select class="form-control select2"  id="cargo" name="cargo" style="width: 100%;">
-          <option selected="selected">seleccione</option>
-                   <?php
-                      
-                      require_once 'Controlador/usuario.controlador.php';
-                     
-                      $cusuario = new ControladorUsuario();
-                      $list=  $cusuario -> ctrListarCargo(9);
-                    
-                      while (count($list)>0){
-                        $User = array_shift($list);
-                        $Did = array_shift($User);
-                        $Dnombres = array_shift($User);
-                        echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
-                      }
-            ?>
-          </select>
-     </div>
-    </div>
-    </th>
-
-
-
-
-
-
-
-     <th>
-      <div class="card-footer">
-         
-        
-
-        <input type="submit" class="btn btn-success" value="Buscar">
-      </div>
-
-
-     
-     
-     <br>
-    </th>
-
-    </thead>
-  </table> 
-
          <div class="card-body">
-           <table id="listrecomendacion" class="table table-bordered table-striped">
+           <table id="list" class="table table-bordered table-striped">
                   <thead>
                     <tr>
                      <th>Id</th>
-                     <th>Nombre</th>
-                     <th>Cantidad de reconocimiento</th>
-                     <th>Puntaje</th>                   
+                     <th>Usuario</th>
+                     <th>Logros </th>
+                     <th>Nombre </th>
+                     <th>Cantidad</th>                   
                     </tr>
                   </thead>
                <tbody>
@@ -373,7 +249,7 @@ if (!isset($_SESSION['session_id'])) {
   
                   
                     $cuser = new ControladorUsuario();
-                    $list=  $cuser -> ctrListarCargoUsuario();
+                    $list=  $cuser -> ctrListarlogroscantidad();
                    
                     while (count($list)>0){
                       $cont = array_shift($list);
@@ -383,12 +259,21 @@ if (!isset($_SESSION['session_id'])) {
                       
                       $Dnombre= array_shift($cont);
                       echo "<td>".$Dnombre."</td>";
+
+                      $Darchivo = array_shift($cont);
+                      if ($Darchivo!=""){
+                        echo "<td><img src='".$Darchivo."' width='50'></td>";  
+                      }else{
+                        echo "<td></td>";
+                      }
+
+
+                      $Dlogro= array_shift($cont);
+                      echo "<td>".$Dlogro."</td>";
+                      
                       $Dcantidad= array_shift($cont);
-                      echo "<td>".$Dcantidad."</td>";
-                      
-                      $Dsumando= array_shift($cont);
-                      echo "<td>".$Dsumando."</td>";                     
-                      
+                      echo "<td>".$Dcantidad."</td>";                     
+                   
                  
 
 
@@ -433,6 +318,8 @@ if (!isset($_SESSION['session_id'])) {
 </div>
 <!-- ./wrapper -->
 
+
+
 <!-- REQUIRED SCRIPTS -->
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
@@ -453,7 +340,7 @@ if (!isset($_SESSION['session_id'])) {
 <script>
   $(function () {
     $("#example1").DataTable({
-      
+      "responsive":true,
       "autoWidth": false,
     });
 
@@ -470,32 +357,7 @@ $('.select2bs4').select2({
   });
 </script>
 
-<script language="javascript">
-$("#sector").on('change', function () {
-        $("#sector option:selected").each(function () {
-            var id_category = $(this).val();
-            $.post("AjaxSubsector.php", { id_category: id_category }, function(data) {
-                $("#subsector").html(data);
-                $("#subsector option:selected").each(function () {
-                  var id_category = $(this).val();
-                  $.post("AjaxCargo.php", { id_category: id_category }, function(data) {
-                    $("#cargo").html(data);
-                  });			
-                });   
-            });			
-        });
-  });
-  $("#subsector").on('change', function () {
-        $("#subsector option:selected").each(function () {
-            var id_category = $(this).val();
-            $.post("AjaxCargo.php", { id_category: id_category }, function(data) {
-                $("#cargo").html(data);
-            });			
-        });
-  });
 
-
-</script>
 
 <script>
  
@@ -511,6 +373,7 @@ $("#sector").on('change', function () {
 <!-- Usuario SCRIPTS -->
 <script src="build/js/Usuarios.js"></script>
 
+
 <!-- PAGE PLUGINS -->
 <!-- jQuery Mapael -->
 <script src="plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
@@ -519,13 +382,12 @@ $("#sector").on('change', function () {
 <script src="plugins/jquery-mapael/maps/usa_states.min.js"></script>
 <!-- ChartJS -->
 <script src="plugins/chart.js/Chart.min.js"></script>
-<!-- sweetalert 
-
-<script src="js/sweetalert.min.js"></script>
--->
+<!-- sweetalert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- Select2 -->
 <script src="plugins/select2/js/select2.full.min.js"></script>
+
+
 <!-- PAGE SCRIPTS -->
 </body>
 </html>

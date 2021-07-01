@@ -411,6 +411,7 @@ class UsuarioDAO {
 
   public function listcantidaduser($tabla,$datos){
   	require_once 'modelo/Conexion/connectbd.php';
+    require_once 'modelo/utilitario.php';
         // connecting to database
         $this->db = new DB_Connect();
         $link=$this->db->connect();
@@ -418,7 +419,8 @@ class UsuarioDAO {
          $region=$datos["region"];
          $subsector=$datos["id_subsector"];
          $sector=$datos["id_sector"];
-         $fecha=$datos["fecha"];
+         $fechaini=$datos["fechaini"];
+         $fechafin=$datos["fechafin"];
          $fullname='';
 
         $query = "SELECT u.id, u.Nombres, u.Apellidos from usuarios u inner join cargo c on c.Id=u.IdCargo inner join subsector ss on ss.id=c.IdSubSector inner join sector s on s.id=ss.IdSector inner join reconocimiento as r on r.IdUsuario=u.Id   where (1=1) " ;
@@ -430,7 +432,6 @@ class UsuarioDAO {
           if ($subsector!=0){
               $query = $query." and ss.Id =".$subsector ;
           }
-        
            if ($sector!=0){
                 $query = $query." and s.Id =".$sector ;
            }
@@ -439,22 +440,14 @@ class UsuarioDAO {
                 $query = $query." and c.Id =".$cargo ;
           }
 
-        if($fecha != ""){
-          if($fecha == "DIA"){
-            $query = $query." and day(r.FActualizacion)=day(current_date())";
-          }
-            
-          if($fecha == "SEMANA"){
-            $query = $query." and day(r.FActualizacion)>=day(current_date())-7 and day(r.FActualizacion)<=day(current_date())";
-          } 
-          if($fecha == "MES"){
-            $query = $query." and month(r.FActualizacion)=month(current_date())";
-          }
+        if($fechaini != '' && $fechafin != ''){
           
-          if($fecha == "AÑO"){
-            $query = $query." and year(r.FActualizacion)=year(current_date())";
-          }
+            $query = $query." and   r.FActualizacion BETWEEN '".$fechaini."' and '". $fechafin ."'" ;
+        
         }
+        $util = new Utils();
+        $util->console_log($query);
+
 
         $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
         $json = array();
@@ -533,7 +526,31 @@ public function iddusuario($id){
   return $json;
 }
 
+public function listmodal($tabla,$datos){
+  require_once 'modelo/Conexion/connectbd.php';
+      // connecting to database
+      $this->db = new DB_Connect();
+      $link=$this->db->connect();
+      $id=$datos["id"];
+  
+      $query = "SELECT r.Comentario,u.Nombres, u.Apellidos , gc.Imagen   from usuarios u inner join reconocimiento r on u.Id=r.IdColega inner join comportamiento c on c.Id=r.IdComportamiento inner join grupocomportamiento  gc on gc.id=c.IdGrupo WHERE  r.IdColega='".$id."' ";
+      $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
 
+      $json = array();
+      //$json =mysqli_num_rows($result);
+      if(mysqli_num_rows($result)>0){
+          //$json['cliente'][]=nada;
+        while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+          $fullname= $line["Nombres"]."".$line["Apellidos"];
+          array_push($json, array($line["Comentario"],$fullname,$line["Imagen"]));
+        }
+    
+      }
+  
+  mysqli_close($link);
+  return  json_encode( $json);
+  
+}
 
 
   
@@ -601,32 +618,158 @@ public function iddusuario($id){
          
          $id=$datos["id"];
         
-        $query = "SELECT Imagen from usuarios    where id='".$id."' " ;
+        $query = "SELECT  Nombres,Apellidos from usuarios u     where u.id='".$id."' " ;
         $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
         $json = array();
         //$json =mysqli_num_rows($result);
         if(mysqli_num_rows($result)>0){
         		//$json['cliente'][]=nada;
         	while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-
-          //  $query = $query." and r.IdUsuario =".$line["id"] ;         
-          	array_push($json, array($line["Imagen"]));
-          }
-			
+            $fullname=$line["Nombres"]."   ".$line["Apellidos"];
+           //  $var=["nombrecompleto"=>$fullname];      
+          
+      
         }
+			
+       }
+
 		
 		mysqli_close($link);
-		return $json;
+            
+		return  ( $fullname) ;
+  }
+
+
+
+  public function ImageUser($tabla,$datos){
+    //
+  	require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+         
+         $id=$datos["id"];
+        
+        $query = "SELECT  Imagen from usuarios u     where u.id='".$id."' " ;
+        $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+        $json = array();
+        //$json =mysqli_num_rows($result);
+        if(mysqli_num_rows($result)>0){
+        		//$json['cliente'][]=nada;
+        	while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $fullname=$line["Imagen"];
+           //  $var=["nombrecompleto"=>$fullname];      
+          
+      
+        }
+			
+       }
+       		mysqli_close($link);     
+		return  ( $fullname) ;
+  }
+
+
+  public function CargoUser($tabla,$datos){
+    //
+  	require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+         
+         $id=$datos["id"];
+        
+        $query = "SELECT c.Nombre FROM usuarios u inner join  `cargo`  c on c.Id=u.IdCargo WHERE  u.id='".$id."' " ;
+        $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+        $json = array();
+        //$json =mysqli_num_rows($result);
+        if(mysqli_num_rows($result)>0){
+        		//$json['cliente'][]=nada;
+        	while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $fullname=$line["Nombre"];
+           
+          
+      
+        }
+			
+       }
+
+		
+		mysqli_close($link);
+            
+		return  ( $fullname) ;
 
 
 
 
   }
 
+  public function LogrosUser($tabla,$datos){
+    //
+  	require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+         $fullname=0;
+         $id=$datos["id"];
+        
+        $query = "SELECT count(c.Id) as cantidad from usuarios u inner join reconocimiento r on u.Id=r.IdUsuario inner join comportamiento c on c.Id= r.IdComportamiento WHERE  u.id='".$id."' " ;
+        $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+       
+        //$json =mysqli_num_rows($result);
+        if(mysqli_num_rows($result)>0){
+        		//$json['cliente'][]=nada;
+        	while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $fullname=$line["cantidad"];
+           
+          
+      
+        }
+			
+       }
+
+		
+		mysqli_close($link);
+            
+		return  ( $fullname) ;
 
 
 
+
+  }
   
+  public function PuntajeUser($tabla,$datos){
+    //
+  	require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+         $fullname=0;
+         $id=$datos["id"];
+        
+        $query = "SELECT puntaje from usuarios WHERE id ='".$id."' " ;
+        $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+       
+        //$json =mysqli_num_rows($result);
+        if(mysqli_num_rows($result)>0){
+        		//$json['cliente'][]=nada;
+        	while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            $fullname=$line["puntaje"];
+        }
+       }
+
+		
+		mysqli_close($link);
+            
+		return  ( $fullname) ;
+
+
+
+
+  }
+  
+
+
+
   /**
      * agregar nuevo usuario
      */
@@ -708,6 +851,59 @@ public function iddusuario($id){
       	}else{
       		return "no se pudo encontrar al usuario";
       	}
+
+    }
+
+
+
+    public function listlogrosuser($tabla,$datos){
+    	require_once 'modelo/Conexion/connectbd.php';
+      require_once 'modelo/utilitario.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+        
+         $fechaini=$datos["fechaini"];
+         $fechafin=$datos["fechafin"];
+         $fullname='';
+
+        $query = "SELECT  ug.Id,u.Nombres, u.Apellidos,gc.Imagen,gc.Nombre,ug.Cantidad from usuarios u inner join usuariogrupo ug on ug.IdUsuario=u.Id inner join grupocomportamiento gc on gc.Id=ug.IdGrupo where 1=1 " ;
+		    
+        
+
+        if($fechaini != '' && $fechafin != ''){
+          
+            $query = $query." and   ug.FActualizacion BETWEEN '".$fechaini."' and '". $fechafin ."'" ;
+        
+        }
+        $util = new Utils();
+        $util->console_log($query);
+
+
+        $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+        $json = array();
+        //$json =mysqli_num_rows($result);
+        if(mysqli_num_rows($result)>0){
+        		//$json['cliente'][]=nada;
+        	while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+
+          //  $query = $query." and r.IdUsuario =".$line["id"] ;
+               
+         
+                  
+
+                $fullname=$line["Nombres"]."   ".$line["Apellidos"];
+                
+                 
+          	array_push($json, array($line["Id"] ,$fullname,$line["Imagen"],$line["Nombre"],$line["Cantidad"]));
+          }
+			
+        }
+		
+		mysqli_close($link);
+		return $json;
+
+
 
     }
   

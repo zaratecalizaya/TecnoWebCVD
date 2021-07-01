@@ -1,6 +1,7 @@
 <?php
 
   require_once 'modelo/Funciones/UsuarioDAO.php';
+  require_once 'modelo/utilitario.php';
 
 class ControladorUsuario{
   
@@ -75,24 +76,65 @@ class ControladorUsuario{
 
  public function ctrListarCargoUsuario(){
   
-  
+  if(isset($_POST["region"]) ){ 
   $cargo=$_POST["cargo"];
   $region=$_POST["region"];
   $id_subsector=$_POST["subsector"]; 
   $id_sector=$_POST["sector"];
-  $fecha=$_POST["fecha"];
+  $fechaini=$_POST["fechaini"];
+  $fechafin=$_POST["fechafin"];
+ 
+  $idcargo=0;
+  if($cargo !="seleccione" ){
+     $idcargo=intval($cargo);
+  }
+  
+  if($region =="seleccione" ){
+     $region="";
+  }
 
-  if($cargo !="seleccione" && $region!="seleccione" && $id_subsector!="seleccione" && $id_sector!="seleccione" && $fecha!="seleccione"){
-  if(isset($_POST["region"]) ){
+  $idsubsector=0;
+  if($id_subsector !="seleccione" ){
+     $idsubsector=intval($id_subsector);
+  }
 
+  
+  $idsector=0;
+  if($id_sector !="seleccione" ){
+     $idsector=intval($id_sector);
+  }
 
+  
+  $fechaini1="01/01/2000";
+  if($fechaini !="" ){
+     $fechaini1=$fechaini;
+  }
+  
+  
+  $fechafin1="01/01/2000";
+  if($fechafin !="" ){
+     $fechafin1=$fechafin;
+  }
 
-    $datos = array("id_cargo"=>$_POST["cargo"],
-    "region"=>$_POST["region"],
-    "id_subsector"=>$_POST["subsector"],
-    "id_sector"=>$_POST["sector"],
-    "fecha"=>$_POST["fecha"] );
-
+  
+  $fechaini1="01/01/2000";
+  if($fechaini !="00/00/0000" ){
+     $fechaini1=$fechaini;
+  }
+  
+  
+  $fechafin1="01/01/2000";
+  if($fechafin !="00/00/0000" ){
+     $fechafin1=$fechafin;
+  }
+    $datos = array("id_cargo"=>$idcargo,
+    "region"=>$region,
+    "id_subsector"=>$idsubsector,
+    "id_sector"=>$idsector,
+    "fechaini"=>$fechaini1,
+    "fechafin"=>$fechafin1 );
+    
+   
 
     $tabla = "usuarios";
     $Usuariod = new UsuarioDAO();   
@@ -101,13 +143,17 @@ class ControladorUsuario{
     return $respuesta;
      
      
-  }  
-}else{
-  $datos = array("id_cargo"=>0,
+  
+ }else{
+
+
+  
+    $datos = array("id_cargo"=>0,
     "region"=>"",
     "id_subsector"=>0,
    "id_sector"=>0,
-   "fecha"=>""
+   "fechaini"=>$_POST["fechaini"],
+   "fechafin"=>$_POST["fechafin"] 
   
     );
 
@@ -116,12 +162,19 @@ class ControladorUsuario{
      $respuesta = $Usuariod -> listcantidaduser($tabla,$datos);
 
      return $respuesta;
+
+
+
  }
+   
+
+
  $datos = array("id_cargo"=>0,
     "region"=>"",
     "id_subsector"=>0,
    "id_sector"=>0,
-   "fecha"=>""
+   "fechaini"=>"",
+   "fechafin"=>"",
   
     );
 
@@ -427,7 +480,7 @@ class ControladorUsuario{
   
        return $respuesta;
   }
-    
+      
 
 
   public function ctrImagenUsuario($id){
@@ -440,6 +493,129 @@ class ControladorUsuario{
     return $respuesta;
     
   
+}
+ 
+public function ctrCargoUser($id){
+  $datos=array("id"=>$id);
+        
+$tabla = "usuarios";
+$Usuariod = new UsuarioDAO();
+$respuesta = $Usuariod ->CargoUser($tabla,$datos);
+
+return $respuesta;
+}
+
+public function ctrLogrosUser($id){
+  $datos=array("id"=>$id);
+        
+$tabla = "usuarios";
+$Usuariod = new UsuarioDAO();
+$respuesta = $Usuariod ->LogrosUser($tabla,$datos);
+
+return $respuesta;
+}
+
+public function ctrPuntajeUser($id){
+  $datos=array("id"=>$id);        
+$tabla = "usuarios";
+$Usuariod = new UsuarioDAO();
+$respuesta = $Usuariod ->PuntajeUser($tabla,$datos);
+
+return $respuesta;
+}
+
+
+public function ctrImagenUser($id){
+  $datos=array("id"=>$id);        
+$tabla = "usuarios";
+$Usuariod = new UsuarioDAO();
+$respuesta = $Usuariod ->ImageUser($tabla,$datos);
+
+return $respuesta;
+}
+  
+
+public function ctrListarUserModal($id){
+  $datos=array("id"=>$id);        
+$tabla = "usuarios";
+$Usuariod = new UsuarioDAO();
+$respuesta = $Usuariod ->listmodal($tabla,$datos);
+
+return $respuesta;
+}
+
+
+public function ctrListarlogroscantidad(){
+
+  if(isset($_POST["fechaini"]) ){ 
+    
+  $fechaini1="01/01/2000";
+  if($fechaini !="" ){
+     $fechaini1=$fechaini;
+  }
+  
+  
+  $fechafin1="01/01/2000";
+  if($fechafin !="" ){
+     $fechafin1=$fechafin;
+  }
+
+  
+  $fechaini1="01/01/2000";
+  if($fechaini !="00/00/0000" ){
+     $fechaini1=$fechaini;
+  }
+  
+  
+  $fechafin1="01/01/2000";
+  if($fechafin !="00/00/0000" ){
+     $fechafin1=$fechafin;
+  }
+    $datos = array(
+    "fechaini"=>$fechaini1,
+    "fechafin"=>$fechafin1 );
+    
+   
+
+    $tabla = "usuarios";
+    $Usuariod = new UsuarioDAO();   
+    $respuesta = $Usuariod -> listlogrosuser($tabla,$datos);
+
+    return $respuesta;
+
+  }else{
+
+
+  
+   
+
+ $datos = array(
+"fechaini"=>"",
+"fechafin"=>""
+
+ );
+
+  $tabla = "usuarios";
+  $Usuariod = new UsuarioDAO();   
+  $respuesta = $Usuariod -> listlogrosuser($tabla,$datos);
+
+  return $respuesta;
+
+ }
+ 
+
+ $datos = array(
+   "fechaini"=>"",
+   "fechafin"=>""
+  
+    );
+
+     $tabla = "usuarios";
+     $Usuariod = new UsuarioDAO();   
+     $respuesta = $Usuariod ->listlogrosuser($tabla,$datos);
+
+     return $respuesta;
+
 }
 
 }

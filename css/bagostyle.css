@@ -23,17 +23,17 @@
   #col1 {
     border: black;
    background:white;
-    width: 40%;
+    width: 30%;
  }
  #col2 {
-    border: black;
+    border: #000000;
     background: white;
-    width: 20%;
+    width: 40%;
  }
  #col3 {
   border: black;
   background: white;
-  width: 40%;
+  width: 300%;
 }
  #row {
    display: flex;

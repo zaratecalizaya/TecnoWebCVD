@@ -202,13 +202,35 @@ class ControladorLogro{
                   if ($respuesta==true){
                     return "true";
                   }else{
+
+
+
                     return $respuesta;  
                   }
 
 
 
               } else {
-                return "La subida de imagen ha fallado";
+
+
+                $datos = array("nombre"=>$_POST["nombre"],
+                         "puntajemeta"=>$_POST["puntajemeta"],
+                         "imagen"=>""
+                         );
+          
+                  $tabla = "grupocomportamiento";
+                  $Usuariod = new GrupoComportamientoDAO();
+                  $respuesta = $Usuariod -> addGrupoComportamiento($tabla,$datos);
+                  if ($respuesta==true){
+                    return "true";
+                  }else{
+
+
+
+                    return $respuesta;  
+                  }
+
+               // return "La subida de imagen ha fallado";
               }
             }else{
               return "Se ha introducido Caracteres invalidos en el nombre";
