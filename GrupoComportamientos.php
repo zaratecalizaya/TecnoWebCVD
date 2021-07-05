@@ -200,7 +200,7 @@ if (!isset($_SESSION['session_id'])) {
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example1" class="table table-bordered table-striped">
+                <table id="listComportamiento" class="table table-bordered table-striped">
                   <thead>
                   <tr>
                     <th>Id</th>
@@ -365,6 +365,15 @@ if (!isset($_SESSION['session_id'])) {
     });
     
   });
+
+
+  $(document).ready(function () {
+  $('#listComportamiento').DataTable({
+    "scrollX": true
+  });
+  $('.dataTables_length').addClass('bs-select');
+  });
+
 </script>
 
 <script>

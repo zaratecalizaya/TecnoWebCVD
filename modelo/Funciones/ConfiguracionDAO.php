@@ -26,47 +26,38 @@ class ConfiguracionDAO {
     public function addEmail($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
-      require_once 'modelo/utilitario.php';
-        // connecting to database
-        
-        $this->db = new DB_Connect();
-        $link=$this->db->connect();
-		    $mutil = new Utils();
+      // connecting to database
+      $this->db = new DB_Connect();
+      $link=$this->db->connect();
+
         $clavede="EmailDe";
         $clavepara="EmailPara";  
         
-        
-        $mutil -> console_log('datosclave: '.$datos["EmailDe"]);
-       
+      
         $sw=$this->isclaveexist($tabla,$clavede);
-     if($sw==true ){
+      if($sw==true ){
         $result=mysqli_query($link,"UPDATE ".$tabla." SET Valor ='".$datos["EmailDe"]."' where Clave='".$clavede."'");        
 
      }else{
 
-        $result=mysqli_query($link,"INSERT INTO ".$tabla." (Clave,Valor) VALUES('".$clavede."','".$datos["EmailDe"]."'");
+        $result=mysqli_query($link,"INSERT INTO ".$tabla." (Clave,Valor) VALUES('".$clavede."','".$datos["EmailDe"]."')");
         
      } 
      
-      if($result==false){
 
-       return false;     
-      } 
       $sw1=$this->isclaveexist($tabla,$clavepara);
      if($sw1==true){
         $result=mysqli_query($link,"UPDATE ".$tabla." SET Valor ='".$datos["EmailPara"]."' where Clave='".$clavepara."'");        
 
      }else{
 
-        $result=mysqli_query($link,"INSERT INTO ".$tabla." (Clave,Valor) VALUES('".$clavepara."','".$datos["EmailPara"]."'");
+        $result=mysqli_query($link,"INSERT INTO ".$tabla." (Clave,Valor) VALUES('".$clavepara."','".$datos["EmailPara"]."')");
         
      } 
 
       
              
           return $result;
-      
-
     }
  
 

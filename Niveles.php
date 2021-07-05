@@ -258,7 +258,7 @@ if (!isset($_SESSION['session_id'])) {
         <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title"><label id="TituloUser">Agregar Nivel</label> </h3> 
-                <button id="nuevoComportamiento" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Nivel</button>
+                <button id="nuevoNivel" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Nivel</button>
                 
               </div>
               <!-- /.card-header -->

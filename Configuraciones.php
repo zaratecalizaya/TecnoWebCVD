@@ -196,30 +196,30 @@ if (!isset($_SESSION['session_id'])) {
           <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title"><label id="TituloUser">Em@il</label> </h3> 
-                <button id="nuevoComportamiento" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Email</button>
-             
+                <button id="nuevoEmail" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nueva Configuracion</button>
+               
               </div>
               <!-- /.card-header -->
               <!-- form start -->
               <form role="form" method="post"  >
                 <div class="card-body">
                  
-                <label for="">De :</label> 
+                <label for="InputUsuario">De :</label> 
                   <div class="input-group mb-3">
                   
                   
                   <span class="input-group-text" id="basic-addon1"><i class='far fa-envelope'></i></span>
                    
-                   <input id="email1" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                   <input id="emailde"    type="text" class="form-control" placeholder="emailUser" aria-label="Username" aria-describedby="basic-addon1">
                    </div>
 
-                   <label for="">Para :</label> 
+                   <label for="InputUsuario">Para :</label> 
                    <div class="input-group mb-3">
                   
                   
                   <span class="input-group-text" id="basic-addon1"><i class='far fa-envelope'></i></span>
                    
-                   <input id="email2" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                   <input id="emailpara" type="text" class="form-control" placeholder="email" aria-label="Username" aria-describedby="basic-addon1">
                    </div>
                                   
                 </div>
@@ -229,9 +229,10 @@ if (!isset($_SESSION['session_id'])) {
                  <?php
                       require_once 'Controlador/usuario.controlador.php';
                       $configuracion = new ControladorUsuario();
+
                       $resp= $configuracion -> ctrRegistroEmail();
                       if ($resp=="true"){
-                        //echo "<script> alert(' respuesta: ".$resp." ')</script>";
+                        echo "<script> alert(' respuesta: ".$resp." ')</script>";
                          echo "<meta http-equiv='refresh' content='0'>";
                       }elseif($resp=="false"){
                         echo "<script> alert(' respuesta: al parecer fue falso XD')</script>";
@@ -329,29 +330,14 @@ if (!isset($_SESSION['session_id'])) {
   
   
   function newUser(){
-    document.getElementById("email1").value = "";
-    document.getElementById("email2").value = "";
+    document.getElementById("emailde").value = "";
+    document.getElementById("emailpara").value = "";
     
     $('#TituloUser').text("Agregar email");
   //  document.getElementById("TituloUser").value = "Agregar Usuario";  
   }
   
-  function updateStatus(id){
-      var parametros = {
-                "id" : id,
-              
-        };
-      
-      $.ajax({
-        type: "POST",
-        url: "comportamientoestado.php",
-        data: parametros,
-        success:function( msg ) {
-          window.location.href = window.location.href;
-       //  alert( "Data actualizada. " + msg );
-        }
-       });
-  }
+  
   
   
 </script>

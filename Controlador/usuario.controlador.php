@@ -621,12 +621,13 @@ public function ctrListarlogroscantidad(){
 
 
 public function ctrRegistroEmail(){
+  echo("no esta pasando nada");
       
-  if(isset($_POST["email1"])){
-   
-      if(($_POST["email1"])==""){
-       
-              $datos = array("EmailDe"=>$_POST["email1"],"EmailPara"=>$_POST["email2"]   );
+  if(isset($_POST["emailde"])){
+    echo ("aun te falta alcanzar");
+      if(($_POST["emailde"])==""){
+       echo ("la consulta");
+              $datos = array("EmailDe"=>$_POST["emailde"],"EmailPara"=>$_POST["emailpara"]   );
               $tabla = "configuracion";
               $Usuariod = new ConfiguracionDAO();
               $respuesta = $Usuariod -> addEmail($tabla,$datos);
