@@ -192,181 +192,152 @@ if (!isset($_SESSION['session_id'])) {
     <!-- /.content-header -->
 
     <!-- Main content -->
-
-
- <form role="form" enctype="multipart/form-data" method="post"  >
-  <section class="content hero-image" >
+    <section class="content hero-image" >
       <div class="container-fluid" >
+
         <div class="row">
+        >
           <div class="col-12">
-        
- <div class="card card-primary">
-           <div class="card-header" >
-                <h3 class="card-title">Busquedas</h3>
-            </div>
+            <div class="card card-primary">
+              <div class="card-header" >
+                <h3 class="card-title">Busquedas </h3>
+              </div>
+ 
+   
 
-       <table class="table table-bordered table-striped">
-       <thead>
-       <tr>
-       <th>
- <div class="col">
+
+              <!-- /.card-header -->
+              <div class="card-body">
+                
+              <table class="table table-bordered table-striped" >
+                    <thead>
+                      <tr>
+                       <th>
+                         <div class="col">
     
-     <div class="col order-5">
-        <label for="start" class="form-label"  >Fecha Inicio: </label>
-        <input type="date" id="fechaini" name="fechaini" style="margin-left: 20px"  data-inputmask-inputformat="yyyy/mm/dd" data-mask  min="2021-06-01" max="2071-07-01">
+                           <div class="col order-5">
+                              <label for="start" class="form-label"  >Fecha Inicio: </label>
+                              <input type="date" id="fechaini" name="fechaini" style="margin-left: 20px"  data-inputmask-inputformat="yyyy/mm/dd" data-mask  min="2021-06-01" max="2071-07-01">
   
-       <label for="start" class="form-label" style="margin-left: 40px">Fecha Fin:   </label>
+                              <label for="start" class="form-label" style="margin-left: 40px">Fecha Fin:   </label>
 
-       <input type="date" id="fechafin" name="fechafin" style="margin-left: 20px" data-inputmask-inputformat="yyyy/mm/dd" data-mask  min="2021-06-01" max="2071-07-01">
+                              <input type="date" id="fechafin" name="fechafin" style="margin-left: 20px" data-inputmask-inputformat="yyyy/mm/dd" data-mask  min="2021-06-01" max="2071-07-01">
           
-    </div>
- </div>
+                            </div>
+                         </div>
 
 
-       </th>
-       </tr>
-       </thead>
-       </table>     
-   <table  class="table table-bordered table-striped">
-        <thead  >
-          <tr>
-
-
-        <th>
-       <div class="col">
+                       </th>
+                      </tr>
+                   </thead>
+               </table>     
+              <table  class="table table-bordered table-striped " id="busquedas" >
+                    <thead  >
+                          <tr>
+                            <th>
+                              <div class="col">
     
-          <div class="mb-3">
-            <label for="disabledSelect" class="form-label">Region: </label>
+                                  <div >
+                                    <label for="disabledSelect" class="form-label">Region: </label>
       
-             <select class="form-control select2"  id="region" name="region" style="width: 100%;">
-               <option selected="selected">seleccione</option>
-                      <option>BENI</option>
-                      <option>COCHABAMBA</option>
-                      <option>EL ALTO</option>
-                      <option>LA PAZ</option>                    
-                      <option>NACIONAL</option>
-                      <option>ORURO</option>
-                      <option>PANDO</option>
-                      <option>POTOSI</option>
-                      <option>SANTA CRUZ</option>
-                      <option>SUCRE</option>
-                      <option>TARIJA</option>
+                                        <select class="form-control select2"  id="region" name="region" style="width: 100%;">
+                                           <option selected="selected">seleccione</option>
+                                           <option>BENI</option>
+                                           <option>COCHABAMBA</option>
+                                           <option>EL ALTO</option>
+                                           <option>LA PAZ</option>                    
+                                           <option>NACIONAL</option>
+                                           <option>ORURO</option>
+                                           <option>PANDO</option>
+                                           <option>POTOSI</option>
+                                           <option>SANTA CRUZ</option>
+                                           <option>SUCRE</option>
+                                           <option>TARIJA</option>
 
-             </select>
-         </div>
-       </div>
-       </th>
+                                        </select>
+                                   </div>
+                               </div>
+                            </th>
  
-      <th>
-       <div class="col order-1">
+                            <th>
+                              <div class="col order-1">
     
-          <div class="mb-3">
-            <label for="disabledSelect" class="form-label">Sector: </label>
+                                  <div >
+                                      <label for="disabledSelect" class="form-label">Sector: </label>
       
-               <select class="form-control select2" id="sector" name="sector"  style="width: 100%;"> 
-               <option selected="selected">seleccione</option>
-                    
-                    
-                    <?php
-                      
-                      require_once 'Controlador/usuario.controlador.php';
+                                         <select class="form-control select2" id="sector" name="sector"  style="width: 100%;"> 
+                                             <option selected="selected">seleccione</option>
+                                                <?php
+                                                   require_once 'Controlador/usuario.controlador.php';
                      
-                      $cusuario = new ControladorUsuario();
-                      $list=  $cusuario -> ctrListarSectores();
+                                                     $cusuario = new ControladorUsuario();
+                                                     $list=  $cusuario -> ctrListarSectores();
                     
-                      while (count($list)>0){
-                        $User = array_shift($list);
-                        $Did = array_shift($User);
-                        $Dnombres = array_shift($User);
-                        echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
-                      }
-                    ?>
-               </select>
-          </div>
-       </div>
-     </th>  
-    <th>
-     <div class="col order-1">
-     
-       <div class="mb-3">
-         <label for="disabledSelect" class="form-label">Subsector: </label>
-      
-         <select class="form-control select2" id="subsector" name="subsector"  style="width: 100%;"> 
-                    
-                    
-         <option selected="selected">seleccione</option>
-                    <?php
-                      
-                      require_once 'Controlador/usuario.controlador.php';
+                                                        while (count($list)>0){
+                                                          $User = array_shift($list);
+                                                          $Did = array_shift($User);
+                                                          $Dnombres = array_shift($User);
+                                                          echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
+                                                        }
+                                                 ?>
+                                          </select>
+                                   </div>
+                             </div>
+                           </th>  
+                           <th>
+                               <div class="col order-1">
+                                    <div >
+                                       <label for="disabledSelect" class="form-label">Subsector: </label> 
+                                           <select class="form-control select2" id="subsector" name="subsector"  style="width: 100%;">     
+                                             <option selected="selected">seleccione</option>
+                                               <?php
+                                                  require_once 'Controlador/usuario.controlador.php';
                      
-                      $cusuario = new ControladorUsuario();
-                      $list=  $cusuario -> ctrListarSubSectores(4);
+                                                     $cusuario = new ControladorUsuario();
+                                                     $list=  $cusuario -> ctrListarSubSectores(4);
+                                                        while (count($list)>0){
+                                                          $User = array_shift($list);
+                                                          $Did = array_shift($User);
+                                                          $Dnombres = array_shift($User);
+                                                           echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
+                                                         }
+                                               ?>
+                                            </select>
+                                      </div>
+                                 </div>
+                             </th>
+                              <th>
+                                 <div class="col order-5">
+                                      <div >
+                                          <label for="disabledSelect" class="form-label">Cargo: </label>
+                                              <select class="form-control select2"  id="cargo" name="cargo" style="width: 100%;">
+                                                 <option selected="selected">seleccione</option>
+                                                    <?php
+                                                       require_once 'Controlador/usuario.controlador.php';
+                                                        $cusuario = new ControladorUsuario();
+                                                        $list=  $cusuario -> ctrListarCargo(9);
                     
-                      while (count($list)>0){
-                        $User = array_shift($list);
-                        $Did = array_shift($User);
-                        $Dnombres = array_shift($User);
-                        echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
-                      }
-                    ?>
-         </select>
-       </div>
-    </div>
-    </th>
- 
+                                                        while (count($list)>0){
+                                                        $User = array_shift($list);
+                                                        $Did = array_shift($User);
+                                                        $Dnombres = array_shift($User);
+                                                         echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
+                                                        }
+                                                    ?>
+                                                </select>
+                                       </div>
+                                   </div>
+                               </th>
+                               <th>
+                                 <div class="col-sm-3">
+                                     <input type="submit" class="btn btn-success" value="Buscar">
+                                   </div>
+                                   
+                                </th>
 
-
-    <th>
-    <div class="col order-5">
-      <div class="mb-3">
-         <label for="disabledSelect" class="form-label">Cargo: </label>
-      
-          <select class="form-control select2"  id="cargo" name="cargo" style="width: 100%;">
-          <option selected="selected">seleccione</option>
-                   <?php
-                      
-                      require_once 'Controlador/usuario.controlador.php';
-                     
-                      $cusuario = new ControladorUsuario();
-                      $list=  $cusuario -> ctrListarCargo(9);
-                    
-                      while (count($list)>0){
-                        $User = array_shift($list);
-                        $Did = array_shift($User);
-                        $Dnombres = array_shift($User);
-                        echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
-                      }
-            ?>
-          </select>
-     </div>
-    </div>
-    </th>
-
-
-
-
-
-
-
-     <th>
-      <div class="card-footer">
-         
-        
-
-        <input type="submit" class="btn btn-success" value="Buscar">
-      </div>
-
-
-     
-     
-     <br>
-    </th>
-
-    </thead>
-  </table> 
-
-         <div class="card-body">
-           <table id="listrecomendacion" class="table table-bordered table-striped">
+               </thead>
+            </table>
+              <table id="listrecomendacion" class="table table-bordered table-striped">
                   <thead>
                     <tr>
                      <th>Id</th>
@@ -405,31 +376,24 @@ if (!isset($_SESSION['session_id'])) {
                 ?>   
               </tbody>
           </table>
-        </div>
+
+              </div>
+              <!-- /.card-body -->
+            </div>
+          
 
 
 
-
-
-
-
-</div>
-
-
-</div>
-        
-        
-    </div>
-          <!-- /.col -->
-      
-        <!-- /.row -->
+           <!-- /.col -->
+         </div>
+         <!-- /.row -->
  
+            <!-- /.card -->
+       </div><!--/. container-fluid -->
+      </div>
     </section>
-    </form>
     <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
-
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -461,7 +425,7 @@ if (!isset($_SESSION['session_id'])) {
 <script>
   $(function () {
     $("#example1").DataTable({
-      
+      "responsive":true,
       "autoWidth": false,
     });
 
@@ -508,9 +472,7 @@ $("#sector").on('change', function () {
 <script>
  
  
-  
-  
-  
+ 
 
 
 

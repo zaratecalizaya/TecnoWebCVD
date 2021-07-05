@@ -4,7 +4,6 @@ if (!isset($_SESSION['session_id'])) {
     header('location: login.php');
 }
 ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -197,38 +196,53 @@ if (!isset($_SESSION['session_id'])) {
           <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title"><label id="TituloUser">Em@il</label> </h3> 
-               
+                <button id="nuevoComportamiento" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Email</button>
+             
               </div>
               <!-- /.card-header -->
               <!-- form start -->
               <form role="form" method="post"  >
                 <div class="card-body">
                  
-                  <div class="form-group">
-                    <label for="exampleInputNombre">De :</label>
-                    <span class="input-group-text">
-                    <i class="fas fa-envelope">
-                    </i>
-                    
-                    </span>
-                    <input type="email" class="form-control" id="nombre" name="nombre" placeholder="Ingrese su correo">
-                  </div>
-                  <div class="form-group">
-                    <label for="InputUsuario">Para:</label>
-                    <input type="email" class="form-control" id="numero" name="numero" placeholder="Destinatario">
-                  </div>
-                   
-                   
-                         
-
-
+                <label for="">De :</label> 
+                  <div class="input-group mb-3">
                   
+                  
+                  <span class="input-group-text" id="basic-addon1"><i class='far fa-envelope'></i></span>
+                   
+                   <input id="email1" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                   </div>
+
+                   <label for="">Para :</label> 
+                   <div class="input-group mb-3">
+                  
+                  
+                  <span class="input-group-text" id="basic-addon1"><i class='far fa-envelope'></i></span>
+                   
+                   <input id="email2" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+                   </div>
+                                  
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
-                 
-                  
+                 <?php
+                      require_once 'Controlador/usuario.controlador.php';
+                      $configuracion = new ControladorUsuario();
+                      $resp= $configuracion -> ctrRegistroEmail();
+                      if ($resp=="true"){
+                        //echo "<script> alert(' respuesta: ".$resp." ')</script>";
+                         echo "<meta http-equiv='refresh' content='0'>";
+                      }elseif($resp=="false"){
+                        echo "<script> alert(' respuesta: al parecer fue falso XD')</script>";
+                      }else{  
+                        if ($resp!=""){
+                        echo "<script> alert(' respuesta: ".$resp." ')</script>";
+                      } }
+  
+                          
+
+                  ?>
                   <input type="submit" class="btn btn-primary" value="Enviar">
                 </div>
               </form>
@@ -244,27 +258,13 @@ if (!isset($_SESSION['session_id'])) {
         <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title"><label id="TituloUser">Configuraciones</label> </h3> 
-             
-              </div>
+               
+                </div>
               <!-- /.card-header -->
               <!-- form start -->
               <form role="form" method="post"  >
                 <div class="card-body">
                  
-                  <div class="form-group">
-                    <label for="exampleInputNombre">Estado</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="">
-                  </div>
-                  <div class="form-group">
-                    <label for="InputUsuario">Numero</label>
-                    <input type="text" class="form-control" id="numero" name="numero" placeholder="">
-                  </div>
-                   
-                   
-                  <div class="form-group">
-                    <label for="InputUsuario">Puntaje Minimo</label>
-                    <input type="text" class="form-control" id="puntajemin" name="puntajemin" placeholder="">
-                  </div>
                   
                                 
                   
@@ -326,25 +326,13 @@ if (!isset($_SESSION['session_id'])) {
 </script>
 
 <script>
-  function saveData(id, nombre,numero,puntajemin,grupomin){
-    document.getElementById("id").value = id;
-    document.getElementById("nombre").value = nombre;
-    document.getElementById("numero").value = numero;
-    document.getElementById("puntajemin").value = puntajemin;
-    document.getElementById("grupomin").value = grupomin;
- 
-    $('#TituloUser').text("Editar Nivel");
-//    document.getElementById("TituloUser").value = "Editar Usuario";  
-  }
+  
   
   function newUser(){
-    document.getElementById("id").value = 0;
-    document.getElementById("nombre").value = "";
-    document.getElementById("numero").value = "";
-    document.getElementById("puntajemin").value = "";
-    document.getElementById("grupomin").value = "";
+    document.getElementById("email1").value = "";
+    document.getElementById("email2").value = "";
     
-    $('#TituloUser').text("Agregar Nivel");
+    $('#TituloUser').text("Agregar email");
   //  document.getElementById("TituloUser").value = "Agregar Usuario";  
   }
   

@@ -456,11 +456,7 @@ class UsuarioDAO {
         		//$json['cliente'][]=nada;
         	while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 
-          //  $query = $query." and r.IdUsuario =".$line["id"] ;
-               
-         
-                  
-
+          //  $query = $query." and r.IdUsuario =".$line["id"];                                         
                 $fullname=$line["Nombres"]."   ".$line["Apellidos"];
                  $contador=$this->cantidadreconocimiento($line["id"]);
                  $sumando=$this->sumandopuntaje($line["id"]);

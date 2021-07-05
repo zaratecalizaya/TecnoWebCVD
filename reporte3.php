@@ -208,7 +208,10 @@ if (!isset($_SESSION['session_id'])) {
                 <h3 class="card-title">Busquedas</h3>
             </div>
 
-       <table class="table table-bordered table-striped">
+     
+         <div class="card-body">
+
+         <table class="table table-bordered table-striped">
        <thead>
        <tr>
        <th>
@@ -243,7 +246,8 @@ if (!isset($_SESSION['session_id'])) {
        </thead>
        </table>     
  
-         <div class="card-body">
+
+         
            <table id="list" class="table table-bordered table-striped">
                   <thead>
                     <tr>
@@ -373,7 +377,7 @@ $('.select2bs4').select2({
 <script>
  
  
-  
+ 
   
   
 
@@ -397,6 +401,7 @@ $('.select2bs4').select2({
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <!-- Select2 -->
 <script src="plugins/select2/js/select2.full.min.js"></script>
+<!-- tabletoExcel SCRIPTS -->
 
 
 <!-- PAGE SCRIPTS -->

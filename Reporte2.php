@@ -304,8 +304,6 @@ if (!isset($_SESSION['session_id'])) {
                 <table  class="table table-bordered table-striped" >
                   <thead  >
                             <tr>
-
-
                                <th >
                                    <div class="col">
     
@@ -342,7 +340,7 @@ if (!isset($_SESSION['session_id'])) {
                                </th>
                                <th >   
 
-                                      <div class="col-sm-3" >
+                                      <div class="col" >
                 
                                          <input type="submit" class="btn btn-success" value="Buscar">
                                      </div>

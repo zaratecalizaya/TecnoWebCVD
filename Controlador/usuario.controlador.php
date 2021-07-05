@@ -618,6 +618,35 @@ public function ctrListarlogroscantidad(){
 
 }
 
+
+
+public function ctrRegistroEmail(){
+      
+  if(isset($_POST["email1"])){
+   
+      if(($_POST["email1"])==""){
+       
+              $datos = array("EmailDe"=>$_POST["email1"],"EmailPara"=>$_POST["email2"]   );
+              $tabla = "configuracion";
+              $Usuariod = new ConfiguracionDAO();
+              $respuesta = $Usuariod -> addEmail($tabla,$datos);
+             // return $respuesta;  
+              if ($respuesta==true){
+                return "true";
+              }else{
+                return $respuesta;  
+              }
+      }
+    
+  }else{
+    return "";
+  }
+  
+}
+
+
+
+
 }
 
 ?>
