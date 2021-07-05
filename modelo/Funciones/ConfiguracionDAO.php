@@ -43,10 +43,12 @@ class ConfiguracionDAO {
         $result=mysqli_query($link,"INSERT INTO ".$tabla." (Clave,Valor) VALUES('".$clavede."','".$datos["EmailDe"]."')");
         
      } 
-     
+     if($result==false ){
+       return false;
+     }
 
-      $sw1=$this->isclaveexist($tabla,$clavepara);
-     if($sw1==true){
+      $swt=$this->isclaveexist($tabla,$clavepara);
+     if($swt==true){
         $result=mysqli_query($link,"UPDATE ".$tabla." SET Valor ='".$datos["EmailPara"]."' where Clave='".$clavepara."'");        
 
      }else{
@@ -87,6 +89,32 @@ class ConfiguracionDAO {
     }
  
  
+    public function listconfiguraciones($pagina,$cantidad){
+      require_once 'modelo/Conexion/connectbd.php';
+          // connecting to database
+          $this->db = new DB_Connect();
+          $link=$this->db->connect();
+      //$json=$cuenta;
+      
+    
+      $query = "SELECT Id,Clave,Valor FROM configuracion ";
+      $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+    
+      $json = array();
+      //$json =mysqli_num_rows($result);
+      if(mysqli_num_rows($result)>0){
+          //$json['cliente'][]=nada;
+        while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+          
+          array_push($json, array($line["Id"],$line["Clave"],$line["Valor"]));
+        }
+        
+      }
+      
+      mysqli_close($link);
+      return $json;
+      
+    }
 
 
     

@@ -201,6 +201,31 @@ if (!isset($_SESSION['session_id'])) {
               </div>
               <!-- /.card-header -->
               <!-- form start -->
+              <?php 
+                      require_once 'Controlador/configuracion.controlador.php';
+   
+                  
+                      $configuracion = new ControladorConfiguracion();
+                       $list=  $configuracion -> ctrListarConfiguracion(1,1000);
+                    
+                       $emaild ="";
+                       $emailp ="";
+                      while (count($list)>0){
+                        $Configuracion = array_shift($list);
+                        $Did = array_shift($Configuracion);
+                        $Dclave = array_shift($Configuracion);
+                        $Dvalor = array_shift($Configuracion);
+                        if ($Dclave=="EmailDe"){
+                          $emaild=$Dvalor;
+                        }
+                        if ($Dclave=="EmailPara"){
+                          $emailp=$Dvalor;
+                        }
+                      }
+                    
+                   ?> 
+                    
+
               <form role="form" method="post"  >
                 <div class="card-body">
                  
@@ -208,9 +233,10 @@ if (!isset($_SESSION['session_id'])) {
                   <div class="input-group mb-3">
                   
                   
+
                   <span class="input-group-text" id="basic-addon1"><i class='far fa-envelope'></i></span>
                    
-                   <input id="emailde"    type="text" class="form-control" placeholder="emailUser" aria-label="Username" aria-describedby="basic-addon1">
+                   <input id="emailde" name="emailde"   type="text" class="form-control" placeholder="emailUser" aria-label="Username" aria-describedby="basic-addon1" value="<?php echo $emaild; ?> " >
                    </div>
 
                    <label for="InputUsuario">Para :</label> 
@@ -219,7 +245,7 @@ if (!isset($_SESSION['session_id'])) {
                   
                   <span class="input-group-text" id="basic-addon1"><i class='far fa-envelope'></i></span>
                    
-                   <input id="emailpara" type="text" class="form-control" placeholder="email" aria-label="Username" aria-describedby="basic-addon1">
+                   <input id="emailpara" name="emailpara" type="text" class="form-control" placeholder="email" aria-label="Username" aria-describedby="basic-addon1" value="<?php echo $emailp; ?>">
                    </div>
                                   
                 </div>
@@ -227,15 +253,14 @@ if (!isset($_SESSION['session_id'])) {
 
                 <div class="card-footer">
                  <?php
-                      require_once 'Controlador/usuario.controlador.php';
-                      $configuracion = new ControladorUsuario();
+                      
 
                       $resp= $configuracion -> ctrRegistroEmail();
                       if ($resp=="true"){
-                        echo "<script> alert(' respuesta: ".$resp." ')</script>";
+                        //echo "<script> alert(' respuesta: ".$resp." ')</script>";
                          echo "<meta http-equiv='refresh' content='0'>";
                       }elseif($resp=="false"){
-                        echo "<script> alert(' respuesta: al parecer fue falso XD')</script>";
+                      //  echo "<script> alert(' respuesta: al parecer fue falso XD')</script>";
                       }else{  
                         if ($resp!=""){
                         echo "<script> alert(' respuesta: ".$resp." ')</script>";

@@ -590,8 +590,8 @@ public function ctrListarlogroscantidad(){
    
 
  $datos = array(
-"fechaini"=>"",
-"fechafin"=>""
+ "fechaini"=>"",
+ "fechafin"=>""
 
  );
 
@@ -618,32 +618,6 @@ public function ctrListarlogroscantidad(){
 
 }
 
-
-
-public function ctrRegistroEmail(){
-  echo("no esta pasando nada");
-      
-  if(isset($_POST["emailde"])){
-    echo ("aun te falta alcanzar");
-      if(($_POST["emailde"])==""){
-       echo ("la consulta");
-              $datos = array("EmailDe"=>$_POST["emailde"],"EmailPara"=>$_POST["emailpara"]   );
-              $tabla = "configuracion";
-              $Usuariod = new ConfiguracionDAO();
-              $respuesta = $Usuariod -> addEmail($tabla,$datos);
-             // return $respuesta;  
-              if ($respuesta==true){
-                return "true";
-              }else{
-                return $respuesta;  
-              }
-      }
-    
-  }else{
-    return "";
-  }
-  
-}
 
 
 
