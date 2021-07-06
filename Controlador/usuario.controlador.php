@@ -441,9 +441,9 @@ class ControladorUsuario{
     
     $region=$_POST["region"];
     $datos=$_POST["datos"];
-  
-    if($region!="seleccione"){
     if(isset($_POST["region"]) ){
+    if($region!="seleccione"){
+    
   
       $datos = array( "region"=>$_POST["region"],
       "datos"=>$_POST["datos"] );
@@ -548,7 +548,10 @@ return $respuesta;
 public function ctrListarlogroscantidad(){
 
   if(isset($_POST["fechaini"]) ){ 
-    
+    $fechaini=$_POST["fechaini"];
+    $fechafin=$_POST["fechafin"];
+
+
   $fechaini1="01/01/2000";
   if($fechaini !="" ){
      $fechaini1=$fechaini;

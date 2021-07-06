@@ -423,7 +423,7 @@ class UsuarioDAO {
          $fechafin=$datos["fechafin"];
          $fullname='';
 
-        $query = "SELECT u.id, u.Nombres, u.Apellidos from usuarios u inner join cargo c on c.Id=u.IdCargo inner join subsector ss on ss.id=c.IdSubSector inner join sector s on s.id=ss.IdSector inner join reconocimiento as r on r.IdUsuario=u.Id   where (1=1) " ;
+        $query = "SELECT  u.id , u.Nombres, u.Apellidos from usuarios u inner join cargo c on c.Id=u.IdCargo inner join subsector ss on ss.id=c.IdSubSector inner join sector s on s.id=ss.IdSector inner join reconocimiento as r on r.IdUsuario=u.Id  GROUP BY u.Id  HAVING (1=1) " ;
 		    
           if ($region!=""){
               $query = $query." and u.region ='".$region."'" ;
@@ -442,7 +442,7 @@ class UsuarioDAO {
 
         if($fechaini != '' && $fechafin != ''){
           
-            $query = $query." and   r.FActualizacion BETWEEN '".$fechaini."' and '". $fechafin ."'" ;
+            $query = $query." and   date(r.FActualizacion) BETWEEN '".$fechaini."' and '". $fechafin ."'" ;
         
         }
         $util = new Utils();
@@ -564,7 +564,7 @@ public function listmodal($tabla,$datos){
          $fullname='';
          $empleado='';
          
-        $query = "SELECT   r.Id ,r.IdUsuario, u.Nombres,u.Apellidos, gc.Imagen,c.Nombre as comportamiento, r.Comentario from usuarios  u inner join reconocimiento   r on  u.Id=r.IdUsuario    inner JOIN comportamiento c on r.IdComportamiento=c.Id inner join grupocomportamiento gc on gc.Id=c.IdGrupo    where (1=1) " ;
+        $query = "SELECT   r.Id ,r.IdUsuario, u.Nombres,u.Apellidos, gc.Imagen,c.Nombre as comportamiento, r.Comentario from usuarios  u inner join reconocimiento   r on  u.Id=r.IdUsuario    inner JOIN comportamiento c on r.IdComportamiento=c.Id inner join grupocomportamiento gc on gc.Id=c.IdGrupo where (1=1) " ;
 		    
           if ($region!="" ){
               $query = $query." and u.region ='".$region."'" ;
@@ -869,7 +869,7 @@ public function listmodal($tabla,$datos){
 
         if($fechaini != '' && $fechafin != ''){
           
-            $query = $query." and   ug.FActualizacion BETWEEN '".$fechaini."' and '". $fechafin ."'" ;
+            $query = $query." and   date(ug.FActualizacion) BETWEEN '".$fechaini."' and '". $fechafin ."'" ;
         
         }
         $util = new Utils();

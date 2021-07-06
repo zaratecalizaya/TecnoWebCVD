@@ -281,29 +281,6 @@ if (!isset($_SESSION['session_id'])) {
         </div>
         <!-- /.row -->
  
-        <div class="card card-primary">
-              <div class="card-header">
-                <h3 class="card-title"><label id="TituloUser">Configuraciones</label> </h3> 
-               
-                </div>
-              <!-- /.card-header -->
-              <!-- form start -->
-              <form role="form" method="post"  >
-                <div class="card-body">
-                 
-                  
-                                
-                  
-                </div>
-                <!-- /.card-body -->
-
-                <div class="card-footer">
-               
-                  
-                  <input type="submit" class="btn btn-primary" value="Enviar">
-                </div>
-              </form>
-        </div>
             <!-- /.card -->
       </div><!--/. container-fluid -->
     </section>

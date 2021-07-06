@@ -316,7 +316,8 @@ if (!isset($_SESSION['session_id'])) {
       
         <!-- /.row -->
         <div class="card-footer">
-        <input type="submit" class="btn btn-success" value="Export Excel" value="Export" onclick="GenerarExcel()">
+        
+        <a href="exportarexcel.php" class="btn btn-success">Descargar Excel</a>
         </div>
                   
         
@@ -383,22 +384,7 @@ $('.select2bs4').select2({
 
 <script>
  
- function GenerarExcel(){
-      var parametros = {
-              
-        };
-      
-      $.ajax({
-        type: "POST",
-        url: "exportarexcel.php",
-        data: parametros,
-        success:function( msg ) {
-          window.location.href = window.location.href;
-       //  alert( "Data actualizada. " + msg );
-        }
-       });
-  }
- 
+  
   
   
 

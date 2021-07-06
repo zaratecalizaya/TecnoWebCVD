@@ -436,6 +436,10 @@ if (!isset($_SESSION['session_id'])) {
           <!-- /.col -->
       
         <!-- /.row -->
+        <div class="card-footer">
+        
+        <a href="exportarexcel2.php" class="btn btn-success">Descargar Excel</a>
+        </div>
  
     </section>
     </form>
