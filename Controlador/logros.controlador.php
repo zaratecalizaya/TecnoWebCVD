@@ -241,7 +241,7 @@ class ControladorLogro{
                 $datos = array("id"=>$_POST["id"],
                          "nombre"=>$_POST["nombre"],
                          "puntajemeta"=>$_POST["puntajemeta"],
-                         "imagen"=>$subir_archivo
+                         
                          );
           
                 $tabla = "grupocomportamiento";

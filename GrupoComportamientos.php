@@ -230,7 +230,7 @@ if (!isset($_SESSION['session_id'])) {
                       echo "<td>".$DPuntajeMeta."</td>";
                       $Darchivo = array_shift($Grupo);
                       if ($Darchivo!=""){
-                        echo "<td><a href='".$Darchivo."' target='_blank'><img src='".$Darchivo."' width='100'></a></td>";  
+                        echo "<td><img src='".$Darchivo."' width='100'></td>";  
                       }else{
                         echo "<td></td>";
                       }
@@ -324,6 +324,11 @@ if (!isset($_SESSION['session_id'])) {
             </div>
             <!-- /.card -->
       </div><!--/. container-fluid -->
+      <div class="card-footer">
+        
+        <a href="exportargrupo.php" class="btn btn-success">Descargar Excel</a>
+        </div>
+ 
     </section>
     <!-- /.content -->
   </div>
@@ -381,6 +386,7 @@ if (!isset($_SESSION['session_id'])) {
     document.getElementById("id").value = id;
     document.getElementById("nombre").value = nombre;
     document.getElementById("puntajemeta").value = puntajemeta;
+    
     $('#TituloUser').text("Editar Grupo");
 //    document.getElementById("TituloUser").value = "Editar Usuario";  
   }

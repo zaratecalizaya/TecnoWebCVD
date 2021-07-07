@@ -1,8 +1,6 @@
 <?php
-
-
 header('Content-Type:text/xls; charset=latin1');
-header('Content-Disposition: attachment;filename="Reporte_Fechas_Ingreso.xls"');
+header('Content-Disposition: attachment;filename="Reporte.xls"');
 
 ?>
 

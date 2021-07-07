@@ -345,6 +345,10 @@ if (!isset($_SESSION['session_id'])) {
             </div>
             <!-- /.card -->
       </div><!--/. container-fluid -->
+      <div class="card-footer">
+        
+        <a href="exportarcomportamiento.php" class="btn btn-success">Descargar Excel</a>
+        </div>
     </section>
     <!-- /.content -->
   </div>

@@ -106,28 +106,6 @@ class ComportamientoDAO {
 
 
 
-    public function updateuserWeb($tabla,$datos) { //regusu et no es
-
-      require_once 'modelo/Conexion/connectbd.php';
-        // connecting to database
-        $this->db = new DB_Connect();
-        $link=$this->db->connect();
-		
-      	$pu=$this->isuserexist($tabla, $datos["usuario"]);
-        if($pu==true){
-          if ($datos["clave"]==""){
-            $result=mysqli_query($link,"UPDATE ".$tabla." SET Nombre = '".$datos["nombre"]."',Usuario='".$datos["usuario"]."' ,FActualizacion = now() where id = ".$datos["id"]);
-            return $result;
-          }else{
-            $clave = md5($datos["clave"]);
-            $result=mysqli_query($link,"UPDATE ".$tabla." SET Nombre = '".$datos["nombre"]."',Usuario='".$datos["usuario"]."' ,Clave ='".$clave."',FActualizacion = now() where id = ".$datos["id"]);
-            return $result;
-          }          
-      	}else{
-      		return false;
-      	}
-
-    }
  
   
 	

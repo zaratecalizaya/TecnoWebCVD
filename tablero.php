@@ -376,6 +376,10 @@ if (!isset($_SESSION['session_id'])) {
         
         <!-- /.row -->
       </div><!--/. container-fluid -->
+      <div class="card-footer">
+        
+        <a href="exportartablero.php" class="btn btn-success">Descargar Excel</a>
+        </div>
     </section>
     <!-- /.content -->
   </div>
