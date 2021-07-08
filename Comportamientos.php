@@ -232,8 +232,8 @@ if (!isset($_SESSION['session_id'])) {
                       echo "<td>".$Dnombre."</td>";
                       $Dpuntaje = array_shift($Comportamiento);
                       echo "<td>".$Dpuntaje."</td>";
-                      $Didgrupo = array_shift($Comportamiento);
-                      echo "<td>".$Didgrupo."</td>";
+                      $Dgruponombre = array_shift($Comportamiento);
+                      echo "<td>".$Dgruponombre."</td>";
                       $Destado = array_shift($Comportamiento);
                       $Destadobtn="Habilitar";
                       $DestadoIco="thumbs-up";
@@ -245,6 +245,9 @@ if (!isset($_SESSION['session_id'])) {
                       $Dfechaact = array_shift($Comportamiento);
                       echo "<td>".$Dfechaact."</td>";
                     
+
+                      $Didgrupo = array_shift($Comportamiento);
+
                       echo '<td>
                               <button class="btn" onclick="saveData('.$Did.',\''.$Dnombre.'\',\''.$Dpuntaje.'\',\''.$Didgrupo.'\')"><i class="fas fa-edit"></i> Editar</button>
                               <button class="btn" onclick="updateStatus('.$Did.')"><i class="far fa-'.$DestadoIco.'"></i>'.$Destadobtn.'</button>
@@ -422,17 +425,21 @@ $(document).ready(function () {
     document.getElementById("id").value = id;
     document.getElementById("nombre").value = nombre;
     document.getElementById("puntaje").value = puntaje;
-    
-    var id_category = grupo;
-                  $.post("AjaxGrupoComportamiento.php", { id_category: id_category }, function(data) {
-                    $("#grupos").html(data);
-                    
-                  });
- 
+    console.log("grupo:" +grupo);
+    $("#grupos").select2("val", grupo);
+
+   
     $('#TituloUser').text("Editar Comportamiento");
 //    document.getElementById("TituloUser").value = "Editar Usuario";  
   }
   
+ 
+function selectElement(id, valueToSelect) {    
+    let element = document.getElementById(id);
+    element.value = valueToSelect;
+}
+
+
   function newUser(){
     document.getElementById("id").value = 0;
     document.getElementById("nombre").value = "";

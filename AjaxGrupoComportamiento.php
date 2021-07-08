@@ -8,7 +8,7 @@ $html = '';
   $mutil = new Utils();
   $mutil -> console_log('llego Grupo Comportamiento: '.$id_Grupo);
   
-  $GrupoComportamientod = new GrupoComportamientoDAO();
+  $GrupoComportamientod = new ComportamientoDAO();
   $respuesta = $GrupoComportamientod -> listGrupo($id_grupo);
   
   while (count($respuesta)>0){
