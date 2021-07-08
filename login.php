@@ -23,7 +23,7 @@
 <body class="hold-transition login-page hero-image">
 <div class="login-box">
   <div class="login-logo">
-    <a href="tablero.php"><img src="imagenes/Logo_Bago-completo_blanco.png" height="150" width="350" alt="Logo Image" ></a>
+   <img src="imagenes/Logo_Bago-completo_blanco.png" height="150" width="350" alt="Logo Image" >
   </div>
   <!-- /.login-logo -->
   <div class="card">
@@ -99,12 +99,7 @@
       </form>
 
    
-      <p class="mb-1">
-        <a href="forgot-password.html">Olvido su contraseña</a>
-      </p>
-      <p class="mb-0">
-        <a href="register.php" class="text-center">Registrar un nuevo usuario</a>
-      </p>
+     
     </div>
     <!-- /.login-card-body -->
   </div>

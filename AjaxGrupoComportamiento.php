@@ -4,7 +4,7 @@ $html = '';
   require_once 'modelo/Funciones/GrupoComportamientoDAO.php';
   require_once 'modelo/utilitario.php';
   
-  $id_grupo = $_POST['id_Grupo'];
+  $id_grupo = $_POST['grupos'];
   $mutil = new Utils();
   $mutil -> console_log('llego Grupo Comportamiento: '.$id_Grupo);
   

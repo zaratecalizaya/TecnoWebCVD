@@ -322,7 +322,7 @@ if (!isset($_SESSION['session_id'])) {
                     $resp= $clogro -> ctrRegistroComportamiento();
                     //echo "<script> alert(' respuesta: ".$resp." ')</script>";
                     if ($resp=="true"){
-                      //echo "<script> alert(' respuesta: ".$resp." ')</script>";
+                     // echo "<script> alert(' respuesta: ".$resp." ')</script>";
                        echo "<meta http-equiv='refresh' content='0'>";
                     }elseif($resp=="false"){
                       //echo "<script> alert(' respuesta: al parecer fue falso XD')</script>";
@@ -422,7 +422,12 @@ $(document).ready(function () {
     document.getElementById("id").value = id;
     document.getElementById("nombre").value = nombre;
     document.getElementById("puntaje").value = puntaje;
-    document.getElementById("grupos").value = grupo;
+    
+    var id_category = grupo;
+                  $.post("AjaxGrupoComportamiento.php", { id_category: id_category }, function(data) {
+                    $("#grupos").html(data);
+                    
+                  });
  
     $('#TituloUser').text("Editar Comportamiento");
 //    document.getElementById("TituloUser").value = "Editar Usuario";  

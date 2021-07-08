@@ -116,7 +116,7 @@ class ComportamientoDAO {
         $link=$this->db->connect();
 		//$json=$cuenta;
     
-		$query = "SELECT c.Id,c.Nombre,c.Puntaje,gc.Nombre as Grupo,c.Estado,c.FActualizacion FROM grupocomportamiento as gc,comportamiento as c where gc.Id=c.Id ";
+		$query = "SELECT c.Id,c.Nombre,c.Puntaje,gc.Nombre as Grupo,c.Estado,c.FActualizacion FROM grupocomportamiento as gc inner join comportamiento as c on gc.Id=c.Idgrupo ORDER BY c.id DESC ";
 		$result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
 
 		$json = array();
@@ -197,7 +197,7 @@ class ComportamientoDAO {
         $this->db = new DB_Connect();
         $link=$this->db->connect();
     
-        $query = "SELECT Id,Nombre FROM grupocomportamiento WHERE Id = ".$idGrupo." order by Nombre";
+        $query = "SELECT Id,Nombre FROM grupocomportamiento gp inner join comportamiento c on gp.id=c.IdGrupo WHERE c.IdGrupo = ".$idGrupo." order by Nombre";
         $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
 
         $json = array();

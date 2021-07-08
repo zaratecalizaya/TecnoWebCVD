@@ -1,5 +1,5 @@
 <?php
-header('Content-Type:text/xls; charset=latin1');
+header('Content-Type:text/xls; charset=iso-8859-1');
 header('Content-Disposition: attachment;filename="Reporte.xls"');
 
 ?>

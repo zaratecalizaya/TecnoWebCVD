@@ -272,21 +272,25 @@ class ControladorLogro{
       
     if(isset($_POST["id"])){
      
-        if(($_POST["id"])==0){
-          if (preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*$/',$_POST["nombre"])){
+      
 
+        if(($_POST["id"])==0){
+          
+                   
                 $datos = array("nombre"=>$_POST["nombre"],
                        "puntaje"=>$_POST["puntaje"],
                        "grupos"=>$_POST["grupos"]
                        
                      
                        );
+                         
                        
           
         
                 $tabla = "comportamiento";
                 $Usuariod = new ComportamientoDAO();
                 $respuesta = $Usuariod -> addComportamiento($tabla,$datos);
+
                // return $respuesta;  
                 if ($respuesta==true){
                   return "true";
@@ -296,13 +300,10 @@ class ControladorLogro{
 
 
 
-            
-          }else{
-            return "Se ha introducido Caracteres invalidos en el nombre";
-          }              
+                     
       
         }else{
-          if (preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*$/',$_POST["nombre"])){
+          
             
               $datos = array("id"=>$_POST["id"],
               "nombre"=>$_POST["nombre"],
@@ -310,11 +311,6 @@ class ControladorLogro{
               "grupos"=>$_POST["grupos"]
               );
               
-
-
-              //    echo $datos["id"],$datos["nombre"],$datos["puntaje"],$datos["grupos"];
-
-           //echo $datos["puntaje"];
               $tabla = "comportamiento";
               $Usuariod = new ComportamientoDAO();
               $respuesta = $Usuariod ->updateComportamiento($tabla,$datos);
@@ -326,14 +322,7 @@ class ControladorLogro{
                 return $respuesta;  
               }
                    
-          }else{
-            return "Se ha introducido Caracteres invalidos en el nombre";
-
-            ;
-
-             
-
-          }
+         
         }
       
     }else{
@@ -361,7 +350,7 @@ class ControladorLogro{
         if(isset($_POST["id"])){
          
             if(($_POST["id"])==0){
-              if (preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*$/',$_POST["nombre"])){
+              
     
                     $datos = array("nombre"=>$_POST["nombre"],
                            "numero"=>$_POST["numero"],
@@ -386,12 +375,10 @@ class ControladorLogro{
     
     
                 
-              }else{
-                return "Se ha introducido Caracteres invalidos en el nombre";
-              }              
+                            
           
             }else{
-              if (preg_match('/^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]*$/',$_POST["nombre"])){
+              
                 
                   $datos = array("id"=>$_POST["id"],
                   "nombre"=>$_POST["nombre"],
@@ -416,15 +403,7 @@ class ControladorLogro{
                     return $respuesta;  
                   }
                        
-              }else{
-                return "Se ha introducido Caracteres invalidos en el nombre";
-    
-                ;
-    
-                 
-    
               }
-            }
           
         }else{
           return "";
