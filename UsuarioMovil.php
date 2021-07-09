@@ -140,19 +140,19 @@ if (!isset($_SESSION['session_id'])) {
               <li class="nav-item">
                 <a href="./ReporteComportamientos.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Reporte de comportamientos</p>
+                  <p>Ranking de Comportamientos</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="./reporte2.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Reporte 2</p>
+                  <p>Reporte Comentarios</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="./reporte3.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Reporte 3</p>
+                  <p>Reporte Logros</p>
                 </a>
               </li>
               
@@ -579,20 +579,10 @@ if (!isset($_SESSION['session_id'])) {
     */
     //document.getElementById("region").selectedIndex = reg;
     
-    document.getElementById("region").value= region;
-    document.getElementById('sector').value=sector;
-    var id_category = sector;
-            $.post("AjaxSubsector.php", { id_category: id_category }, function(data) {
-                $("#subsector").html(data);
-                document.getElementById('subsector').value=subsector;
-                $("#subsector option:selected").each(function () {
-                  var id_category = subsector;
-                  $.post("AjaxCargo.php", { id_category: id_category }, function(data) {
-                    $("#cargo").html(data);
-                    document.getElementById('cargo').value=cargo;
-                  });			
-                });   
-            });			
+    $("#region").select2("val", region);
+    $("#sector").select2("val", sector);
+    $("#subsector").select2("val", subsector);
+    $("#cargo").select2("val", cargo);
     document.getElementById("usuario").value = usuario;
     document.getElementById("clave").value = "";
     document.getElementById("clave2").value = "";

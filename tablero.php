@@ -145,19 +145,19 @@ if (!isset($_SESSION['session_id'])) {
               <li class="nav-item">
                 <a href="./ReporteComportamientos.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Reporte de comportamiento</p>
+                  <p>Ranking de comportamientos</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="./reporte2.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Reporte 2</p>
+                  <p>Reporte Comentario</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="./reporte3.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Reporte 3</p>
+                  <p>Reporte Logros</p>
                 </a>
               </li>
             </ul>

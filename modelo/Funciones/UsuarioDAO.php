@@ -786,13 +786,15 @@ public function listmodal($tabla,$datos){
           $clave = md5($datos["clave"]);
           //$clave = $datos["clave"];
           $query = "SELECT s.nombre as sector,ss.nombre as subsector FROM sector s inner join subsector ss on s.id=ss.idsector where ss.id=".$datos["SubSector"];
-      		$result1 = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+          
+          $result1 = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
 
       		$json = array();
       		if(mysqli_num_rows($result1)>0){
       			if ($line = mysqli_fetch_array($result1, MYSQLI_ASSOC)) {
       				
-              $consulta ="INSERT INTO ".$tabla." (Nombres, Apellidos, FechaNatal, IdCargo, CI, Region, Sector,SubSector, Usuario, Clave, Estado, IdNivel, Puntaje,Imagen,FActualizacion) VALUES('".$datos["Nombres"]."','".$datos["Apellidos"]."','".$datos["FechaNatal"]."','".$datos["Cargo"]."','".$datos["Ci"]."','".$datos["Region"]."','".$line["sector"]."','".$line["subsector"]."','".$datos["usuario"]."','".$clave."',0,1,0,'".$datos["Imagen"]."',now())";
+              $consulta ="INSERT INTO ".$tabla." (Nombres, Apellidos, FechaNatal, IdCargo, CI, Region, Sector,SubSector, Usuario, Clave, Estado, IdNivel, Puntaje,Imagen,FActualizacion) VALUES('".$datos["Nombres"]."','".$datos["Apellidos"]."','".$datos["FechaNatal"]."','".$datos["Cargo"]."','".$datos["Ci"]."','".$datos["Region"]."','".$datos["Sector"]."','".$datos["SubSector"]."','".$datos["usuario"]."','".$clave."',0,1,0,'".$datos["Imagen"]."',now())";
+              $mutil -> console_log($consulta);
               $result=mysqli_query($link,$consulta);
               if ($result ==true){
                 return "true";
@@ -830,7 +832,7 @@ public function listmodal($tabla,$datos){
                 if ($result ==true){
                     return "true";
                 }else {
-                  return "Error al guardar el usuario";
+                  return "Error al guardar el usuario update";
                 }
                         
               }else{

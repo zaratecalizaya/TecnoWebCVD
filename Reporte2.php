@@ -144,19 +144,19 @@ if (!isset($_SESSION['session_id'])) {
               <li class="nav-item">
                 <a href="./ReporteComportamientos.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Reporte de comportamientos</p>
+                  <p>Ranking de Comportamientos</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="./reporte2.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Reporte 2</p>
+                  <p>Reporte Comentarios</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="./reporte3.php" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Reporte 3</p>
+                  <p>Reporte Logros</p>
                 </a>
               </li>
             </ul>
@@ -186,12 +186,12 @@ if (!isset($_SESSION['session_id'])) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-white">Reportes Comentarios</h1>
+            <h1 class="m-0 text-white">Reportes </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="tablero.php">Inicio</a></li>
-              <li class="breadcrumb-item active text-white">Reportes Comentarios</li>
+              <li class="breadcrumb-item active text-white">Reportes </li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -384,7 +384,7 @@ if (!isset($_SESSION['session_id'])) {
                       $Didusuario= array_shift($perfil);
                       
                       echo '<td>
-                      <button  class="open" type="button" onclick="obtenerinfo('.$Didusuario.')" data-toggle='.modal.' data-target=#'.modal1.' ><i class="fa fa-user" aria-hidden="true"></i></button></td>';
+                      <button  class="open" type="button" onclick="obtenerinfo('.$Didusuario.')" data-toggle="modal" data-target="#modal1" ><i class="fa fa-user" aria-hidden="true"></i></button></td>';
                      
                       
                       $Dusuario= array_shift($perfil);
