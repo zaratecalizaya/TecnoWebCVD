@@ -423,10 +423,10 @@ class UsuarioDAO {
          $fechafin=$datos["fechafin"];
          $fullname='';
 
-        $query = "SELECT  u.id , u.Nombres, u.Apellidos from usuarios u inner join cargo c on c.Id=u.IdCargo inner join subsector ss on ss.id=c.IdSubSector inner join sector s on s.id=ss.IdSector inner join reconocimiento as r on r.IdUsuario=u.Id  GROUP BY u.Id  HAVING (1=1) " ;
+        $query = "SELECT  u.id , u.Nombres, u.Apellidos from usuarios u inner join cargo c on c.Id=u.IdCargo inner join subsector ss on ss.id=c.IdSubSector inner join sector s on s.id=ss.IdSector inner join reconocimiento as r on r.IdUsuario=u.Id  GROUP BY u.Id  HAVING (1=1) LIMIT 10" ;
 		    
           if ($region!=""){
-              $query = $query." and u.region ='".$region."'" ;
+              $query = $query." and u.region ='".$region."' "  ;
           }
 
           if ($subsector!=0){
@@ -442,7 +442,7 @@ class UsuarioDAO {
 
         if($fechaini != '' && $fechafin != ''){
           
-            $query = $query." and   date(r.FActualizacion) BETWEEN '".$fechaini."' and '". $fechafin ."'" ;
+            $query = $query." and   date(r.FActualizacion) BETWEEN '".$fechaini."' and '". $fechafin ."' LIMIT 10" ;
         
         }
         $util = new Utils();
@@ -793,8 +793,8 @@ public function listmodal($tabla,$datos){
       		if(mysqli_num_rows($result1)>0){
       			if ($line = mysqli_fetch_array($result1, MYSQLI_ASSOC)) {
       				
-              $consulta ="INSERT INTO ".$tabla." (Nombres, Apellidos, FechaNatal, IdCargo, CI, Region, Sector,SubSector, Usuario, Clave, Estado, IdNivel, Puntaje,Imagen,FActualizacion) VALUES('".$datos["Nombres"]."','".$datos["Apellidos"]."','".$datos["FechaNatal"]."','".$datos["Cargo"]."','".$datos["Ci"]."','".$datos["Region"]."','".$datos["Sector"]."','".$datos["SubSector"]."','".$datos["usuario"]."','".$clave."',0,1,0,'".$datos["Imagen"]."',now())";
-              $mutil -> console_log($consulta);
+              $consulta ="INSERT INTO ".$tabla." (Nombres, Apellidos, FechaNatal, IdCargo, CI, Region, Sector,SubSector, Usuario, Clave, Estado, IdNivel, Puntaje,Imagen,FActualizacion) VALUES('".$datos["Nombres"]."','".$datos["Apellidos"]."','".$datos["FechaNatal"]."','".$datos["Cargo"]."','".$datos["Ci"]."','".$datos["Region"]."','".$line["sector"]."','".$line["subsector"]."','".$datos["usuario"]."','".$clave."',0,1,0,'".$datos["Imagen"]."',now())";
+           
               $result=mysqli_query($link,$consulta);
               if ($result ==true){
                 return "true";

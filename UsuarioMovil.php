@@ -560,8 +560,8 @@ if (!isset($_SESSION['session_id'])) {
     document.getElementById("apellidos").value = apellidos;
     document.getElementById("ci").value = ci;
     document.getElementById("fechanatal").value = fechanatal;
-    /*
-    var reg = "5";
+    
+   /* var reg = "5";
     switch (region){
       case "BENI": reg="0"; break;
       case "COCHABAMBA": reg="1"; break;
@@ -575,14 +575,17 @@ if (!isset($_SESSION['session_id'])) {
       case "SUCRE": reg="9"; break;
       case "TARIJA": reg="10"; break;
            
-    }
-    */
-    //document.getElementById("region").selectedIndex = reg;
+    }¨*/
     
-    $("#region").select2("val", region);
+    //document.getElementById("region").selectedIndex = reg;
+   // document.getElementById("region").value = region;
+  // $('#region').select2('region');
+  //  $("#region").select2("val", reg);
     $("#sector").select2("val", sector);
-    $("#subsector").select2("val", subsector);
-    $("#cargo").select2("val", cargo);
+    // $("#subsector").select2("val", subsector);
+    
+   // $("#cargo").select2("val", cargo);
+    
     document.getElementById("usuario").value = usuario;
     document.getElementById("clave").value = "";
     document.getElementById("clave2").value = "";
