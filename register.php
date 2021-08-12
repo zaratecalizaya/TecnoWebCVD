@@ -31,55 +31,157 @@
     <div class="card-body register-card-body">
       <p class="login-box-msg">Registra un nuevo Usuario</p>
 
-      <form action="../../index.html" method="post">
-        <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Full name">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Retype password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-              <label for="agreeTerms">
-               Acepto los <a href="#">Terminos y Servicios</a>
-              </label>
-            </div>
-          </div>
-          <!-- /.col -->
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Registrar</button>
-          </div>
-          <!-- /.col -->
-        </div>
-      </form>
+      <form role="form" enctype="multipart/form-data" method="post"  >
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="exampleInputId">ID</label>
+                    <input type="number"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputNombre">Nombres</label>
+                    <input type="text" class="form-control" id="nombres" name="nombres" placeholder="Ingrese sus Nombres">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputApellido">Paterno
+                    </label>
+                    <input type="text" class="form-control" id="paterno" name="paterno" placeholder="Ingrese sus Apellidos Paterno">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputMaterno">Materno</label>
+                    <input type="text" class="form-control" id="materno" name="materno" placeholder="Ingrese su CI">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="exampleInputCi">Ci</label>
+                    <input type="text" class="form-control" id="ci" name="ci" placeholder="Ingrese su CI">
+                  </div>
+
+                  <div class="form-group">
+                    <label for=>Fecha de Nacimiento:</label>
+
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                      </div>
+                      <input type="text" id="fechanatal" name="fechanatal" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                    </div>
+                    <!-- /.input group -->
+                  </div>
+                  <div class="form-group">
+                    <label>Region</label>
+                    <select class="form-control select2"  id="region" name="region" style="width: 100%;"> 
+                      <option selected="selected">BENI</option>
+                      <option>COCHABAMBA</option>
+                      <option>EL ALTO</option>
+                      <option>LA PAZ</option>                    
+                      <option>NACIONAL</option>
+                      <option>ORURO</option>
+                      <option>PANDO</option>
+                      <option>POTOSI</option>
+                      <option>SANTA CRUZ</option>
+                      <option>SUCRE</option>
+                      <option>TARIJA</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Sector</label>
+                    <select class="form-control select2" id="sector" name="sector"  style="width: 100%;"> 
+                    <?php
+                      
+                      require_once 'Controlador/usuario.controlador.php';
+                     
+                      $cusuario = new ControladorUsuario();
+                      $list=  $cusuario -> ctrListarSectores();
+                    
+                      while (count($list)>0){
+                        $User = array_shift($list);
+                        $Did = array_shift($User);
+                        $Dnombres = array_shift($User);
+                        echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
+                      }
+                    ?>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Subsector</label>
+                    <select class="form-control select2" id="subsector" name="subsector"  style="width: 100%;"> 
+                    <?php
+                      
+                      require_once 'Controlador/usuario.controlador.php';
+                     
+                      $cusuario = new ControladorUsuario();
+                      $list=  $cusuario -> ctrListarSubSectores(4);
+                    
+                      while (count($list)>0){
+                        $User = array_shift($list);
+                        $Did = array_shift($User);
+                        $Dnombres = array_shift($User);
+                        echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
+                      }
+                    ?>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label>Cargo</label>
+                    <select class="form-control select2"  id="cargo" name="cargo" style="width: 100%;"> 
+                    <?php
+                      
+                      require_once 'Controlador/usuario.controlador.php';
+                     
+                      $cusuario = new ControladorUsuario();
+                      $list=  $cusuario -> ctrListarCargo(9);
+                    
+                      while (count($list)>0){
+                        $User = array_shift($list);
+                        $Did = array_shift($User);
+                        $Dnombres = array_shift($User);
+                        echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
+                      }
+                    ?>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="InputUsuario">Foto Perfil</label>
+                   <input type="hidden" name="MAX_FILE_SIZE" value="512000" />
+                    <p><input name="subir_archivo" type="file" /></p>
+                  </div>
+                  <div class="form-group">
+                    <label for="InputUsuario">Usuario</label>
+                    <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Ingrese su Usuario">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword1">Contraseña</label>
+                    <input type="password" class="form-control" id="clave" name="clave" placeholder="Ingrese su Contraseña">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputPassword2">Repita su Contraseña</label>
+                    <input type="password" class="form-control" id="clave2" name="clave2" placeholder="Repita su Contraseña">
+                  </div>
+                  
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <?php
+                    $resp= $cusuario -> ctrRegistroUsuarioMovil();
+                    //echo "<script> alert(' respuesta: ".$resp." ')</script>";
+                    
+                    if ($resp=="true"){
+                      //echo "<script> alert(' respuesta: ".$resp." ')</script>";
+                       echo "<meta http-equiv='refresh' content='0'>";
+                    //}elseif($resp=="false"){
+                      //echo "<script> alert(' respuesta: al parecer fue falso XD')</script>";
+                    }else{
+                      if ($resp!=""){
+                        echo "<script> alert(' respuesta: ".$resp." ')</script>";  
+                      }                      
+                    }
+                    
+                  ?>
+                  
+                  <input type="submit" class="btn btn-primary" value="Enviar">
+                </div>
+              </form>
       <a href="login.php" class="text-center">Ya me encuentro registrado</a>
     </div>
     <!-- /.form-box -->

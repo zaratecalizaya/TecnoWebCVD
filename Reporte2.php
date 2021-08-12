@@ -237,7 +237,7 @@ if (!isset($_SESSION['session_id'])) {
          <div class="row" id="row">
                 <div class="col1" id="col1">
                 
-                <img  id="myImag" src="" width='150'>
+                <img  id="myImag" src="" width='150' >
 
 
                 </div>

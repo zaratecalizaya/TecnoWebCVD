@@ -56,6 +56,15 @@
               </label>
             </div>
           </div>
+
+          <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              
+              
+              <a href="register.php">RegistrarUsuario</a>
+            </div>
+          </div>
           <!-- /.col -->
           <div class="col-4">
             <button type="submit" class="btn btn-primary btn-block">Loguearse</button>

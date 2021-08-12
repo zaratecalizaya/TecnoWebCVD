@@ -607,7 +607,7 @@ public function listmodal($tabla,$datos){
 
   public function imagenUser($tabla,$datos){
     //
-  	require_once 'modelo/Conexion/connectbd.php';
+     	require_once 'modelo/Conexion/connectbd.php';
         // connecting to database
         $this->db = new DB_Connect();
         $link=$this->db->connect();
