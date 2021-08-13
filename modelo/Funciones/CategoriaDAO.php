@@ -1,6 +1,6 @@
 <?php
  
-class VehiculosDAO {
+class CategoriaDAO {
  
     private $db;
     // constructor
@@ -22,24 +22,7 @@ class VehiculosDAO {
     /**
      * agregar nuevo usuario
      */
-    public function updatestatususer($tabla,$datos) { //regusu et no es
-
-      require_once 'modelo/Conexion/connectbd.php';
-        // connecting to database
-        $this->db = new DB_Connect();
-        $link=$this->db->connect();
-		
-      	$pu=$this->isuserexist($tabla, $datos["usuario"]);
-        if($pu==true){
-          $result=mysqli_query($link,"UPDATE ".$tabla." SET estado=ABS(estado-1) where id = ".$datos["id"]);
-          return $result;
-      	}else{
-      		return false;
-      	}
-
-    }
-
-
+ 
     public function datedelete($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
@@ -55,34 +38,13 @@ class VehiculosDAO {
 
 	
   
-	public function getusuario($Nick){
-		require_once 'modelo/Conexion/connectbd.php';
-        // connecting to database
-        $this->db = new DB_Connect();
-        $link=$this->db->connect();
-		$query = "SELECT * FROM EFUsuario where Nick='".$Nick."'";
-		$result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error());
-
-		$json = array();
-		if(mysqli_num_rows($result)>0){
-			while ($line = mysqli_fetch_array($result, MYSQL_ASSOC)) {
-				$json['usuario'][]=$line;
-			}
-			
-		}
-		
-		mysqli_close($link);
-		return json_encode($json);
-		
-	}
-  
        
-    public function addVehiculo($tabla,$datos) { //regusu et no es
+    public function addAlmacen($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
-      require_once 'modelo/utilitario.php';
-      $mutil = new Utils();
-      $mutil -> console_log('Entro AddMovil');
+      //require_once 'modelo/utilitario.php';
+      //$mutil = new Utils();
+      //$mutil -> console_log('Entro AddMovil');
         // connecting to database
         $this->db = new DB_Connect();
         $link=$this->db->connect();
@@ -95,13 +57,13 @@ class VehiculosDAO {
       		
       			
       				
-              $consulta ="INSERT INTO ".$tabla." (marca, año, modelo, estado, imagen) VALUES('".$datos["marca"]."','".$datos["año"]."','".$datos["modelo"]."',1,'".$datos["imagen"]."')";
+              $consulta ="INSERT INTO ".$tabla." (nombre) VALUES('".$datos["nombre"]."')";
            
               $result=mysqli_query($link,$consulta);
               if ($result ==true){
                 return "true";
               }else {
-                return "Error al guardar el vehiculo";
+                return "Error al guardar el almacen";
               }
             
 			
@@ -111,14 +73,14 @@ class VehiculosDAO {
 
     
        
-	   public function isvehiculoexist($tabla, $id) {
+	   public function isalmacenexist($tabla, $id) {
 
       require_once 'modelo/Conexion/connectbd.php';
       // connecting to database
       $this->db = new DB_Connect();
       $link=$this->db->connect();
   
-      if ($result = mysqli_query($link,"SELECT * from ".$tabla." WHERE id_vehiculo = '".$id."'")) {
+      if ($result = mysqli_query($link,"SELECT * from ".$tabla." WHERE id_almacen = '".$id."'")) {
 
         /* determinar el número de filas del resultado */
         $num_rows  = mysqli_num_rows($result);
@@ -137,17 +99,17 @@ class VehiculosDAO {
   }
 
 
-    public function updateVehiculo($tabla,$datos) { //regusu et no es
+    public function updateAlmacen($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
       // connecting to database
       $this->db = new DB_Connect();
       $link=$this->db->connect();
   
-      $pu=$this->isvehiculoexist($tabla, $datos["id"]);
+      $pu=$this->isalmacenexist($tabla, $datos["id"]);
       if($pu==true){
         
-          $result=mysqli_query($link,"UPDATE ".$tabla." SET marca ='".$datos["marca"]."',año='".$datos["año"]."' ,modelo='".$datos["modelo"]."'   where id_vehiculo = ".$datos["id"]);
+          $result=mysqli_query($link,"UPDATE ".$tabla." SET nombre ='".$datos["nombre"]."'   where id_almacen = ".$datos["id"]);
           return $result;
              
       }else{
@@ -155,14 +117,16 @@ class VehiculosDAO {
       }
     }
  
-    public function listVehiculo($pagina,$cantidad){
+
+
+    public function listAlmacen($pagina,$cantidad){
       require_once 'modelo/Conexion/connectbd.php';
           // connecting to database
           $this->db = new DB_Connect();
           $link=$this->db->connect();
       //$json=$cuenta;
       
-      $query = "SELECT id_vehiculo,imagen,año,modelo,marca,estado FROM vehiculo   ";
+      $query = "SELECT id_almacen, nombre FROM almacen   ";
       $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
   
       $json = array();
@@ -170,11 +134,9 @@ class VehiculosDAO {
       if(mysqli_num_rows($result)>0){
           //$json['cliente'][]=nada;
         while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-          $destado ="Deshabilitado";
-          if ($line["estado"]==1){
-              $destado ="Habilitado";
-          }        
-          array_push($json, array($line["id_vehiculo"],$line["imagen"],$line["año"],$line["modelo"],$line["marca"],$destado));
+        
+        
+            array_push($json, array($line["id_almacen"],$line["nombre"]));
         }
         
       }
