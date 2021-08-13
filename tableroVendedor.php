@@ -11,7 +11,7 @@ if (!isset($_SESSION['session_id'])) {
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Bago</title>
+  <title>AUTOTECH</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -45,7 +45,7 @@ if (!isset($_SESSION['session_id'])) {
     <a href="index3.html" class="brand-link">
       <img src="imagenes/minilogobago.png" alt="Bago Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Bago</span>
+      <span class="brand-text font-weight-light">AUTOTECH</span>
     </a>
 
     <!-- Sidebar -->
@@ -82,53 +82,23 @@ if (!isset($_SESSION['session_id'])) {
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-                Almacen
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="./UsuarioWeb.php" class="nav-link ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Repuestos</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./UsuarioMovil.php" class="nav-link ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Categorias</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./UsuarioMovil.php" class="nav-link ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Automovil</p>
-                </a>
-              </li>
-
-            </ul>
-          </li>
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-trophy"></i>
               <p>
-                Compras
+                Ventas
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Comportamientos.php" class="nav-link ">
+                <a href="./nota_venta.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ingresos</p>
+                  <p>Ventas</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./GrupoComportamientos.php" class="nav-link ">
+                <a href="./clientes.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Proveedor</p>
+                  <p>Clientes</p>
                 </a>
               </li>
             </ul>
@@ -137,32 +107,23 @@ if (!isset($_SESSION['session_id'])) {
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Consultar Compras
+                Consultar Ventas
                 <i class="fas fa-angle-left right"></i>
                 <span class="badge badge-info right">3</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Comportamientos.php" class="nav-link ">
+                <a href="./consultar_venta.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar Compras</p>
+                  <p>Consultar Ventas</p>
                 </a>
               </li>
               
             </ul>
             
-          </li>
-          <li class="nav-item ">
-            <a href="./Configuraciones.php" class="nav-link">
-              <i class="nav-icon fa fa-cogs"></i>
-              <p>
-                Configuraciones
-             
-              </p>
-            </a>
-          
-          </li>
+           </li>
+        
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

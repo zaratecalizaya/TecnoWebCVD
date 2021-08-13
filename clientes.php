@@ -141,12 +141,12 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>Id</th>
-                  <th>Imagen</th>
-                  <th>Marca</th>
-                  <th>Año</th>
-                  <th>Modelo</th>
-                  <th>Estado</th>
+                  <th>Id_cliente</th>
+                  <th>Nombre</th>
+                  <th>Paterno</th>
+                  <th>Materno</th>
+                  <th>Telefono</th>
+                  <th>Direccion</th>
                   
                 </thead>
                 <tbody>
@@ -160,21 +160,21 @@
                   while (count($list)>0){
                     $Nivel = array_shift($list);
                     echo "<tr>";
-                    $Did_vehiculo = array_shift($Nivel);
-                    echo "<td>".$Did_vehiculo."</td>";
-                    $Dimagen = array_shift($Nivel);
-                    echo "<td>".$Dimagen."</td>";
-                    $Dmarca = array_shift($Nivel);
-                    echo "<td>".$Dmarca."</td>";
-                    $Daño = array_shift($Nivel);
-                    echo "<td>".$Daño."</td>";
-                    $Dmodelo = array_shift($Nivel);
-                    echo "<td>".$Dmodelo."</td>";
-                    $Destado = array_shift($Nivel);
-                    echo "<td>".$Destado."</td>";
+                    $Did_cliente = array_shift($Nivel);
+                    echo "<td>".$Did_cliente."</td>";
+                    $Dnombre = array_shift($Nivel);
+                    echo "<td>".$Dnombre."</td>";
+                    $Dpaterno = array_shift($Nivel);
+                    echo "<td>".$Dpaterno."</td>";
+                    $Dmaterno = array_shift($Nivel);
+                    echo "<td>".$Dmaterno."</td>";
+                    $Dtelefono = array_shift($Nivel);
+                    echo "<td>".$Dtelefono."</td>";
+                    $Ddireccion = array_shift($Nivel);
+                    echo "<td>".$Ddireccion."</td>";
                   
                     echo '<td>
-                            <button class="btn" onclick="saveData('.$Did_vehiculo.',\''.$Dimagen.'\',\''.$Dmarca.'\',\''.$Daño.'\',\''.$Dmodelo.'\',\''.$Destado.'\')"><i class="fas fa-edit"></i> Editar</button>
+                            <button class="btn" onclick="saveData('.$Did_cliente.',\''.$Dnombre.'\',\''.$Dpaterno.'\',\''.$Dmaterno.'\',\''.$Dtelefono.'\',\''.$Ddireccion.'\')"><i class="fas fa-edit"></i> Editar</button>
                           
                           </td>';
                     echo "</tr>";
@@ -198,8 +198,8 @@
 
       <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title"><label id="TituloUser">Agregar Vehiculo</label> </h3> 
-              <button id="nuevoNivel" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Nivel</button>
+              <h3 class="card-title"><label id="TituloUser">Agregar Cliente</label> </h3> 
+              <button id="nuevoNivel" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Cliente</button>
               
             </div>
             <!-- /.card-header -->
@@ -207,30 +207,37 @@
             <form role="form" enctype="multipart/form-data"  method="post"   >
               <div class="card-body">
                 <div class="form-group">
-                  <label for="exampleInputId">ID</label>
-                  <input type="hidden"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
+                  <label for="exampleInputId">CODIGO</label>
+                  <input type="hidden"  class="form-control"  id="id_cliente" name="id_cliente" placeholder="Codigo" value="0" readonly="true">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputNombre">Marca</label>
-                  <input type="text" class="form-control" id="marca" name="marca" placeholder="Ingrese la Marca">
+                  <label for="exampleInputNombre">NOMBRE</label>
+                  <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese la Nombre">
                 </div>
                 <div class="form-group">
-                  <label for="InputUsuario">Año</label>
-                  <input type="text" class="form-control" id="año" name="año" placeholder="Ingrese el Año">
+                  <label for="InputUsuario">PATERNO</label>
+                  <input type="text" class="form-control" id="paterno" name="paterno" placeholder="Ingrese apellido paterno">
                 </div>
                  
                  
                 <div class="form-group">
-                  <label for="InputUsuario">Modelo</label>
-                  <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Ingrese el Modelo">
+                  <label for="InputUsuario">MATERNO</label>
+                  <input type="text" class="form-control" id="materno" name="materno" placeholder="Ingrese apellido materno">
+                </div>
+
+                <div class="form-group">
+                  <label for="InputUsuario">TELEFONO</label>
+                  <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese telefono">
+                </div>
+                 
+                 
+                <div class="form-group">
+                  <label for="InputUsuario">DIRECCION</label>
+                  <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Ingrese direccion">
                 </div>
                 
                
-                <div class="form-group">
-                  <label for="InputUsuario">Foto de Vehiculo</label>
-                 <input type="hidden" name="MAX_FILE_SIZE" value="512000" />
-                  <p><input name="subir_archivo" type="file" /></p>
-                </div>
+  
 
                 
               </div>
@@ -311,21 +318,24 @@ $(function () {
 
 <script>
 function saveData(id, nombre,numero,puntajemin,grupomin){
-  document.getElementById("id_vehiculo").value = id_vehiculo;
-  document.getElementById("marca").value = marca;
-  document.getElementById("año").value = año;
-  document.getElementById("modelo").value = modelo;
-  document.getElementById("estado").value = estado;
+  document.getElementById("id_cliente").value = id_cliente;
+  document.getElementById("nombre").value = nombre;
+  document.getElementById("paterno").value = paterno;
+  document.getElementById("materno").value = materno;
+  document.getElementById("telefono").value = telefono;
+  document.getElementById("direccion").value = direccion;
 
   $('#TituloUser').text("Editar Nivel");
 //    document.getElementById("TituloUser").value = "Editar Usuario";  
 }
 
 function newUser(){
-  document.getElementById("id").value = 0;
-  document.getElementById("marca").value = "";
-  document.getElementById("año").value = 0;
-  document.getElementById("modelo").value = "";
+  document.getElementById("id_cliente").value = 0;
+  document.getElementById("nombre").value = "";
+  document.getElementById("paterno").value = "";
+  document.getElementById("materno").value = "";
+  document.getElementById("telefono").value = 0;
+  document.getElementById("direccion").value = "";
   
  
   
@@ -335,7 +345,7 @@ function newUser(){
 
 function updateStatus(id){
     var parametros = {
-              "id" : id,
+              "id_cliente" : id_cliente,
             
       };
     

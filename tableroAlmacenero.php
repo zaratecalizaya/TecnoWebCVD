@@ -45,7 +45,7 @@ if (!isset($_SESSION['session_id'])) {
     <a href="index3.html" class="brand-link">
       <img src="imagenes/minilogobago.png" alt="Bago Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Bago</span>
+      <span class="brand-text font-weight-light">AUTOTECH</span>
     </a>
 
     <!-- Sidebar -->
@@ -80,29 +80,63 @@ if (!isset($_SESSION['session_id'])) {
               </p>
             </a>
           </li>
+
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
-                Ventas
+                Almacen
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./UsuarioWeb.php" class="nav-link ">
+                <a href="./repuesto.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ventas</p>
+                  <p>Repuestos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./UsuarioMovil.php" class="nav-link ">
+                <a href="./categoria.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Clientes</p>
+                  <p>Categorias</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./vehiculo.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Automovil</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+          
+
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Compras
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="./ingresos.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ingresos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./proveedores.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Proveedores</p>
                 </a>
               </li>
             </ul>
           </li>
+
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-trophy"></i>
@@ -113,7 +147,7 @@ if (!isset($_SESSION['session_id'])) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Comportamientos.php" class="nav-link ">
+                <a href="./consultar_compra.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Consultar Compras</p>
                 </a>
@@ -134,10 +168,10 @@ if (!isset($_SESSION['session_id'])) {
            
           </li>
           <li class="nav-item ">
-            <a href="./Configuraciones.php" class="nav-link">
+            <a href="#"  class="nav-link">
               <i class="nav-icon fa fa-cogs"></i>
               <p>
-                Configuraciones
+                continuara
              
               </p>
             </a>
