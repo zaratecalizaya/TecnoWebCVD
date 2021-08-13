@@ -82,7 +82,7 @@ if (!isset($_SESSION['session_id'])) {
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-trophy"></i>
+              <i class="nav-icon fas fa-users"></i>
               <p>
                 Ventas
                 <i class="right fas fa-angle-left"></i>
@@ -90,13 +90,13 @@ if (!isset($_SESSION['session_id'])) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./nota_venta.php" class="nav-link ">
+                <a href="./UsuarioWeb.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ventas</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./clientes.php" class="nav-link ">
+                <a href="./UsuarioMovil.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Clientes</p>
                 </a>
@@ -105,27 +105,47 @@ if (!isset($_SESSION['session_id'])) {
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-copy"></i>
+              <i class="nav-icon fas fa-trophy"></i>
               <p>
                 Consultar Ventas
-                <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">3</span>
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./consultar_venta.php" class="nav-link ">
+                <a href="./nota_venta.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Consultar Ventas</p>
                 </a>
               </li>
               
+              
             </ul>
-            
-           </li>
-        
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Reportes
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right">3</span>
+              </p>
+            </a>
+           
+          </li>
+          <li class="nav-item ">
+            <a href="./Configuraciones.php" class="nav-link">
+              <i class="nav-icon fa fa-cogs"></i>
+              <p>
+                Configuraciones
+             
+              </p>
+            </a>
+          
+          </li>
         </ul>
       </nav>
+    
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->

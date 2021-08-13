@@ -1,16 +1,11 @@
-<?php
-session_start();
-if (!isset($_SESSION['session_id'])) {
-    header('location: login.php');
-}
-?>
+
 
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Bago</title>
+  <title>AutoTech</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -63,7 +58,7 @@ if (!isset($_SESSION['session_id'])) {
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item">
-            <a href="./tablero.php" class="nav-link ">
+            <a href="./tablero.php" class="nav-link active">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Tablero
@@ -74,30 +69,37 @@ if (!isset($_SESSION['session_id'])) {
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
-                Usuarios
+                Almacen
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./UsuarioWeb.php" class="nav-link active">
+                <a href="./UsuarioWeb.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Usuarios Web</p>
+                  <p>Repuestos</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="./UsuarioMovil.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Usuarios Moviles</p>
+                  <p>Categorias</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="./UsuarioMovil.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Automovil</p>
+                </a>
+              </li>
+
             </ul>
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-trophy"></i>
               <p>
-                Logros
+                Compras
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -105,19 +107,13 @@ if (!isset($_SESSION['session_id'])) {
               <li class="nav-item">
                 <a href="./Comportamientos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Comportamientos</p>
+                  <p>Ingresos</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="./GrupoComportamientos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Grupos de Comportamientos</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./Niveles.php" class="nav-link ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Niveles</p>
+                  <p>Proveedor</p>
                 </a>
               </li>
             </ul>
@@ -126,44 +122,35 @@ if (!isset($_SESSION['session_id'])) {
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Reportes
+                Consultar Compras
                 <i class="fas fa-angle-left right"></i>
                 <span class="badge badge-info right">3</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./ReporteComportamientos.php" class="nav-link">
+                <a href="./Comportamientos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ranking de comportamientos</p>
+                  <p>Consultar Compras</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="./reporte2.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Reporte Comentarios</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./reporte3.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Reporte Logros</p>
-                </a>
-              </li>
+              
             </ul>
+            
           </li>
           <li class="nav-item ">
             <a href="./Configuraciones.php" class="nav-link">
               <i class="nav-icon fa fa-cogs"></i>
               <p>
                 Configuraciones
-        
+             
               </p>
             </a>
-         
+          
           </li>
         </ul>
       </nav>
+    
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -176,12 +163,12 @@ if (!isset($_SESSION['session_id'])) {
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-white">Niveles</h1>
+            <h1 class="m-0 text-white">Vehiculos</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="tablero.php">Inicio</a></li>
-              <li class="breadcrumb-item active text-white">Niveles</li>
+              <li class="breadcrumb-item"><a href="tableroAlmacenero.php">Inicio</a></li>
+              <li class="breadcrumb-item active text-white">Vehiculos</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -196,7 +183,7 @@ if (!isset($_SESSION['session_id'])) {
           <div class="col-12">
             <div class="card card-primary">
               <div class="card-header" >
-                <h3 class="card-title">Lista de Niveles</h3>
+                <h3 class="card-title">Lista de Vehiculos</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -204,37 +191,50 @@ if (!isset($_SESSION['session_id'])) {
                   <thead>
                   <tr>
                     <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Numero</th>
-                    <th>Puntaje Minimo</th>
-                    <th>Grupos Minimo</th>
+                    <th>Imagen</th>
+                    <th>Año</th>
+                    <th>Modelo</th>
+                    <th>Marca</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
+                    
                   </thead>
                   <tbody>
                  <?php 
-                    require_once 'Controlador/logros.controlador.php';
+                    require_once 'Controlador/vehiculoController.php';
   
                   
-                    $clogro = new ControladorLogro();
-                    $list=  $clogro -> ctrListarNivelTabla(1,1000);
+                    $cvehiculo = new ControladorVehiculo();
+                    $list=  $cvehiculo -> ctrListarVehiculo(1,1000);
                     
                     while (count($list)>0){
-                      $Nivel = array_shift($list);
+                      $Vehiculo = array_shift($list);
                       echo "<tr>";
-                      $Did = array_shift($Nivel);
+                      $Did = array_shift($Vehiculo );
                       echo "<td>".$Did."</td>";
-                      $Dnombre = array_shift($Nivel);
-                      echo "<td>".$Dnombre."</td>";
-                      $Dnumero = array_shift($Nivel);
-                      echo "<td>".$Dnumero."</td>";
-                      $Dpuntajemin = array_shift($Nivel);
-                      echo "<td>".$Dpuntajemin."</td>";
-                      $Dgrupomin = array_shift($Nivel);
-                      echo "<td>".$Dgrupomin."</td>";
-                    
+                      $Dimagen = array_shift($Vehiculo);
+                      if ($Dimagen!=""){
+                        echo "<td><img src='".$Dimagen."' width='100'></td>";  
+                      }else{
+                        echo "<td></td>";
+                      }
+                      $Daño = array_shift($Vehiculo);
+                      echo "<td>".$Daño."</td>";
+                      $Dmodelo = array_shift($Vehiculo);
+                      echo "<td>".$Dmodelo."</td>";
+                      $Dmarca = array_shift($Vehiculo);
+                      echo "<td>".$Dmarca."</td>";
+                      $Destado = array_shift($Vehiculo);
+                      $Destadobtn="Habilitar";
+                      $DestadoIco="thumbs-up";
+                      echo "<td>".$Destado."</td>";
+                      if ($Destado=="Habilitado"){
+                        $Destadobtn="Deshabilitar";
+                        $DestadoIco="thumbs-down";
+                      }
                       echo '<td>
-                              <button class="btn" onclick="saveData('.$Did.',\''.$Dnombre.'\',\''.$Dnumero.'\',\''.$Dpuntajemin.'\',\''.$Dgrupomin.'\')"><i class="fas fa-edit"></i> Editar</button>
-                            
+                              <button class="btn" onclick="saveData('.$Did.',\''.$Dmarca.'\',\''.$Daño.'\',\''.$Dmodelo.'\')"><i class="fas fa-edit"></i> Editar</button>
+                              <button class="btn" onclick="updateStatus('.$Did.')"><i class="far fa-'.$DestadoIco.'"></i>'.$Destadobtn.'</button>
                             </td>';
                       echo "</tr>";
                     }
@@ -257,38 +257,39 @@ if (!isset($_SESSION['session_id'])) {
  
         <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title"><label id="TituloUser">Agregar Nivel</label> </h3> 
-                <button id="nuevoNivel" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Nivel</button>
+                <h3 class="card-title"><label id="TituloUser">Agregar Vehiculo</label> </h3> 
+                <button id="nuevoNivel" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Vehiculo</button>
                 
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" method="post"  >
+              <form role="form" enctype="multipart/form-data"  method="post"   >
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputId">ID</label>
-                    <input type="number"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
+                    <input type="hidden"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputNombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el Nombre">
+                    <label for="exampleInputNombre">Marca</label>
+                    <input type="text" class="form-control" id="marca" name="marca" placeholder="Ingrese la Marca">
                   </div>
                   <div class="form-group">
-                    <label for="InputUsuario">Numero</label>
-                    <input type="text" class="form-control" id="numero" name="numero" placeholder="Ingrese el Numero">
+                    <label for="InputUsuario">Año</label>
+                    <input type="text" class="form-control" id="año" name="año" placeholder="Ingrese el Año">
                   </div>
                    
                    
                   <div class="form-group">
-                    <label for="InputUsuario">Puntaje Minimo</label>
-                    <input type="text" class="form-control" id="puntajemin" name="puntajemin" placeholder="Ingrese el Puntaje Minimo">
+                    <label for="InputUsuario">Modelo</label>
+                    <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Ingrese el Modelo">
                   </div>
                   
+                 
                   <div class="form-group">
-                    <label for="InputUsuario">Grupos Minimo</label>
-                    <input type="text" class="form-control" id="grupomin" name="grupomin" placeholder="Ingrese el Grupo Minimo">
-                  </div>                    
-
+                    <label for="InputUsuario">Foto de Vehiculo</label>
+                   <input type="hidden" name="MAX_FILE_SIZE" value="512000" />
+                    <p><input name="subir_archivo" type="file" /></p>
+                  </div>
 
                   
                 </div>
@@ -296,10 +297,10 @@ if (!isset($_SESSION['session_id'])) {
 
                 <div class="card-footer">
                   <?php
-                    $resp= $clogro -> ctrRegistroNivel();
+                    $resp= $cvehiculo -> ctrRegistroVehiculo();
                     //echo "<script> alert(' respuesta: ".$resp." ')</script>";
                     if ($resp=="true"){
-                      //echo "<script> alert(' respuesta: ".$resp." ')</script>";
+                     // echo "<script> alert(' respuesta: ".$resp." ')</script>";
                        echo "<meta http-equiv='refresh' content='0'>";
                     }elseif($resp=="false"){
                       //echo "<script> alert(' respuesta: al parecer fue falso XD')</script>";
@@ -319,7 +320,7 @@ if (!isset($_SESSION['session_id'])) {
        
       <div class="card-footer">
         
-        <a href="exportarniveles.php" class="btn btn-success">Descargar Excel</a>
+       <!-- <a href="exportarniveles.php" class="btn btn-success">Descargar Excel</a>-->
         </div>
  
     </section>
@@ -368,46 +369,46 @@ if (!isset($_SESSION['session_id'])) {
 </script>
 
 <script>
-  function saveData(id, nombre,numero,puntajemin,grupomin){
+  function saveData(id, marca,año,modelo){
     document.getElementById("id").value = id;
-    document.getElementById("nombre").value = nombre;
-    document.getElementById("numero").value = numero;
-    document.getElementById("puntajemin").value = puntajemin;
-    document.getElementById("grupomin").value = grupomin;
+    document.getElementById("marca").value = marca;
+    document.getElementById("año").value = año;
+    document.getElementById("modelo").value = modelo;
  
-    $('#TituloUser').text("Editar Nivel");
+    $('#TituloUser').text("Editar Vehiculo");
 //    document.getElementById("TituloUser").value = "Editar Usuario";  
   }
   
   function newUser(){
     document.getElementById("id").value = 0;
-    document.getElementById("nombre").value = "";
-    document.getElementById("numero").value = "";
-    document.getElementById("puntajemin").value = "";
-    document.getElementById("grupomin").value = "";
+    document.getElementById("marca").value = "";
+    document.getElementById("año").value = 0;
+    document.getElementById("modelo").value = "";
+     
     
-    $('#TituloUser').text("Agregar Nivel");
+    $('#TituloUser').text("Agregar Automovil");
   //  document.getElementById("TituloUser").value = "Agregar Usuario";  
   }
+  
+  
   
   function updateStatus(id){
       var parametros = {
                 "id" : id,
+        
               
         };
       
       $.ajax({
         type: "POST",
-        url: "comportamientoestado.php",
+        url: "estadovehiculo.php",
         data: parametros,
         success:function( msg ) {
           window.location.href = window.location.href;
-       //  alert( "Data actualizada. " + msg );
+         alert( "Data actualizada. " + msg );
         }
        });
   }
-  
-  
 </script>
 
 <!-- Usuario SCRIPTS -->
