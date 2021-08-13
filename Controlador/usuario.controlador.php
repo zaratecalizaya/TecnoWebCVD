@@ -20,9 +20,9 @@ class ControladorUsuario{
                            "usuario"=>$_POST["usuario"],
                            "clave"=>$_POST["clave"]);
             
-            $tabla = "usuariosweb";
+            $tabla = "empleado";
             $Usuariod = new UsuarioDAO();
-            $respuesta = $Usuariod -> adduserWeb($tabla,$datos);
+            $respuesta = $Usuariod -> adduser($tabla,$datos);
             
             //return $respuesta;
             if ($respuesta==true){
