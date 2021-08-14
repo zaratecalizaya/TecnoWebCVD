@@ -1,6 +1,6 @@
 <?php
  
-class ProveedorDAO {
+class nota_compraDAO {
  
     private $db;
     // constructor
@@ -22,7 +22,24 @@ class ProveedorDAO {
     /**
      * agregar nuevo usuario
      */
- 
+    public function updatestatususer($tabla,$datos) { //regusu et no es
+
+      require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+		
+      	$pu=$this->isuserexist($tabla, $datos["usuario"]);
+        if($pu==true){
+          $result=mysqli_query($link,"UPDATE ".$tabla." SET estado=ABS(estado-1) where id = ".$datos["id"]);
+          return $result;
+      	}else{
+      		return false;
+      	}
+
+    }
+
+
     public function datedelete($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
@@ -60,12 +77,12 @@ class ProveedorDAO {
 	}
   
        
-    public function addProveedor($tabla,$datos) { //regusu et no es
+    public function addnota_compra($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
-      //require_once 'modelo/utilitario.php';
-      //$mutil = new Utils();
-      //$mutil -> console_log('Entro AddMovil');
+      require_once 'modelo/utilitario.php';
+      $mutil = new Utils();
+      $mutil -> console_log('Entro AddMovil');
         // connecting to database
         $this->db = new DB_Connect();
         $link=$this->db->connect();
@@ -78,13 +95,13 @@ class ProveedorDAO {
       		
       			
       				
-              $consulta ="INSERT INTO ".$tabla." (nit,razon_social,telefono,direccion) VALUES('".$datos["nit"]."','".$datos["razon"]."','".$datos["telefono"]."','".$datos["direccion"]."')";
+              $consulta ="INSERT INTO ".$tabla." (fecha_compra, precio_total) VALUES('".$datos["fecha_compra"]."','".$datos["precio_total"]."')";
            
               $result=mysqli_query($link,$consulta);
               if ($result ==true){
                 return "true";
               }else {
-                return "Error al guardar el vehiculo";
+                return "Error al guardar el nota-compra";
               }
             
 			
@@ -94,14 +111,14 @@ class ProveedorDAO {
 
     
        
-	   public function isproveedorexist($tabla, $id) {
+	   public function isnota_compraexist($tabla, $id) {
 
       require_once 'modelo/Conexion/connectbd.php';
       // connecting to database
       $this->db = new DB_Connect();
       $link=$this->db->connect();
   
-      if ($result = mysqli_query($link,"SELECT * from ".$tabla." WHERE id_proveedor = '".$id."'")) {
+      if ($result = mysqli_query($link,"SELECT * from ".$tabla." WHERE id_marca = '".$id."'")) {
 
         /* determinar el número de filas del resultado */
         $num_rows  = mysqli_num_rows($result);
@@ -120,17 +137,17 @@ class ProveedorDAO {
   }
 
 
-    public function updateProveedor($tabla,$datos) { //regusu et no es
+    public function updatenota_compra($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
       // connecting to database
       $this->db = new DB_Connect();
       $link=$this->db->connect();
   
-      $pu=$this->isvehiculoexist($tabla, $datos["id"]);
+      $pu=$this->isnota_compraexist($tabla, $datos["id"]);
       if($pu==true){
         
-          $result=mysqli_query($link,"UPDATE ".$tabla." SET nit ='".$datos["nit"]."',razon_social='".$datos["razon"]."' ,telefono='".$datos["telefono"]."' ,direccion='".$datos["direccion"]."'   where id_proveedor = ".$datos["id"]);
+          $result=mysqli_query($link,"UPDATE ".$tabla." SET fecha_compra ='".$datos["fecha_compra"]."',precio_total='".$datos["precio_total"]."'    where id_compra = ".$datos["id"]);
           return $result;
              
       }else{
@@ -138,16 +155,14 @@ class ProveedorDAO {
       }
     }
  
-
-
-    public function listProveedor($pagina,$cantidad){
+    public function listnota_compra($pagina,$cantidad){
       require_once 'modelo/Conexion/connectbd.php';
           // connecting to database
           $this->db = new DB_Connect();
           $link=$this->db->connect();
       //$json=$cuenta;
       
-      $query = "SELECT id_proveedor,nit,razon_social,telefono,direccion FROM proveedor   ";
+      $query = "SELECT id_compra,fecha_compra,precio_total FROM nota_compra   ";
       $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
   
       $json = array();
@@ -155,9 +170,11 @@ class ProveedorDAO {
       if(mysqli_num_rows($result)>0){
           //$json['cliente'][]=nada;
         while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-        
-        
-            array_push($json, array($line["id_"],$line["nit"],$line["razon_social"],$line["telefono"],$line["direccion"]));
+          $destado ="Deshabilitado";
+          if ($line["estado"]==1){
+              $destado ="Habilitado";
+          }        
+          array_push($json, array($line["id_compra"],$line["fecha_compra"],$line["precio_total"]));
         }
         
       }
@@ -168,7 +185,7 @@ class ProveedorDAO {
     }
   
 
-    public function updatestatusvehiculo($tabla,$datos) { //regusu et no es
+    public function updatestatusnota_compra($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
         // connecting to database
@@ -177,9 +194,9 @@ class ProveedorDAO {
     
       
         
-        $pu=$this->isvehiculoexist($tabla, $datos["id"]);
+        $pu=$this->isnota_compraexist($tabla, $datos["id"]);
         if($pu==true){
-          $result=mysqli_query($link,"UPDATE ".$tabla." SET estado=ABS(estado-1) where id_vehiculo = ".$datos["id"]);
+          $result=mysqli_query($link,"UPDATE ".$tabla." SET estado=ABS(estado-1) where id_compra = ".$datos["id"]);
           return $result;
       	}else{
       		return false;

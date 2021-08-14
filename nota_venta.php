@@ -1,279 +1,350 @@
-<?php include("barrasup.php"); ?>
 
-<!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-  <!-- Brand Logo -->
-  <a href="index3.html" class="brand-link">
-    <img src="imagenes/minilogobago.png" alt="Bago Logo" class="brand-image img-circle elevation-3"
-         style="opacity: .8">
-    <span class="brand-text font-weight-light">Bago</span>
-  </a>
 
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <!-- Sidebar user panel (optional) -->
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-      <div class="info">
-        <a href="#" class="d-block"><?php echo $_SESSION['session_usuario'] ?> </a>
-        
-      </div>
-      <div class="right">
-        <i class="fas fa-sign-out-alt"></i>  
-      </div>
-      
-    </div>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AutoTech</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Sidebar Menu -->
-    <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <!-- Add icons to the links using the .nav-icon class
-             with font-awesome or any other icon font library -->
-        <li class="nav-item">
-          <a href="./tablero.php" class="nav-link active">
-            <i class="nav-icon fas fa-th"></i>
-            <p>
-              Tablero
-            </p>
-          </a>
-        </li>
-        <li class="nav-item has-treeview">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-users"></i>
-            <p>
-              Ventas
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="./nota_venta.php" class="nav-link ">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Ventas</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="./clientes.php" class="nav-link ">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Clientes</p>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item has-treeview">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-trophy"></i>
-            <p>
-              Consulta Compras
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="./consultar_compra.php" class="nav-link ">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Consultar Compras</p>
-              </a>
-            </li>
-            
-            
-          </ul>
-        </li>
-        <li class="nav-item has-treeview">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-copy"></i>
-            <p>
-              Reportes
-              <i class="fas fa-angle-left right"></i>
-              <span class="badge badge-info right">3</span>
-            </p>
-          </a>
-         
-        </li>
-        <li class="nav-item ">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fa fa-cogs"></i>
-            <p>
-              Continuara
-           
-            </p>
-          </a>
-        
-        </li>
-      </ul>
-    </nav>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="css/adminlte.min.css">
+  <!-- Bago style -->
+  <link rel="stylesheet" href="css/bagostyle.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   
-    <!-- /.sidebar-menu -->
-  </div>
-  <!-- /.sidebar -->
-</aside>
+</head>
 
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <div class="content-header hero-image" >
-    <div class="container-fluid">
-      <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1 class="m-0 text-white">Niveles</h1>
-        </div><!-- /.col -->
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="tablero.php">Inicio</a></li>
-            <li class="breadcrumb-item active text-white">Niveles</li>
-          </ol>
-        </div><!-- /.col -->
-      </div><!-- /.row -->
-    </div><!-- /.container-fluid -->
-  </div>
-  <!-- /.content-header -->
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <?php include("barrasup.php"); ?>
 
-  <!-- Main content -->
-  <section class="content hero-image" >
-    <div class="container-fluid" >
-      <div class="row">
-        <div class="col-12">
-          <div class="card card-primary">
-            <div class="card-header" >
-              <h3 class="card-title">Lista de nota venta</h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Id_venta</th>
-                  <th>Fecha</th>
-                  <th>Precio_total</th>
-                  <th>Id_cliente</th>
-                  <th>Id_empleado</th>
-                
-                  
-                </thead>
-                <tbody>
-               <?php 
-                  require_once 'Controlador/logros.controlador.php';
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+      <img src="imagenes/minilogobago.png" alt="Bago Logo" class="brand-image img-circle elevation-3"
+           style="opacity: .8">
+      <span class="brand-text font-weight-light">Bago</span>
+    </a>
 
-                
-                  $clogro = new Controladornotaventa();
-                  $list=  $clogro -> ctrListarNivelTabla(1,1000);
-                  
-                  while (count($list)>0){
-                    $Nivel = array_shift($list);
-                    echo "<tr>";
-                    $Did_venta = array_shift($Nivel);
-                    echo "<td>".$Did_venta."</td>";
-                    $Dfecha = array_shift($Nivel);
-                    echo "<td>".$Dfecha."</td>";
-                    $Dprecio_total = array_shift($Nivel);
-                    echo "<td>".$Dprecio_total."</td>";
-                    $Did_cliente = array_shift($Nivel);
-                    echo "<td>".$Did_cliente."</td>";
-                    $Did_empleado = array_shift($Nivel);
-                    echo "<td>".$Did_empleado."</td>";
-                   
-                  
-                    echo '<td>
-                            <button class="btn" onclick="saveData('.$Did_venta.',\''.$Dfecha.'\',\''.$Dprecio_total.'\',\''.$Did_cliente.'\',\''.$Did_empleado.'\')"><i class="fas fa-edit"></i> Editar</button>
-                          
-                          </td>';
-                    echo "</tr>";
-                  }
-                  
-                  ?> 
-                  
-                
-                </tbody>
-              </table>
-            </div>
-            <!-- /.card-body -->
-          </div>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="info">
+          <a href="#" class="d-block"><?php echo $_SESSION['session_usuario'] ?> </a>
           
-      
-
         </div>
-        <!-- /.col -->
+        <div class="right">
+          <i class="fas fa-sign-out-alt"></i>  
+        </div>
+        
       </div>
-      <!-- /.row -->
 
-      <div class="card card-primary">
-            <div class="card-header">
-              <h3 class="card-title"><label id="TituloUser">Agregar Nota Venta</label> </h3> 
-              <button id="nuevoNivel" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nueva Nota Venta</button>
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            <a href="./tablero.php" class="nav-link active">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Tablero
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Almacen
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="./Repuesto.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Repuestos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./Categoria.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Categorias</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./Vehiculo.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Vehiculo</p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-trophy"></i>
+              <p>
+                Compras
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="./Ingresos.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Ingresos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="./Proveedor.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Proveedor</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-copy"></i>
+              <p>
+                Consultar Compras
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right">3</span>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="./consulta_compra.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Consultar Compras</p>
+                </a>
+              </li>
               
-            </div>
-            <!-- /.card-header -->
-            <!-- form start -->
-            <form role="form" enctype="multipart/form-data"  method="post"   >
-              <div class="card-body">
-                <div class="form-group">
-                  <label for="exampleInputId">ID VENTA</label>
-                  <input type="hidden"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
-                </div>
-                <div class="form-group">
-                  <label for="exampleInputNombre">FECHA</label>
-                  <input type="text" class="form-control" id="marca" name="marca" placeholder="Ingrese la Marca">
-                </div>
-                <div class="form-group">
-                  <label for="InputUsuario">PRECIO TOTAL</label>
-                  <input type="text" class="form-control" id="año" name="año" placeholder="Ingrese el Año">
-                </div>
-                 
-                 
-                <div class="form-group">
-                  <label for="InputUsuario">ID CLIENTE</label>
-                  <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Ingrese el Modelo">
-                </div>
-
-                <div class="form-group">
-                  <label for="InputUsuario">ID EMPLEADO</label>
-                  <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Ingrese el Modelo">
-                </div>
-                
+            </ul>
+            
+          </li>
+          <li class="nav-item ">
+            <a href="./Configuraciones.php" class="nav-link">
+              <i class="nav-icon fa fa-cogs"></i>
+              <p>
+                Configuraciones
              
+              </p>
+            </a>
+          
+          </li>
+        </ul>
+      </nav>
+    
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header hero-image" >
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-white">Nota Venta</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="tableroAlmacenero.php">Inicio</a></li>
+              <li class="breadcrumb-item active text-white">Nota Venta</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content hero-image" >
+      <div class="container-fluid" >
+        <div class="row">
+          <div class="col-12">
+            <div class="card card-primary">
+              <div class="card-header" >
+                <h3 class="card-title">Lista de nota de venta</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+                  <tr>
+                  <th>Id</th>
+                    <th>Fecha venta</th>
+                    <th>Precio Total</th>
+                    <th>Cliente</th>
+                    <th>Empleado</th>
+                    <th>Acciones</th>
+                    
+                    
+                  </thead>
+                  <tbody>
+                 <?php 
+                    require_once 'Controlador/vehiculoController.php';
+  
+                  
+                    $cvehiculo = new ControladorVehiculo();
+                    $list=  $cvehiculo -> ctrListarVehiculo(1,1000);
+                    
+                    while (count($list)>0){
+                      $Vehiculo = array_shift($list);
+                      echo "<tr>";
+                      $Did = array_shift($Vehiculo );
+                      echo "<td>".$Did."</td>";
+                      $Dimagen = array_shift($Vehiculo);
+                      if ($Dimagen!=""){
+                        echo "<td><img src='".$Dimagen."' width='100'></td>";  
+                      }else{
+                        echo "<td></td>";
+                      }
+                      $Daño = array_shift($Vehiculo);
+                      echo "<td>".$Daño."</td>";
+                      $Dmodelo = array_shift($Vehiculo);
+                      echo "<td>".$Dmodelo."</td>";
+                      $Dmarca = array_shift($Vehiculo);
+                      echo "<td>".$Dmarca."</td>";
+                  
+                      
+                      echo '<td>
+                              <button class="btn" onclick="saveData('.$Did.',\''.$Dmarca.'\',\''.$Daño.'\',\''.$Dmodelo.'\')"><i class="fas fa-edit"></i> Editar</button>
+                              
+                            </td>';
+                      echo "</tr>";
+                    }
+
+
+                    
+                    
+                    ?> 
+                    
+                  
+                  </tbody>
+                </table>
               </div>
               <!-- /.card-body -->
-
-              <div class="card-footer">
-                <?php
-                  $resp= $clogro -> ctrRegistroNivel();
-                  //echo "<script> alert(' respuesta: ".$resp." ')</script>";
-                  if ($resp=="true"){
-                    //echo "<script> alert(' respuesta: ".$resp." ')</script>";
-                     echo "<meta http-equiv='refresh' content='0'>";
-                  }elseif($resp=="false"){
-                    //echo "<script> alert(' respuesta: al parecer fue falso XD')</script>";
-                  }else{  
-                    if ($resp!=""){
-                    echo "<script> alert(' respuesta: ".$resp." ')</script>";
-                  } }
-                  
-                ?>
-                
-                <input type="submit" class="btn btn-primary" value="Enviar">
-              </div>
-            </form>
+            </div>
+            
+        
+ 
           </div>
-          <!-- /.card -->
-    </div><!--/. container-fluid -->
-     
-    <div class="card-footer">
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+ 
+        <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title"><label id="TituloUser">Agregar nota de venta</label> </h3> 
+                <button id="nuevoNivel" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nueva nota de venta</button>
+                
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" enctype="multipart/form-data"  method="post"   >
+                <div class="card-body">
+                  <div class="form-group">
+                    <label for="exampleInputId"></label>
+                    <input type="hidden"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputNombre">Fecha de venta</label>
+                    <input type="text" class="form-control" id="marca" name="marca" placeholder="Ingrese la Marca">
+                  </div>
+                  <div class="form-group">
+                    <label for="InputUsuario">Precio total</label>
+                    <input type="text" class="form-control" id="año" name="año" placeholder="Ingrese el Año">
+                  </div>
+                   
+                   
+       <tr>
       
-     <!-- <a href="exportarniveles.php" class="btn btn-success">Descargar Excel</a>-->
-      </div>
+      <td><label>
 
-  </section>
-  <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
 
-<!-- Control Sidebar -->
-<aside class="control-sidebar control-sidebar-dark">
-  <!-- Control sidebar content goes here -->
+      <div class="form-group">
+      <label for="InputUsuario">Cliente</label>
+                    <select class="form-control select2"  id="id_proveedor" name="id_proveedor" style="width: 100%;"> 
+                      <option selected="selected"></option>
+                    
+                    </select>
+                  </div>
+  
+                
+    
+    
+    <div class="form-group">
+    <label for="InputUsuario">Empleado</label>  
+                    <select class="form-control select2"  id="id_proveedor" name="id_proveedor" style="width: 100%;"> 
+                      <option selected="selected"></option>
+                    
+                    </select>
+                  </div>
+                
+                  
+                </div>
+                <!-- /.card-body -->
 
-<!-- /.control-sidebar -->
+                <div class="card-footer">
+                  <?php
+                    $resp= $cvehiculo -> ctrRegistroVehiculo();
+                    //echo "<script> alert(' respuesta: ".$resp." ')</script>";
+                    if ($resp=="true"){
+                     // echo "<script> alert(' respuesta: ".$resp." ')</script>";
+                       echo "<meta http-equiv='refresh' content='0'>";
+                    }elseif($resp=="false"){
+                      //echo "<script> alert(' respuesta: al parecer fue falso XD')</script>";
+                    }else{  
+                      if ($resp!=""){
+                      echo "<script> alert(' respuesta: ".$resp." ')</script>";
+                    } }
+                    
+                  ?>
+                  
+                  <input type="submit" class="btn btn-primary" value="Enviar">
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+      </div><!--/. container-fluid -->
+       
+      <div class="card-footer">
+        
+       <!-- <a href="exportarniveles.php" class="btn btn-success">Descargar Excel</a>-->
+        </div>
+ 
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
 
-<!-- Main Footer -->
-<?php include("pie.php"); ?>
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+
+  <!-- /.control-sidebar -->
+
+  <!-- Main Footer -->
+  <?php include("pie.php"); ?>
 </div>
 <!-- ./wrapper -->
 
@@ -295,60 +366,58 @@
 <script src="js/demo.js"></script>
 <!-- page script -->
 <script>
-$(function () {
-  $("#example1").DataTable({
-    "responsive": true,
-    "autoWidth": false,
-  });
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true,
+      "autoWidth": false,
+    });
 
-  
-  
-});
+    
+    
+  });
 </script>
 
 <script>
-function saveData(id, nombre,numero,puntajemin,grupomin){
-  document.getElementById("id_venta").value = id_venta;
-  document.getElementById("fecha").value = fecha;
-  document.getElementById("precio_total").value = precio_total;
-  document.getElementById("id_cliente").value = id_cliente;
-  document.getElementById("id_empleado").value = id_empleado;
-
-  $('#TituloUser').text("Editar Nivel");
-//    document.getElementById("TituloUser").value = "Editar Usuario";  
-}
-
-function newUser(){
-  document.getElementById("id_venta").value = 0;
-  document.getElementById("fecha").value = "";
-  document.getElementById("precio_total").value = 0;
-  document.getElementById("id_cliente").value = 0;
-  document.getElementById("id_empleado").value = 0;
-  
+  function saveData(id, marca,año,modelo){
+    document.getElementById("id").value = id;
+    document.getElementById("marca").value = marca;
+    document.getElementById("año").value = año;
+    document.getElementById("modelo").value = modelo;
  
+    $('#TituloUser').text("Editar Vehiculo");
+//    document.getElementById("TituloUser").value = "Editar Usuario";  
+  }
   
-  $('#TituloUser').text("Agregar Nota Venta");
-//  document.getElementById("TituloUser").value = "Agregar Usuario";  
-}
-
-function updateStatus(id){
-    var parametros = {
-              "id_venta" : id_venta,
-            
-      };
+  function newUser(){
+    document.getElementById("id").value = 0;
+    document.getElementById("marca").value = "";
+    document.getElementById("año").value = 0;
+    document.getElementById("modelo").value = "";
+     
     
-    $.ajax({
-      type: "POST",
-      url: "comportamientoestado.php",
-      data: parametros,
-      success:function( msg ) {
-        window.location.href = window.location.href;
-     //  alert( "Data actualizada. " + msg );
-      }
-     });
-}
-
-
+    $('#TituloUser').text("Agregar Automovil");
+  //  document.getElementById("TituloUser").value = "Agregar Usuario";  
+  }
+  
+  
+  
+  function updateStatus(id){
+      var parametros = {
+                "id" : id,
+        
+              
+        };
+      
+      $.ajax({
+        type: "POST",
+        url: "estadovehiculo.php",
+        data: parametros,
+        success:function( msg ) {
+          window.location.href = window.location.href;
+         alert( "Data actualizada. " + msg );
+        }
+       });
+  }
 </script>
 
 <!-- Usuario SCRIPTS -->

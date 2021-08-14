@@ -27,7 +27,8 @@ class ControladorProveedor{
                // $mutil -> console_log('esta ingresando');
                   $datos = array("nit"=>$_POST["nit"],
                          "razon"=>$_POST["razon"],
-                         "telefono"=>$_POST["telefono"]
+                         "telefono"=>$_POST["telefono"],
+                         "direccion"=>$_POST["direccion"]
                          );
           
                   $tabla = "proveedor";
@@ -50,7 +51,8 @@ class ControladorProveedor{
                 $datos = array("id"=>$_POST["id"],
                 "nit"=>$_POST["nit"],
                 "razon"=>$_POST["razon"],
-                "telefono"=>$_POST["telefono"]
+                "telefono"=>$_POST["telefono"],
+                "direccion"=>$_POST["direccion"]
                          );
           
                 $tabla = "proveedor";
@@ -71,7 +73,7 @@ class ControladorProveedor{
         return "";
       }
       
-  }
+   }
   
 
 
@@ -80,8 +82,8 @@ class ControladorProveedor{
       
             
        $tabla = "proveedor";
-       $Vehiculod = new ProveedorDAO();
-        $respuesta = $Vehiculod -> listProveedor($pagina,$cantidad);
+       $Proveedord = new ProveedorDAO();
+        $respuesta = $Proveedord -> listProveedor($pagina,$cantidad);
     
         return $respuesta;
   
@@ -92,14 +94,15 @@ class ControladorProveedor{
 
       
 
-      public function ctrActualizarEstadoVehiculo($id){
+      public function ctrActualizarEstadoProveedor($id){
       
 
-        $tabla = "vehiculo";
+        $tabla = "proveedor";
         $datos = array("id"=>$id);
-        $Vehiculod = new VehiculosDAO();
-        $respuesta = $Vehiculod -> updatestatusvehiculo($tabla,$datos);
+        $Proveedord = new ProveedorDAO();
+        $respuesta = $Proveedord -> updatestatusproveedor($tabla,$datos);
         return $respuesta; 
+      
         
       
     }

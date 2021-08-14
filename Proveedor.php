@@ -75,21 +75,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./UsuarioWeb.php" class="nav-link ">
+                <a href="./Repuesto.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Repuestos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./UsuarioMovil.php" class="nav-link ">
+                <a href="./Categoria.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Categorias</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./UsuarioMovil.php" class="nav-link ">
+                <a href="./Vehiculo.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Automovil</p>
+                  <p>Vehiculo</p>
                 </a>
               </li>
 
@@ -105,7 +105,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Comportamientos.php" class="nav-link ">
+                <a href="./Ingresos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ingresos</p>
                 </a>
@@ -129,7 +129,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Comportamientos.php" class="nav-link ">
+                <a href="./consulta_compra.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Consultar Compras</p>
                 </a>
@@ -183,7 +183,7 @@
           <div class="col-12">
             <div class="card card-primary">
               <div class="card-header" >
-                <h3 class="card-title">Lista de Vehiculos</h3>
+                <h3 class="card-title">Lista de Proveedores</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -192,9 +192,10 @@
                   <tr>
                     <th>Id</th>
                     
-                    <th>nit</th>
-                    <th>razon_social</th>
-                    <th>telefono</th>
+                    <th>Nit</th>
+                    <th>Razon Social</th>
+                    <th>Telefono</th>
+                    <th>Direccion</th>
                     <th>Acciones</th>
                     
                   </thead>
@@ -217,8 +218,10 @@
                       echo "<td>".$Drazon."</td>";
                       $Dtelefono = array_shift($Proveedor);
                       echo "<td>".$Dtelefono."</td>";
+                      $Ddireccion = array_shift($Proveedor);
+                      echo "<td>".$Ddireccion."</td>";
                       echo '<td>
-                              <button class="btn" onclick="saveData('.$Did.',\''.$Dnit.'\',\''.$Drazon.'\',\''.$Dtelefono.'\')"><i class="fas fa-edit"></i> Editar</button>
+                              <button class="btn" onclick="saveData('.$Did.',\''.$Dnit.'\',\''.$Drazon.'\',\''.$Dtelefono.'\',\''.$Ddireccion.'\')"><i class="fas fa-edit"></i> Editar</button>
                                   </td>';
                       echo "</tr>";
                     }
@@ -250,22 +253,27 @@
               <form role="form" enctype="multipart/form-data"  method="post"   >
                 <div class="card-body">
                   <div class="form-group">
-                    <label type="hidden" for="exampleInputId">ID</label>
+                    <label type="hidden" for="exampleInputId"></label>
                     <input type="hidden"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
                   </div>
                   <div class="form-group">
                     <label for="exampleInputNombre">NIT</label>
-                    <input type="number" class="form-control" id="nit" name="nit" placeholder="Ingrese NIT ">
+                    <input type="number" class="form-control" id="nit" name="nit" placeholder="Ingrese nit">
                   </div>
                    
                   <div class="form-group">
                     <label for="InputUsuario">Razon Social</label>
-                    <input type="text" class="form-control" id="razon" name="razon" placeholder="Ingrese la Razon Social">
+                    <input type="text" class="form-control" id="razon" name="razon" placeholder="Ingrese la razon social">
                   </div>
 
                   <div class="form-group">
                     <label for="InputUsuario">Telefono</label>
                     <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Ingrese el telefono">
+                  </div>
+
+                  <div class="form-group">
+                    <label for="InputUsuario">Direccion</label>
+                    <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Ingrese la direccion">
                   </div>
                    
                    
@@ -347,11 +355,12 @@
 </script>
 
 <script>
-  function saveData(id, nit,razon,telefono){
+  function saveData(id, nit,razon,telefono,direccion){
     document.getElementById("id").value = id;
     document.getElementById("nit").value = nit;
     document.getElementById("razon").value = razon;
     document.getElementById("telefono").value = telefono;
+    document.getElementById("direccion").value = direccion;
  
     $('#TituloUser').text("Editar Proveedor");
 //    document.getElementById("TituloUser").value = "Editar Usuario";  
@@ -362,6 +371,7 @@
     document.getElementById("nit").value = 0;
     document.getElementById("razon").value = "";
     document.getElementById("telefono").value = 0;
+    document.getElementById("direccion").value = "";
      
     
     $('#TituloUser').text("Agregar Proveedor");
