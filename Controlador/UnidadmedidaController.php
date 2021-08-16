@@ -1,9 +1,9 @@
 <?php
 
-require_once 'modelo/Funciones/ProveedorDAO.php';
+require_once 'modelo/Funciones/UnidadmedidaDAO.php';
 require_once 'modelo/utilitario.php';
 
-class ControladorProveedor{
+class ControladorUnidadmedida{
   
     /* ==============================
      Registro de Usuario Web     
@@ -16,7 +16,7 @@ class ControladorProveedor{
 
 
 
-    public function ctrRegistroProveedor(){
+    public function ctrRegistroUnidadmedida(){
       
         if(isset($_POST["id"])){
          
@@ -30,19 +30,15 @@ class ControladorProveedor{
                 
                  // $mutil -> console_log('esta ingresando');
                       $datos = array(
-                        "ci"=>$_POST["nit"],
-                        "razon_social"=>$_POST["razon_social"],
-                        "telefono"=>$_POST["telefono"],
-                        "dirección"=>$_POST["dirección"],
-                        "email"=>$_POST["email"],
+                        "nombre"=>$_POST["nombre"],
+                       
                         
                      
                        // "imagen"=>""
                         );
-                    $tabla = "proveedor";
-                    $Proveedord = new ProveedorDAO ();
-                    $respuesta = $Proveedord ->addProveedor($tabla,$datos);
-
+                    $tabla = "unidad_medida";
+                    $Unidadmedidad = new UnidadmedidaDAO ();
+                    $respuesta = $Unidadmedidad -> addUnidadmedida($tabla,$datos);
                    // return $respuesta;  
                     if ($respuesta==true){
                       return "true";
@@ -58,18 +54,15 @@ class ControladorProveedor{
             }else{
              
                 $datos = array("id"=>$_POST["id"],
-                "nit"=>$_POST["nit"],
-                "razon_social"=>$_POST["razon_social"],
-                "telefono"=>$_POST["telefono"],
-                "dirección"=>$_POST["dirección"],
-                "email"=>$_POST["email"],
+                    "nombre"=>$_POST["nombre"],
+                   
                  
                    // "imagen"=>""
                     );
             
-                  $tabla = "proveedor";
-                  $Proveedord = new ProveedorDAO();
-                  $respuesta = $Proveedord -> updateProveedor($tabla,$datos);
+                  $tabla = "unidad_medida";
+                  $Unidadmedidad = new UnidadmedidaDAO();
+                  $respuesta = $Unidadmedidad -> updateUnidadmedida($tabla,$datos);
             
                   //return $respuesta;
                   if ($respuesta==true){
@@ -89,12 +82,12 @@ class ControladorProveedor{
 
 
 
-      public function ctrListarProveedor($pagina,$cantidad){
+      public function ctrListarUnidadmedida($pagina,$cantidad){
       
             
-       $tabla = "proveedor";
-       $Proveedord = new ProveedorDAO();
-      $respuesta = $Proveedord -> listProveedor($pagina,$cantidad);
+       $tabla = "unidad_medida";
+       $Unidadmedidad = new UnidadmedidaDAO();
+        $respuesta = $Unidadmedidad -> listUnidadmedida($pagina,$cantidad);
     
         return $respuesta;
   

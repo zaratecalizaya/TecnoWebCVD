@@ -1,9 +1,9 @@
 <?php
 
-require_once 'modelo/Funciones/ProveedorDAO.php';
+require_once 'modelo/Funciones/TransporteDAO.php';
 require_once 'modelo/utilitario.php';
 
-class ControladorProveedor{
+class ControladorTransporte{
   
     /* ==============================
      Registro de Usuario Web     
@@ -16,7 +16,7 @@ class ControladorProveedor{
 
 
 
-    public function ctrRegistroProveedor(){
+    public function ctrRegistroTransporte(){
       
         if(isset($_POST["id"])){
          
@@ -30,19 +30,16 @@ class ControladorProveedor{
                 
                  // $mutil -> console_log('esta ingresando');
                       $datos = array(
-                        "ci"=>$_POST["nit"],
-                        "razon_social"=>$_POST["razon_social"],
-                        "telefono"=>$_POST["telefono"],
-                        "dirección"=>$_POST["dirección"],
-                        "email"=>$_POST["email"],
+                        "marca"=>$_POST["marca"],
+                        "placa"=>$_POST["placa"],
+                        "tipo"=>$_POST["tipo"],
                         
                      
                        // "imagen"=>""
                         );
-                    $tabla = "proveedor";
-                    $Proveedord = new ProveedorDAO ();
-                    $respuesta = $Proveedord ->addProveedor($tabla,$datos);
-
+                    $tabla = "transporte";
+                    $Transported = new TransporteDAO ();
+                    $respuesta = $Transported -> addTransporte($tabla,$datos);
                    // return $respuesta;  
                     if ($respuesta==true){
                       return "true";
@@ -58,18 +55,17 @@ class ControladorProveedor{
             }else{
              
                 $datos = array("id"=>$_POST["id"],
-                "nit"=>$_POST["nit"],
-                "razon_social"=>$_POST["razon_social"],
-                "telefono"=>$_POST["telefono"],
-                "dirección"=>$_POST["dirección"],
-                "email"=>$_POST["email"],
+                    "marca"=>$_POST["marca"],
+                    "placa"=>$_POST["placa"],
+                    "tipo"=>$_POST["tipo"],
+                 
                  
                    // "imagen"=>""
                     );
             
-                  $tabla = "proveedor";
-                  $Proveedord = new ProveedorDAO();
-                  $respuesta = $Proveedord -> updateProveedor($tabla,$datos);
+                  $tabla = "transporte";
+                  $Transported = new TransporteDAO();
+                  $respuesta = $Transported -> updateTransporte($tabla,$datos);
             
                   //return $respuesta;
                   if ($respuesta==true){
@@ -89,12 +85,12 @@ class ControladorProveedor{
 
 
 
-      public function ctrListarProveedor($pagina,$cantidad){
+      public function ctrListarTransporte($pagina,$cantidad){
       
             
-       $tabla = "proveedor";
-       $Proveedord = new ProveedorDAO();
-      $respuesta = $Proveedord -> listProveedor($pagina,$cantidad);
+       $tabla = "transporte";
+       $Transported = new TransporteDAO();
+        $respuesta = $Transported -> listTransporte($pagina,$cantidad);
     
         return $respuesta;
   

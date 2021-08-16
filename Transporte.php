@@ -163,12 +163,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-white">Vehiculos</h1>
+            <h1 class="m-0 text-white">Transporte</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="tableroAlmacenero.php">Inicio</a></li>
-              <li class="breadcrumb-item active text-white">Vehiculos</li>
+              <li class="breadcrumb-item active text-white">Transporte</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -183,7 +183,7 @@
           <div class="col-12">
             <div class="card card-primary">
               <div class="card-header" >
-                <h3 class="card-title">Lista de Vehiculos</h3>
+                <h3 class="card-title">Lista de Transporte</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -191,51 +191,41 @@
                   <thead>
                   <tr>
                     <th>Id</th>
-                    <th>Imagen</th>
-                    <th>Año</th>
-                    <th>Modelo</th>
                     <th>Marca</th>
-                    <th>Estado</th>
+                    <th>Placa</th>
+                    <th>Tipo</th>
                     <th>Acciones</th>
                     
                   </thead>
                   <tbody>
                  <?php 
-                    require_once 'Controlador/vehiculoController.php';
+                    require_once 'Controlador/TransporteController.php';
   
                   
-                    $cvehiculo = new ControladorVehiculo();
-                    $list=  $cvehiculo -> ctrListarVehiculo(1,1000);
+                    $ctransporte = new ControladorTransporte();
+                    $list=  $ctransporte -> ctrListarTransporte(1,1000);
                     
                     while (count($list)>0){
-                      $Vehiculo = array_shift($list);
+                      $Transporte = array_shift($list);
                       echo "<tr>";
-                      $Did = array_shift($Vehiculo );
+                      $Did = array_shift($Transporte );
                       echo "<td>".$Did."</td>";
-                      $Dimagen = array_shift($Vehiculo);
-                      if ($Dimagen!=""){
-                        echo "<td><img src='".$Dimagen."' width='100'></td>";  
-                      }else{
-                        echo "<td></td>";
-                      }
-                      $Daño = array_shift($Vehiculo);
-                      echo "<td>".$Daño."</td>";
-                      $Dmodelo = array_shift($Vehiculo);
-                      echo "<td>".$Dmodelo."</td>";
-                      $Dmarca = array_shift($Vehiculo);
+                      $Dmarca = array_shift($Transporte);
                       echo "<td>".$Dmarca."</td>";
-                      $Destado = array_shift($Vehiculo);
-                      $Destadobtn="Habilitar";
-                      $DestadoIco="thumbs-up";
-                      echo "<td>".$Destado."</td>";
-                      if ($Destado=="Habilitado"){
-                        $Destadobtn="Deshabilitar";
-                        $DestadoIco="thumbs-down";
-                      }
+                      $Dplaca = array_shift($Transporte);
+                      echo "<td>".$Dplaca."</td>";
+                      $Dtipo = array_shift($Transporte);
+                      echo "<td>".$Dtipo."</td>";
+                   
+                      
+                     
+                    
+                    
                       echo '<td>
-                              <button class="btn" onclick="saveData('.$Did.',\''.$Dmarca.'\',\''.$Daño.'\',\''.$Dmodelo.'\')"><i class="fas fa-edit"></i> Editar</button>
-                              <button class="btn" onclick="updateStatus('.$Did.')"><i class="far fa-'.$DestadoIco.'"></i>'.$Destadobtn.'</button>
-                            </td>';
+                      <button class="btn" onclick="saveData('.$Did.',\''.$Dmarca.'\',\''.$Dplaca.'\',\''.$Dtipo.'\')"><i class="fas fa-edit"></i> Editar</button> 
+                  
+                      
+                    </td>';
                       echo "</tr>";
                     }
                     
@@ -257,8 +247,8 @@
  
         <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title"><label id="TituloUser">Agregar Vehiculo</label> </h3> 
-                <button id="nuevoNivel" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Vehiculo</button>
+                <h3 class="card-title"><label id="TituloUser">Agregar Transporte</label> </h3> 
+                <button id="nuevoNivel" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Transporte</button>
                 
               </div>
               <!-- /.card-header -->
@@ -271,25 +261,32 @@
                   </div>
                   <div class="form-group">
                     <label for="exampleInputNombre">Marca</label>
-                    <input type="text" class="form-control" id="marca" name="marca" placeholder="Ingrese la Marca">
+                    <input type="text" class="form-control" id="marca" name="marca" placeholder="Ingrese la marca">
                   </div>
                   <div class="form-group">
-                    <label for="InputUsuario">Año</label>
-                    <input type="text" class="form-control" id="año" name="año" placeholder="Ingrese el Año">
+                    <label for="InputUsuario">Placa</label>
+                    <input type="text" class="form-control" id="placa" name="placa" placeholder="Ingrese el placa">
                   </div>
                    
                    
-                  <div class="form-group">
-                    <label for="InputUsuario">Modelo</label>
-                    <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Ingrese el Modelo">
+                
+    
+    
+    <div class="form-group">
+    <label for="InputUsuario">Tipo</label>  
+                    <select class="form-control select2"  id="tipo" name="tipo"  style="width: 100%;"  placeholder="Ingrese el tipo"> 
+                      <option selected="selected">Auto</option>
+                      <option>Camion</option>
+                      <option>Moto</option>
+                     
+                    
+                    </select>
                   </div>
+                
                   
-                 
-                  <div class="form-group">
-                    <label for="InputUsuario">Foto de Vehiculo</label>
-                   <input type="hidden" name="MAX_FILE_SIZE" value="512000" />
-                    <p><input name="subir_archivo" type="file" /></p>
-                  </div>
+                </div>
+                  
+                
 
                   
                 </div>
@@ -297,7 +294,7 @@
 
                 <div class="card-footer">
                   <?php
-                    $resp= $cvehiculo -> ctrRegistroVehiculo();
+                    $resp= $ctransporte -> ctrRegistroTransporte();
                     //echo "<script> alert(' respuesta: ".$resp." ')</script>";
                     if ($resp=="true"){
                      // echo "<script> alert(' respuesta: ".$resp." ')</script>";
@@ -369,24 +366,46 @@
 </script>
 
 <script>
-  function saveData(id, marca,año,modelo){
+
+  /*function eliminar(){
+   
+        var id = $("input[name=id_empleado]").val();
+
+        $.ajax({
+            url:'/empleado/eliminar/'+id,
+            method: 'DELETE',
+            data:{
+              _token:$('input[name="_token"]').val()
+            }
+        }).done(function(res){
+          alert("empleado eliminado!..");
+        })
+        $("#tb1").val('');
+        listar('empleado.id','');
+        limpiar();
+      });*/
+   
+  
+  function saveData(id, marca, placa, tipo){
     document.getElementById("id").value = id;
     document.getElementById("marca").value = marca;
-    document.getElementById("año").value = año;
-    document.getElementById("modelo").value = modelo;
+    document.getElementById("placa").value = placa;
+    document.getElementById("tipo").value = tipo;
  
-    $('#TituloUser').text("Editar Vehiculo");
-//    document.getElementById("TituloUser").value = "Editar Usuario";  
+ 
+    $('#TituloUser').text("Editar Transporte");
+ //    document.getElementById("TituloUser").value = "Editar Usuario";  
   }
   
   function newUser(){
     document.getElementById("id").value = 0;
     document.getElementById("marca").value = "";
-    document.getElementById("año").value = 0;
-    document.getElementById("modelo").value = "";
+    document.getElementById("placa").value = "";
+    document.getElementById("tipo").value = "";
+   
      
     
-    $('#TituloUser').text("Agregar Automovil");
+    $('#TituloUser').text("Agregar Transporte");
   //  document.getElementById("TituloUser").value = "Agregar Usuario";  
   }
   
@@ -401,7 +420,7 @@
       
       $.ajax({
         type: "POST",
-        url: "estadovehiculo.php",
+        url: "estadotransporte.php",
         data: parametros,
         success:function( msg ) {
           window.location.href = window.location.href;

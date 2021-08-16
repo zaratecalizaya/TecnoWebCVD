@@ -1,9 +1,9 @@
 <?php
 
-require_once 'modelo/Funciones/ProveedorDAO.php';
+require_once 'modelo/Funciones/EmpleadoDAO.php';
 require_once 'modelo/utilitario.php';
 
-class ControladorProveedor{
+class ControladorEmpleado{
   
     /* ==============================
      Registro de Usuario Web     
@@ -16,7 +16,7 @@ class ControladorProveedor{
 
 
 
-    public function ctrRegistroProveedor(){
+    public function ctrRegistroEmpleado(){
       
         if(isset($_POST["id"])){
          
@@ -30,19 +30,20 @@ class ControladorProveedor{
                 
                  // $mutil -> console_log('esta ingresando');
                       $datos = array(
-                        "ci"=>$_POST["nit"],
-                        "razon_social"=>$_POST["razon_social"],
+                        "ci"=>$_POST["ci"],
+                        "nombre"=>$_POST["nombre"],
+                        "paterno"=>$_POST["paterno"],
+                        "materno"=>$_POST["materno"],
                         "telefono"=>$_POST["telefono"],
-                        "dirección"=>$_POST["dirección"],
                         "email"=>$_POST["email"],
-                        
+                        "direccion"=>$_POST["direccion"],
+                        "cargo"=>$_POST["cargo"],
                      
                        // "imagen"=>""
                         );
-                    $tabla = "proveedor";
-                    $Proveedord = new ProveedorDAO ();
-                    $respuesta = $Proveedord ->addProveedor($tabla,$datos);
-
+                    $tabla = "empleado";
+                    $Empleadod = new EmpleadoDAO ();
+                    $respuesta = $Empleadod -> addEmpleado($tabla,$datos);
                    // return $respuesta;  
                     if ($respuesta==true){
                       return "true";
@@ -58,18 +59,21 @@ class ControladorProveedor{
             }else{
              
                 $datos = array("id"=>$_POST["id"],
-                "nit"=>$_POST["nit"],
-                "razon_social"=>$_POST["razon_social"],
-                "telefono"=>$_POST["telefono"],
-                "dirección"=>$_POST["dirección"],
-                "email"=>$_POST["email"],
+                    "ci"=>$_POST["ci"],
+                    "nombre"=>$_POST["nombre"],
+                    "paterno"=>$_POST["paterno"],
+                    "materno"=>$_POST["materno"],
+                    "telefono"=>$_POST["telefono"],
+                    "email"=>$_POST["email"],
+                    "direccion"=>$_POST["direccion"],
+                    "cargo"=>$_POST["cargo"],
                  
                    // "imagen"=>""
                     );
             
-                  $tabla = "proveedor";
-                  $Proveedord = new ProveedorDAO();
-                  $respuesta = $Proveedord -> updateProveedor($tabla,$datos);
+                  $tabla = "empleado";
+                  $Empleadod = new EmpleadoDAO();
+                  $respuesta = $Empleadod -> updateEmpleado($tabla,$datos);
             
                   //return $respuesta;
                   if ($respuesta==true){
@@ -89,12 +93,12 @@ class ControladorProveedor{
 
 
 
-      public function ctrListarProveedor($pagina,$cantidad){
+      public function ctrListarEmpleado($pagina,$cantidad){
       
             
-       $tabla = "proveedor";
-       $Proveedord = new ProveedorDAO();
-      $respuesta = $Proveedord -> listProveedor($pagina,$cantidad);
+       $tabla = "empleado";
+       $Empleadod = new EmpleadoDAO();
+        $respuesta = $Empleadod -> listEmpleado($pagina,$cantidad);
     
         return $respuesta;
   

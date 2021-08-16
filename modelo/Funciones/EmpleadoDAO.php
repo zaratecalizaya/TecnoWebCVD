@@ -1,6 +1,6 @@
 <?php
  
-class ProveedorDAO {
+class EmpleadoDAO {
  
     private $db;
     // constructor
@@ -53,9 +53,29 @@ class ProveedorDAO {
 
 	
   
-	
+	public function getusuario($Nick){
+		require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+		$query = "SELECT * FROM EFUsuario where Nick='".$Nick."'";
+		$result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error());
+
+		$json = array();
+		if(mysqli_num_rows($result)>0){
+			while ($line = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+				$json['usuario'][]=$line;
+			}
+			
+		}
+		
+		mysqli_close($link);
+		return json_encode($json);
+		
+	}
+  
        
-    public function addProveedor($tabla,$datos) { //regusu et no es
+    public function addEmpleado($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
       require_once 'modelo/utilitario.php';
@@ -73,13 +93,13 @@ class ProveedorDAO {
       		
       			
       				
-              $consulta ="INSERT INTO ".$tabla." (nit, razon_social, telefono,dirección, email) VALUES('".$datos["nit"]."','".$datos["razon_social"]."','".$datos["telefono"]."','".$datos["dirección"]."','".$datos["email"]."')";
+              $consulta ="INSERT INTO ".$tabla." (ci, nombre, paterno, materno, telefono, email ,direccion, cargo) VALUES('".$datos["ci"]."','".$datos["nombre"]."','".$datos["paterno"]."','".$datos["materno"]."','".$datos["telefono"]."','".$datos["email"]."','".$datos["direccion"]."','".$datos["cargo"]."')";
            
               $result=mysqli_query($link,$consulta);
               if ($result ==true){
                 return "true";
               }else {
-                return "Error al guardar el proveedor";
+                return "Error al guardar el empleado";
               }
             
 			
@@ -89,14 +109,14 @@ class ProveedorDAO {
 
     
        
-	   public function isproveedorexist($tabla, $id) {
+	   public function isempleadoexist($tabla, $id) {
 
       require_once 'modelo/Conexion/connectbd.php';
       // connecting to database
       $this->db = new DB_Connect();
       $link=$this->db->connect();
   
-      if ($result = mysqli_query($link,"SELECT * from ".$tabla." WHERE id_proveedor = '".$id."'")) {
+      if ($result = mysqli_query($link,"SELECT * from ".$tabla." WHERE id_empleado = '".$id."'")) {
 
         /* determinar el número de filas del resultado */
         $num_rows  = mysqli_num_rows($result);
@@ -115,17 +135,17 @@ class ProveedorDAO {
   }
 
 
-    public function updateProveedor($tabla,$datos) { //regusu et no es
+    public function updateEmpleado($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
       // connecting to database
       $this->db = new DB_Connect();
       $link=$this->db->connect();
   
-      $pu=$this->isproveedorexist($tabla, $datos["id"]);
+      $pu=$this->isempleadoexist($tabla, $datos["id"]);
       if($pu==true){
         
-          $result=mysqli_query($link,"UPDATE ".$tabla." SET nit ='".$datos["nit"]."',razon_social='".$datos["razon_social"]."' , telefono ='".$datos["telefono"]."', dirección ='".$datos["dirección"]."',email='".$datos["email"]."'    where id_proveedor = ".$datos["id"]);
+          $result=mysqli_query($link,"UPDATE ".$tabla." SET ci ='".$datos["ci"]."',nombre='".$datos["nombre"]."' ,paterno='".$datos["paterno"]."',materno='".$datos["materno"]."', telefono ='".$datos["telefono"]."',email='".$datos["email"]."' ,direccion='".$datos["direccion"]."',cargo='".$datos["cargo"]."'   where id_empleado = ".$datos["id"]);
           return $result;
              
       }else{
@@ -133,10 +153,10 @@ class ProveedorDAO {
       }
     }
 
-    public function deleteProveedor($tabla,$datos) { 
+    public function deleteEmpleado($tabla,$datos) { 
         $this->db = new DB_Connect();
         $link=$this->db->connect();
-        $result="delete from proveedor where id_proveedor=$this->id_proveedor";
+        $result="delete from empleado where id_empleado=$this->id_empleado";
 		
 		if(parent::ejecutar($sql))
 			return true;
@@ -157,14 +177,14 @@ class ProveedorDAO {
     
     }
  
-    public function listProveedor($pagina,$cantidad){
+    public function listEmpleado($pagina,$cantidad){
       require_once 'modelo/Conexion/connectbd.php';
           // connecting to database
           $this->db = new DB_Connect();
           $link=$this->db->connect();
       //$json=$cuenta;
       
-      $query = "SELECT id_proveedor,nit,razon_social,telefono,dirección,email FROM proveedor ";
+      $query = "SELECT id_empleado,ci,nombre,paterno,materno,telefono,email,direccion,cargo FROM empleado   ";
       $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
   
       $json = array();
@@ -176,7 +196,7 @@ class ProveedorDAO {
          // if ($line["estado"]==1){
            //   $destado ="Habilitado";
         //  }        
-          array_push($json, array($line["id_proveedor"],$line["nit"],$line["razon_social"],$line["telefono"],$line["dirección"],$line["email"]));
+          array_push($json, array($line["id_empleado"],$line["ci"],$line["nombre"],$line["paterno"],$line["materno"],$line["telefono"],$line["email"],$line["direccion"],$line["cargo"]));
         }
         
       }
@@ -187,7 +207,24 @@ class ProveedorDAO {
     }
   
 
+    public function updatestatusempleado($tabla,$datos) { //regusu et no es
+
+      require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
     
+      
+        
+        $pu=$this->isempleadoexist($tabla, $datos["id"]);
+        if($pu==true){
+          $result=mysqli_query($link,"UPDATE ".$tabla." SET estado=ABS(estado-1) where id_vehiculo = ".$datos["id"]);
+          return $result;
+      	}else{
+      		return false;
+      	}
+      
+    }  
 
 
   //  public function eliminar(Request $datos){

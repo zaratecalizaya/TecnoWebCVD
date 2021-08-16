@@ -111,7 +111,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./GrupoComportamientos.php" class="nav-link ">
+                <a href="./Proveedor.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Proveedor</p>
                 </a>
@@ -163,12 +163,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-white">Proveedores</h1>
+            <h1 class="m-0 text-white">Proveedor</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="tableroAlmacenero.php">Inicio</a></li>
-              <li class="breadcrumb-item active text-white">Proveedores</li>
+              <li class="breadcrumb-item active text-white">Proveedor</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -183,7 +183,7 @@
           <div class="col-12">
             <div class="card card-primary">
               <div class="card-header" >
-                <h3 class="card-title">Lista de Proveedores</h3>
+                <h3 class="card-title">Lista de Proveedor</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -191,12 +191,13 @@
                   <thead>
                   <tr>
                     <th>Id</th>
-                    
                     <th>Nit</th>
-                    <th>Razon Social</th>
+                    <th>Razon_Social</th>
                     <th>Telefono</th>
                     <th>Direccion</th>
+                    <th>Email</th>
                     <th>Acciones</th>
+
                     
                   </thead>
                   <tbody>
@@ -214,15 +215,25 @@
                       echo "<td>".$Did."</td>";
                       $Dnit = array_shift($Proveedor);
                       echo "<td>".$Dnit."</td>";
-                      $Drazon = array_shift($Proveedor);
-                      echo "<td>".$Drazon."</td>";
+                      $Drazon_social = array_shift($Proveedor);
+                      echo "<td>".$Drazon_social."</td>";
                       $Dtelefono = array_shift($Proveedor);
                       echo "<td>".$Dtelefono."</td>";
-                      $Ddireccion = array_shift($Proveedor);
-                      echo "<td>".$Ddireccion."</td>";
+                      $Ddirección = array_shift($Proveedor);
+                      echo "<td>".$Ddirección."</td>";
+                      $Demail = array_shift($Proveedor);
+                      echo "<td>".$Demail."</td>";
+                      
+                     
+                      
+                     
+                    
+                    
                       echo '<td>
-                              <button class="btn" onclick="saveData('.$Did.',\''.$Dnit.'\',\''.$Drazon.'\',\''.$Dtelefono.'\',\''.$Ddireccion.'\')"><i class="fas fa-edit"></i> Editar</button>
-                                  </td>';
+                      <button class="btn" onclick="saveData('.$Did.',\''.$Dnit.'\',\''.$Drazon_social.'\',\''.$Dtelefono.'\',\''.$Ddirección.'\',\''.$Demail.'\')"><i class="fas fa-edit"></i> Editar</button> 
+                  
+                      
+                    </td>';
                       echo "</tr>";
                     }
                     
@@ -253,32 +264,56 @@
               <form role="form" enctype="multipart/form-data"  method="post"   >
                 <div class="card-body">
                   <div class="form-group">
-                    <label type="hidden" for="exampleInputId"></label>
+                    <label for="exampleInputId"></label>
                     <input type="hidden"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputNombre">NIT</label>
-                    <input type="number" class="form-control" id="nit" name="nit" placeholder="Ingrese nit">
+                    <label for="exampleInputNombre">Nit</label>
+                    <input type="text" class="form-control" id="nit" name="nit" placeholder="Ingrese el nit">
                   </div>
-                   
                   <div class="form-group">
                     <label for="InputUsuario">Razon Social</label>
-                    <input type="text" class="form-control" id="razon" name="razon" placeholder="Ingrese la razon social">
+                    <input type="text" class="form-control" id="razon_social" name="razon_social" placeholder="Ingrese el razon_social">
                   </div>
-
+                   
+                   
                   <div class="form-group">
                     <label for="InputUsuario">Telefono</label>
-                    <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Ingrese el telefono">
+                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese el telefono">
                   </div>
+                  
+                 
 
                   <div class="form-group">
                     <label for="InputUsuario">Direccion</label>
-                    <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Ingrese la direccion">
+                    <input type="text" class="form-control" id="dirección" name="dirección" placeholder="Ingrese el direccion">
                   </div>
                    
+                  
+
+                  
+                  <div class="form-group">
+                    <label for="InputUsuario">Email</label>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Ingrese el Email">
+                  </div>
+                  
+                 
+
                    
                   
+
+                
+  
+                
+    
+    
+                
+                  
                 </div>
+                  
+                
+
+               
                 <!-- /.card-body -->
 
                 <div class="card-footer">
@@ -355,26 +390,34 @@
 </script>
 
 <script>
-  function saveData(id, nit,razon,telefono,direccion){
+
+  
+   
+  
+  function saveData(id, nit, razon_social,telefono,direccion,email){
     document.getElementById("id").value = id;
     document.getElementById("nit").value = nit;
-    document.getElementById("razon").value = razon;
+    document.getElementById("razon_social").value = razon_social;
     document.getElementById("telefono").value = telefono;
-    document.getElementById("direccion").value = direccion;
+    document.getElementById("dirección").value = dirección;
+    document.getElementById("email").value = email;
+    
  
-    $('#TituloUser').text("Editar Proveedor");
-//    document.getElementById("TituloUser").value = "Editar Usuario";  
+    $('#TituloUser').text("Editar PROVEEDOR");
+ //    document.getElementById("TituloUser").value = "Editar Usuario";  
   }
   
   function newUser(){
     document.getElementById("id").value = 0;
     document.getElementById("nit").value = 0;
-    document.getElementById("razon").value = "";
+    document.getElementById("razon_social").value = "";
     document.getElementById("telefono").value = 0;
-    document.getElementById("direccion").value = "";
+    document.getElementById("dirección").value = "";
+    document.getElementById("email").value = "";
+   
      
     
-    $('#TituloUser').text("Agregar Proveedor");
+    $('#TituloUser').text("Agregar PROVEEDOR");
   //  document.getElementById("TituloUser").value = "Agregar Usuario";  
   }
   
@@ -389,7 +432,7 @@
       
       $.ajax({
         type: "POST",
-        url: "estadovehiculo.php",
+        url: "estadoproveedor.php",
         data: parametros,
         success:function( msg ) {
           window.location.href = window.location.href;
