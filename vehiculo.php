@@ -1,5 +1,9 @@
 
 
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -75,21 +79,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Repuesto.php" class="nav-link ">
+                <a href="./UsuarioWeb.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Repuestos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./Categoria.php" class="nav-link ">
+                <a href="./UsuarioMovil.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Categorias</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./Vehiculo.php" class="nav-link ">
+                <a href="./UsuarioMovil.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Vehiculo</p>
+                  <p>Automovil</p>
                 </a>
               </li>
 
@@ -105,13 +109,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Ingresos.php" class="nav-link ">
+                <a href="./Comportamientos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ingresos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./Proveedor.php" class="nav-link ">
+                <a href="./GrupoComportamientos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Proveedor</p>
                 </a>
@@ -129,7 +133,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./consulta_compra.php" class="nav-link ">
+                <a href="./Comportamientos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Consultar Compras</p>
                 </a>
@@ -266,7 +270,7 @@
               <form role="form" enctype="multipart/form-data"  method="post"   >
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputId"></label>
+                    <label for="exampleInputId">ID</label>
                     <input type="hidden"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
                   </div>
                   <div class="form-group">
