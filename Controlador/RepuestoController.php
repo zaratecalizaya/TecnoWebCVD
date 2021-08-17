@@ -25,7 +25,7 @@ class ControladorRepuesto{
               $subir_archivo = 'imagenes/'.basename($_FILES['subir_archivo']['name']);
               if (move_uploaded_file($_FILES['subir_archivo']['tmp_name'], $subir_archivo)) {
                // $mutil -> console_log('esta ingresando');
-                  $datos = array("codigo"=>$_POST["codigo"],
+                  $datos = array("nombre"=>$_POST["nombre"],
                   "imagen"=>$subir_archivo, 
                         "descripcion"=>$_POST["descripcion"],
                          "marca"=>$_POST["marca"],
@@ -50,7 +50,7 @@ class ControladorRepuesto{
               } else {
 
 
-                $datos = array("codigo"=>$_POST["codigo"],
+                $datos = array("nombre"=>$_POST["nombre"],
                 "imagen"=>"", 
                       "descripcion"=>$_POST["descripcion"],
                        "marca"=>$_POST["marca"],
@@ -79,7 +79,7 @@ class ControladorRepuesto{
           }else{
            
                 $datos = array("id"=>$_POST["id"],
-                "codigo"=>$_POST["codigo"], 
+                "nombre"=>$_POST["nombre"], 
                         "descripcion"=>$_POST["descripcion"],
                          "marca"=>$_POST["marca"],
                          "precio"=>$_POST["precio"],
@@ -123,9 +123,66 @@ class ControladorRepuesto{
 
   
 
+   public function ctrRegistroMedida(){
+      
+    if(isset($_POST["id"])){
+     
+     $mutil = new Utils();
+               //   $mutil -> console_log('esta ingresando');
+                  
+                  
+               if(($_POST["id"])==0){
+          
+        
+            
+                $datos = array("nombre"=>$_POST["nombre"]
+                
+                );
+        
+                $tabla = "unidad_medida";
+                $Categoriad = new RepuestoDAO();
+                $respuesta = $Categoriad ->addMedida($tabla,$datos);
+               // return $respuesta;  
+                if ($respuesta==true){
+                  return "true";
+                }else{
+                  return $respuesta;  
+                }        
+      
+        }else{
+         
+              $datos = array("id"=>$_POST["id"],
+              "nombre"=>$_POST["nombre"]     );
+        
+              $tabla = "unidad_medida";
+              $Categoriad = new RepuestoDAO();
+              $respuesta = $Categoriad -> updateMedida($tabla,$datos);
+        
+              //return $respuesta;
+              if ($respuesta==true){
+                return "true";
+              }else{
+                return $respuesta;  
+              }
+        }
+      
+    }else{
+      return "";
+    }
+    
+}
 
 
+public function ctrListarMedida(){
+      
+            
+  $tabla = "unidad_medida";
+  $Almacend = new RepuestoDAO();
+   $respuesta = $Almacend -> listAlmacen();
 
+   return $respuesta;
+
+ }
 
 
 
@@ -205,13 +262,13 @@ class ControladorRepuesto{
 
       
 
-      public function ctrActualizarEstadoVehiculo($id){
+      public function ctrActualizarEstadoRepuesto($id){
       
 
-        $tabla = "vehiculo";
-        $datos = array("id"=>$id);
-        $Vehiculod = new VehiculosDAO();
-        $respuesta = $Vehiculod -> updatestatusvehiculo($tabla,$datos);
+        $tabla = "repuesto";
+        
+        $Vehiculod = new RepuestoDAO();
+        $respuesta = $Vehiculod -> updatestatusrepuesto($tabla,$id);
         return $respuesta; 
         
       
@@ -225,7 +282,29 @@ class ControladorRepuesto{
       
     
   }
+  
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
 
     
 }
