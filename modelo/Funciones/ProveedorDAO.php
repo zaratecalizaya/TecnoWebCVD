@@ -164,7 +164,7 @@ class ProveedorDAO {
           $link=$this->db->connect();
       //$json=$cuenta;
       
-      $query = "SELECT id_proveedor,nit,razon_social,telefono,dirección,email FROM proveedor ";
+      $query = "SELECT id_proveedor,nit,razon_social,telefono,dirección,email,estado FROM proveedor ";
       $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
   
       $json = array();
@@ -172,10 +172,10 @@ class ProveedorDAO {
       if(mysqli_num_rows($result)>0){
           //$json['cliente'][]=nada;
         while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-         // $destado ="Deshabilitado";
-         // if ($line["estado"]==1){
-           //   $destado ="Habilitado";
-        //  }        
+              $destado ="Deshabilitado";
+          if ($line["estado"]==1){
+             $destado ="Habilitado";
+         }        
           array_push($json, array($line["id_proveedor"],$line["nit"],$line["razon_social"],$line["telefono"],$line["dirección"],$line["email"]));
         }
         

@@ -194,7 +194,9 @@
                     <th>Marca</th>
                     <th>Placa</th>
                     <th>Tipo</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
+                
                     
                   </thead>
                   <tbody>
@@ -216,6 +218,14 @@
                       echo "<td>".$Dplaca."</td>";
                       $Dtipo = array_shift($Transporte);
                       echo "<td>".$Dtipo."</td>";
+                      $Destado = array_shift($Transporte);
+                      $Destadobtn="Habilitar";
+                      $DestadoIco="thumbs-up";
+                      echo "<td>".$Destado."</td>";
+                      if ($Destado=="Habilitado"){
+                        $Destadobtn="Deshabilitar";
+                        $DestadoIco="thumbs-down";
+                      }
                    
                       
                      
@@ -223,9 +233,10 @@
                     
                       echo '<td>
                       <button class="btn" onclick="saveData('.$Did.',\''.$Dmarca.'\',\''.$Dplaca.'\',\''.$Dtipo.'\')"><i class="fas fa-edit"></i> Editar</button> 
-                  
+                      <button class="btn" onclick="updateStatus('.$Did.')"><i class="far fa-'.$DestadoIco.'"></i>'.$Destadobtn.'</button>
+                      </td>';
                       
-                    </td>';
+                
                       echo "</tr>";
                     }
                     
