@@ -260,6 +260,7 @@ class UsuarioDAO {
 		
 	}
   
+  //select 2 llamada
   public function listSubSectores($idSector){
 		require_once 'modelo/Conexion/connectbd.php';
         // connecting to database

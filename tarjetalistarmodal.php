@@ -1,8 +1,8 @@
 <?php
 
-    require_once 'Controlador/usuario.controlador.php';
-    $cgrupo = new ControladorUsuario();
-    $resultado=  $cgrupo ->  ctrListarUserModal($_POST['id']);
+    require_once 'Controlador/CategoriaController.php';
+    $cgrupo = new ControladorCategoria();
+    $resultado=  $cgrupo ->  ctrListarCategoria();
     
     echo $resultado;
 ?>

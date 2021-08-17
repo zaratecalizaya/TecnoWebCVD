@@ -17,7 +17,7 @@ class ControladorProveedor{
       if(isset($_POST["id"])){
        
        $mutil = new Utils();
-                 //   $mutil -> console_log('esta ingresando');
+                  //  $mutil -> console_log('esta ingresando');
                     
                     
                     if(($_POST["id"])==0){
@@ -26,13 +26,15 @@ class ControladorProveedor{
               
                // $mutil -> console_log('esta ingresando');
                   $datos = array("nit"=>$_POST["nit"],
-                         "razon"=>$_POST["razon"],
-                         "telefono"=>$_POST["telefono"]
+                         "razon_social"=>$_POST["razon_social"],
+                         "telefono"=>$_POST["telefono"],
+                         "direccion"=>$_POST["direccion"],
+                         "email"=>$_POST["email"],
                          );
           
                   $tabla = "proveedor";
                   $Proveedord = new ProveedorDAO ();
-                  $respuesta = $Proveedord -> addProveedor($tabla,$datos);
+                  $respuesta = $Proveedord ->addProveedor($tabla,$datos);
                  // return $respuesta;  
                   if ($respuesta==true){
                     return "true";
@@ -49,8 +51,10 @@ class ControladorProveedor{
            
                 $datos = array("id"=>$_POST["id"],
                 "nit"=>$_POST["nit"],
-                "razon"=>$_POST["razon"],
-                "telefono"=>$_POST["telefono"]
+                "razon_social"=>$_POST["razon_social"],
+                "telefono"=>$_POST["telefono"],
+                "direccion"=>$_POST["direccion"],
+                "email"=>$_POST["email"]
                          );
           
                 $tabla = "proveedor";
@@ -68,7 +72,7 @@ class ControladorProveedor{
           }
         
       }else{
-        return "";
+        return "no esta tomando datos";
       }
       
   }
@@ -80,8 +84,8 @@ class ControladorProveedor{
       
             
        $tabla = "proveedor";
-       $Vehiculod = new ProveedorDAO();
-        $respuesta = $Vehiculod -> listProveedor($pagina,$cantidad);
+       $Proveedord = new ProveedorDAO();
+        $respuesta = $Proveedord -> listProveedor($pagina,$cantidad);
     
         return $respuesta;
   
@@ -92,7 +96,7 @@ class ControladorProveedor{
 
       
 
-      public function ctrActualizarEstadoVehiculo($id){
+      /*public function ctrActualizarEstadoProveedor($id){
       
 
         $tabla = "vehiculo";
@@ -102,7 +106,7 @@ class ControladorProveedor{
         return $respuesta; 
         
       
-    }
+    }*/
       
     
 

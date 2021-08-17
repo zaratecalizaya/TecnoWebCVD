@@ -1,22 +1,23 @@
 <?php
 $html = '';
 
-  require_once 'modelo/Funciones/UsuarioDAO.php';
+  require_once 'modelo/Funciones/vehiculoDAO.php';
   require_once 'modelo/utilitario.php';
   
-  $id_category = $_POST['id_category'];
+  $nombre = $_POST['nombre'];
   $mutil = new Utils();
-  $mutil -> console_log('llego Cargo: '.$id_category);
+  $mutil -> console_log('llego año: '.$nombre);
   
-  $Usuariod = new UsuarioDAO();
-  $respuesta = $Usuariod -> listCargo($id_category);
+  $Usuariod = new VehiculosDAO();
+  $respuesta = $Usuariod -> listaño($nombre);
   
   while (count($respuesta)>0){
     $User = array_shift($respuesta);
-    $Did = array_shift($User);
+    
+   
     $Dnombres = array_shift($User);
-    $html .= '<option value="'.$Did.'">'.$Dnombres.'</option>';
-  }
+    $html .= '<option >'.$Dnombres.'</option>';
+   }
   //$html .= '<option value="1">Salio id '.$id_category.'</option>';
   echo $html;
 ?>

@@ -202,7 +202,7 @@ if (!isset($_SESSION['session_id'])) {
 
     <!-- Main content -->
       
-<?php
+    <?php
     require_once 'Controlador/usuario.controlador.php';
     
   
@@ -216,69 +216,10 @@ if (!isset($_SESSION['session_id'])) {
 
   //  $listuser=  $cusuario -> ctrListarUsuariosMovil(1,1000);
       
-    ?>
+       ?>
 
 
 
-
-
-
-   <div  class="container" >
-    <div class="modal fade" tabindex="-1" id="modal1">
-      <div class="modal-dialog modal-xl  modal-dialog-scrollable">
-
-       <div class="modal-content">
-         <div class="modal-header hero-image">
-         <label for="" style="color:white">Perfil del Usuario: </label> 
-         <button class="btn btn-danger" data-dismiss='modal'>&times;</button>
-         </div>
-         <div class="modal-body">
-
-         <div class="row" id="row">
-                <div class="col1" id="col1">
-                
-                <img  id="myImag" src="" width='150' >
-
-
-                </div>
-                <div class="col2"id="col2">
-             
-             <label for="" id="lnombre" >Nombre:</label> <br>
-             <label for="" id="lcargo">Cargo:</label> <br>
-             <label for="" id="Puntaje">Puntaje:</label> <br>
-             <label for="" id="Logros">Logros:</label> <br>
-
-                </div>
-                <div class="col3"id="col3"></div>
-            </div>
-                    
-             
-            <table  class="table table-bordered table-striped">
-                  <thead>
-                  <tr>
-                  <th>Comentarios</th>
-                  <th>Compañero</th>
-                  <th>Logro</th>
-                  </tr>
-                  </thead>
-                  <tbody id="listar">
-             
-                  
-                  </tbody>
-                </table>
-
-  
-        
-             
-            
-         </div>
-         <div class="modal-footer hero-image">
-      
-         </div>
-       </div>
-      </div>
-     </div>
-   </div>
 
 
 
@@ -442,7 +383,7 @@ if (!isset($_SESSION['session_id'])) {
         </div>
  
     </section>
-    </form>
+  </form>
     <!-- /.content -->
  </div>
   <!-- /.content-wrapper -->
@@ -658,6 +599,7 @@ $(document).ready(function () {
           
           '<td>'+myArr[i][0]+'</td>'+
           '<td>'+myArr[i][1]+'</td>'+
+          '<td><img src= "'+ myArr[i][2]+'"width=60></td>'+
           '<td><img src= "'+ myArr[i][2]+'"width=60></td>'+
          '</tr>';
          

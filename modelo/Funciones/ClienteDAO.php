@@ -1,6 +1,6 @@
 <?php
  
-class ProveedorDAO {
+class ClienteDAO {
  
     private $db;
     // constructor
@@ -19,10 +19,8 @@ class ProveedorDAO {
  
     }
 	
-    /**
-     * agregar nuevo usuario
-     */
- 
+    
+
     public function datedelete($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
@@ -40,48 +38,39 @@ class ProveedorDAO {
   
 	
        
-    public function addProveedor($tabla,$datos) { //regusu et no es
+    public function addCliente($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
-      //require_once 'modelo/utilitario.php';
-      //$mutil = new Utils();
+      require_once 'modelo/utilitario.php';
+      $mutil = new Utils();
       //$mutil -> console_log('Entro AddMovil');
         // connecting to database
         $this->db = new DB_Connect();
         $link=$this->db->connect();
         
-      	
-        //$mutil -> console_log('is user:'.$pu);
-        
-
       		$json = array();
-      		
-      			
-      				
-              $consulta ="INSERT INTO ".$tabla." (nit,razon_social,telefono,dirección,email) VALUES('".$datos["nit"]."','".$datos["razon"]."','".$datos["telefono"]."','".$datos["direccion"]."','".$datos["email"]."')";
+      					
+              $consulta ="INSERT INTO ".$tabla." (nit, nombre, paterno, materno,email,telefono,direccion) VALUES('".$datos["nit"]."','".$datos["nombre"]."','".$datos["paterno"]."','".$datos["materno"]."','".$datos["email"]."','".$datos["telefono"]."','".$datos["direccion"]."')";
            
               $result=mysqli_query($link,$consulta);
               if ($result ==true){
                 return "true";
               }else {
-                return "Error al guardar el vehiculo";
+                return "Error al guardar cliente";
               }
             
-			
-         
-
     }
 
     
        
-	   public function isproveedorexist($tabla, $id) {
+	   public function isclienteexist($tabla, $id) {
 
       require_once 'modelo/Conexion/connectbd.php';
       // connecting to database
       $this->db = new DB_Connect();
       $link=$this->db->connect();
   
-      if ($result = mysqli_query($link,"SELECT * from ".$tabla." WHERE id_proveedor = '".$id."'")) {
+      if ($result = mysqli_query($link,"SELECT * from ".$tabla." WHERE id_cliente = '".$id."'")) {
 
         /* determinar el número de filas del resultado */
         $num_rows  = mysqli_num_rows($result);
@@ -100,17 +89,17 @@ class ProveedorDAO {
   }
 
 
-    public function updateProveedor($tabla,$datos) { //regusu et no es
+    public function updateCliente($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
       // connecting to database
       $this->db = new DB_Connect();
       $link=$this->db->connect();
   
-      $pu=$this->isproveedorexist($tabla, $datos["id"]);
+      $pu=$this->isclienteexist($tabla, $datos["id"]);
       if($pu==true){
         
-          $result=mysqli_query($link,"UPDATE ".$tabla." SET nit ='".$datos["nit"]."',razon_social='".$datos["razon"]."' ,telefono='".$datos["telefono"]."',dirección='".$datos["direccion"]."',email='".$datos["email"]."'   where id_proveedor = ".$datos["id"]);
+          $result=mysqli_query($link,"UPDATE ".$tabla." SET nit ='".$datos["nit"]."',nombre='".$datos["nombre"]."' ,paterno='".$datos["materno"]."',email='".$datos["email"]."',telefono='".$datos["telefono"]."',direccion='".$datos["direccion"]."'   where id_cliente = ".$datos["id"]);
           return $result;
              
       }else{
@@ -118,16 +107,14 @@ class ProveedorDAO {
       }
     }
  
-
-
-    public function listProveedor($pagina,$cantidad){
+    public function listCliente($pagina,$cantidad){
       require_once 'modelo/Conexion/connectbd.php';
           // connecting to database
           $this->db = new DB_Connect();
           $link=$this->db->connect();
       //$json=$cuenta;
       
-      $query = "SELECT id_proveedor,nit,razon_social,telefono,dirección,email FROM proveedor   ";
+      $query = "SELECT id_cliente, nit, nombre,paterno,materno,email,telefono,direccion FROM cliente";
       $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
   
       $json = array();
@@ -135,9 +122,8 @@ class ProveedorDAO {
       if(mysqli_num_rows($result)>0){
           //$json['cliente'][]=nada;
         while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-        
-        
-            array_push($json, array($line["id_proveedor"],$line["nit"],$line["razon_social"],$line["telefono"],$line["dirección"],$line["email"]));
+                
+          array_push($json, array($line["id_cliente"],$line["nit"],$line["nombre"],$line["paterno"],$line["materno"],$line["email"],$line["telefono"],$line["direccion"]));
         }
         
       }
@@ -148,7 +134,7 @@ class ProveedorDAO {
     }
   
 
-   
+    
 
 
       

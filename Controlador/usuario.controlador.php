@@ -224,8 +224,7 @@ class ControladorUsuario{
       
             
             $Usuariod = new UsuarioDAO();
-            $respuesta = $Usuariod -> listCargo($id_subsector);
-            
+            $respuesta = $Usuariod -> listCargo($id_subsector); 
             return $respuesta;
             
           

@@ -22,25 +22,7 @@ class VehiculosDAO {
     /**
      * agregar nuevo usuario
      */
-    public function updatestatususer($tabla,$datos) { //regusu et no es
-
-      require_once 'modelo/Conexion/connectbd.php';
-        // connecting to database
-        $this->db = new DB_Connect();
-        $link=$this->db->connect();
-		
-      	$pu=$this->isuserexist($tabla, $datos["usuario"]);
-        if($pu==true){
-          $result=mysqli_query($link,"UPDATE ".$tabla." SET estado=ABS(estado-1) where id = ".$datos["id"]);
-          return $result;
-      	}else{
-      		return false;
-      	}
-
-    }
-
-
-    public function datedelete($tabla,$datos) { //regusu et no es
+      public function datedelete($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
         // connecting to database
@@ -54,27 +36,6 @@ class VehiculosDAO {
 
 
 	
-  
-	public function getusuario($Nick){
-		require_once 'modelo/Conexion/connectbd.php';
-        // connecting to database
-        $this->db = new DB_Connect();
-        $link=$this->db->connect();
-		$query = "SELECT * FROM EFUsuario where Nick='".$Nick."'";
-		$result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error());
-
-		$json = array();
-		if(mysqli_num_rows($result)>0){
-			while ($line = mysqli_fetch_array($result, MYSQL_ASSOC)) {
-				$json['usuario'][]=$line;
-			}
-			
-		}
-		
-		mysqli_close($link);
-		return json_encode($json);
-		
-	}
   
        
     public function addVehiculo($tabla,$datos) { //regusu et no es
@@ -183,7 +144,88 @@ class VehiculosDAO {
       return $json;
       
     }
+
+
+    public function listVehiculomarca(){
+      require_once 'modelo/Conexion/connectbd.php';
+          // connecting to database
+          $this->db = new DB_Connect();
+          $link=$this->db->connect();
+      //$json=$cuenta;
+      
+      $query = "SELECT id_vehiculo,marca,modelo,año FROM vehiculo   ";
+      $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
   
+      $json = array();
+      //$json =mysqli_num_rows($result);
+      if(mysqli_num_rows($result)>0){
+          //$json['cliente'][]=nada;
+        while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                $full=$line["marca"]."   ".$line["modelo"]."   ".$line["año"];
+          array_push($json, array($line["id_vehiculo"],$full));
+        }
+        
+      }
+      
+      mysqli_close($link);
+      return $json;
+      
+    }
+  
+    
+
+    public function listVehiculomodelo(){
+      require_once 'modelo/Conexion/connectbd.php';
+          // connecting to database
+          $this->db = new DB_Connect();
+          $link=$this->db->connect();
+      //$json=$cuenta;
+      
+      $query = "SELECT id_vehiculo,modelo FROM vehiculo   ";
+      $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+  
+      $json = array();
+      //$json =mysqli_num_rows($result);
+      if(mysqli_num_rows($result)>0){
+          //$json['cliente'][]=nada;
+        while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                
+          array_push($json, array($line["id_vehiculo"],$line["modelo"]));
+        }
+        
+      }
+      
+      mysqli_close($link);
+      return $json;
+      
+    }
+
+    public function listVehiculoaño(){
+      require_once 'modelo/Conexion/connectbd.php';
+          // connecting to database
+          $this->db = new DB_Connect();
+          $link=$this->db->connect();
+      //$json=$cuenta;
+      
+      $query = "SELECT id_vehiculo,año FROM vehiculo   ";
+      $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+  
+      $json = array();
+      //$json =mysqli_num_rows($result);
+      if(mysqli_num_rows($result)>0){
+          //$json['cliente'][]=nada;
+        while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                
+          array_push($json, array($line["id_vehiculo"],$line["año"]));
+        }
+        
+      }
+      
+      mysqli_close($link);
+      return $json;
+      
+    }
+
 
     public function updatestatusvehiculo($tabla,$datos) { //regusu et no es
 
@@ -203,6 +245,59 @@ class VehiculosDAO {
       	}
       
     }  
+
+
+    
+     
+  
+  public function listModelo($idMarca){
+		require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+		
+        $query = "SELECT modelo FROM vehiculo WHERE marca = ".$idMarca." order by Nombre";
+        $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+
+        $json = array();
+        //$json =mysqli_num_rows($result);
+        if(mysqli_num_rows($result)>0){
+        		//$json['cliente'][]=nada;
+        	while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+          	array_push($json, array($line["modelo"]));
+          }
+			
+        }
+		
+		mysqli_close($link);
+		return $json;
+		
+	}
+
+
+  public function listaño($nombre){
+		require_once 'modelo/Conexion/connectbd.php';
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+		
+        $query = "SELECT año FROM vehiculo WHERE modelo = ".$nombre." order by Nombre";
+        $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+
+        $json = array();
+        //$json =mysqli_num_rows($result);
+        if(mysqli_num_rows($result)>0){
+        		//$json['cliente'][]=nada;
+        	while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+          	array_push($json, array($line["Nombre"]));
+          }
+			
+        }
+		
+		mysqli_close($link);
+		return $json;
+		
+	}
   
 
 
