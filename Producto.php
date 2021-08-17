@@ -193,73 +193,70 @@
                                  </div>
          
 
-         <div class="col" id="col">
+                                  <div class="row" id="row">
   
-                    <form role="form" enctype="multipart/form-data"  method="post"   >
-                        <div class="modal-body">
+                                           <div class="modal-body">
+                                           <table id="listdetallecategoria" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                     <th>nombre</th>
+                     <th>tipo</th>
+                     <th>descripcion</th>
+                     <th>marca</th> 
+                     <th>modelo</th>
+                     <th>año</th>
+                     <th>Accion</th>                    
+                    </tr>
+                  </thead>
+               <tbody>
+                <?php 
+                    require_once 'Controlador/CategoriaController.php';
+  
+                  
+                    $cuser = new ControladorCategoria;
+                    $list=  $cuser -> ctrListarDetalleCategoria();
+                   
+                    while (count($list)>0){
+                        $cont = array_shift($list);
+                        echo "<tr>";
+                        
+                        $Did_categoria= array_shift($cont);
+                    
+                        $Did_vehiculo= array_shift($cont);
+                       
+  
+                        $Dnombre= array_shift($cont);
+                        echo "<td>".$Dnombre."</td>";
+                        
+                        $Dtipo= array_shift($cont);
+                        echo "<td>".$Dtipo."</td>";
+                        $Ddescripcion= array_shift($cont);
+                        echo "<td>".$Ddescripcion."</td>";
+                        $Dmarca= array_shift($cont);
+                        echo "<td>".$Dmarca."</td>";
+                        $Dmodelo= array_shift($cont);
+                        echo "<td>".$Dmodelo."</td>";
+                        $Daño= array_shift($cont);
+                        echo "<td>".$Daño."</td>";
+                        
+                        echo '<td>
+                                <button class="btn" onclick="cargandodatos('.$Did_categoria.',\''.$Did_vehiculo.'\')"><i class="fas fa-edit"></i> Seleccion</button>
+                                
+                              </td>';
 
-                            <div class="col" id="col">
+                      echo "</tr>";
+                    }               
+                ?>   
+              </tbody>
+          </table>
 
-                              <div class="card card-primary">
-                                <div class="card-body">
-                                        
-                                          <div class="form-group">
-                                              <label type="hidden" for="exampleInputId">ID</label>
-                                              <input type="hidden"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
-                                          </div>
-                                              <div class="form-group">
-                                                 <label for="exampleInputNombre">Nombre</label>
-                                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese Nombre almacen ">
-                                               </div>
-                                          <div class="form-group">
-                                                <label>Tipo</label>
-                                                    <select class="form-control select2"  id="tipo" name="tipo" style="width: 100%;"> 
-                                                        <option selected="selected">Sistema electrico</option>
-                                                          <option>Sistema de motor</option>
-                                                          <option>Sistema perno</option>
-}                                                   </select>
+
                                            </div>
-          
-         
-                               </div>
-       <!-- /.card-body -->
-                   </div>
-              <div class="card-footer">
-         <?php
-           require_once 'Controlador/CategoriaController.php';
-           $cCategoria = new ControladorCategoria();
-           $resp= $cCategoria -> ctrRegistroCategoria();
-           //echo "<script> alert(' respuesta: ".$resp." ')</script>";
-           if ($resp=="true"){
-            // echo "<script> alert(' respuesta: ".$resp." ')</script>";
-              echo "<meta http-equiv='refresh' content='0'>";
-           }elseif($resp=="false"){
-             //echo "<script> alert(' respuesta: al parecer fue falso XD')</script>";
-           }else{  
-             if ($resp!=""){
-             echo "<script> alert(' respuesta: ".$resp." ')</script>";
-           } }
-           
-         ?>
-         
-         <input type="submit" class="btn btn-primary" value="Enviar">
-       </div>
-       </div>
-     
-      </form>
-
-
-          </div>
-                
-  
-            
-         
-       
-       </div>
-      </div>
+                                  </div>
+                              </div>
+                        </div>
+                  </div>
      </div>
-   </div>
-
 
    <form role="form" enctype="multipart/form-data" method="post"  >
     <!-- Main content -->
@@ -280,108 +277,18 @@
               <!-- /.card-header -->
               <div class="card-body">
                 
-              <table class="table table-bordered table-striped" >
-                    <thead>
-                      <tr>
-                       <th>
-                         <div class="row">
-    
-                           
-                              <label for="start" class="form-label"  >Descripcion: </label>
-                              <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese la descripcion">  
-          
-                           
-                         </div>
-
-
-                       </th>
-                      </tr>
-                   </thead>
-               </table>     
               <table  class="table table-bordered table-striped " id="busquedas" >
                     <thead  >
                           <tr>
-                            <th>
-                              <div class="col">
-    
-                                  <div >
-                                  <label for="disabledSelect" class="form-label">Categoria: </label>
-      
-                                         <select class="form-control select2" id="categoria" name="categoria"  style="width: 100%;"> 
-                                             <option selected="selected">seleccione</option>
-                                                <?php
-                                                   require_once 'Controlador/CategoriaController.php';
-                     
-                                                     $cusuario = new ControladorCategoria();
-                                                     $list=  $cusuario -> ctrListarCategoria();
-                    
-                                                        while (count($list)>0){
-                                                          $User = array_shift($list);
-                                                          $Did = array_shift($User);
-                                                          $Dnombres = array_shift($User);
-                                                          echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
-                                                        }
-                                                 ?>
-                                          </select>
-                                   </div>
-                               </div>
-                            </th>
- 
-                            <th>
-                              <div class="col order-1">
-    
-                                  <div >
-                                      <label for="disabledSelect" class="form-label">vehiculo : </label>
-      
-                                         <select class="form-control select2" id="sector" name="sector"  style="width: 100%;"> 
-                                             <option selected="selected">seleccione</option>
-                                                <?php
-                                                   require_once 'Controlador/vehiculoController.php';
-                     
-                                                     $cusuario = new ControladorVehiculo();
-                                                     $list=  $cusuario -> ctrListarVehiculoselect();
-                    
-                                                        while (count($list)>0){
-                                                          $User = array_shift($list);
-                                                          $Did = array_shift($User);
-                                                          $Dnombres = array_shift($User);
-                                                          echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
-                                                        }
-                                                 ?>
-                                          </select>
-                                   </div>
-                             </div>
-                           </th>  
                            
                                
                                <th>
                                  <div class="col-sm-3">
 
                                
-                  <?php
-                   require_once 'Controlador/CategoriaController.php';
-  
-                  
-                   $cuser = new ControladorCategoria;
-                  
-                    $resp= $cuser -> ctrCategoriaVehiculo();
-                    //echo "<script> alert(' respuesta: ".$resp." ')</script>";
-                    if ($resp=="true"){
-                     // echo "<script> alert(' respuesta: ".$resp." ')</script>";
-                       echo "<meta http-equiv='refresh' content='0'>";
-                    }elseif($resp=="false"){
-                      //echo "<script> alert(' respuesta: al parecer fue falso XD')</script>";
-                    }else{  
-                      if ($resp!=""){
-                      echo "<script> alert(' respuesta: ".$resp." ')</script>";
-                    } }
-                    
-                  ?>
-                  
-                  <input type="submit" class="btn btn-primary" value="Registrar">
                 
                                    
-                                                                         <br><br>
+                                                                         
                                      <button  class="btn btn-warning" type="button"  data-toggle="modal" data-target="#modal1" >addCategoria</button>
                      
                                    </div>
@@ -393,24 +300,44 @@
               <table id="listdetalle" class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                     <th>nombre</th>
-                     <th>tipo</th>
+                     <th>is_repuesto</th>
                      <th>descripcion</th>
+                     <th>imagen</th>
                      <th>marca</th> 
-                     <th>modelo</th>
-                     <th>año</th>                    </tr>
+                     <th>precio</th>
+                     <th>categoria</th>
+                     <th>vehiculo</th>
+                     <th>estado</th>
+                     <th>Accion</th>
+                    </tr>
                   </thead>
                <tbody>
                 <?php 
-                    require_once 'Controlador/CategoriaController.php';
+                    require_once 'Controlador/RepuestoController.php';
   
                   
-                    $cuser = new ControladorCategoria;
-                    $list=  $cuser -> ctrListarDetalleCategoria();
+                    $cuser = new ControladorRepuesto;
+                    $list=  $cuser -> ctrListarRepuesto(1,1000);
                    
                     while (count($list)>0){
                       $cont = array_shift($list);
                       echo "<tr>";
+                      
+                      $Dcodigo= array_shift($cont);
+                      echo "<td>".$Dcodigo."</td>";
+                      
+                      $Dimagen = array_shift($cont);
+                      if ($Dimagen!=""){
+                        echo "<td><img src='".$Dimagen."' width='100'></td>";  
+                      }else{
+                        echo "<td></td>";
+                      }
+                    
+                      $Dmarca= array_shift($cont);
+                      echo "<td>".$Dmarca."</td>";
+                      
+                      $Dprecio= array_shift($cont);
+                      echo "<td>".$Dprecio."</td>";
                       
                       $Did_categoria= array_shift($cont);
                   
@@ -420,18 +347,21 @@
                       $Dnombre= array_shift($cont);
                       echo "<td>".$Dnombre."</td>";
                       
-                      $Dtipo= array_shift($cont);
-                      echo "<td>".$Dtipo."</td>";
-                      $Ddescripcion= array_shift($cont);
-                      echo "<td>".$Ddescripcion."</td>";
-                      $Dmarca= array_shift($cont);
-                      echo "<td>".$Dmarca."</td>";
-                      $Dmodelo= array_shift($cont);
-                      echo "<td>".$Dmodelo."</td>";
-                      $Daño= array_shift($cont);
-                      echo "<td>".$Daño."</td>";
+                      $Dnombrevehiculo= array_shift($cont);
+                      echo "<td>".$Dnombrevehiculo."</td>";
+                      $Destado = array_shift($cont);
+                      $Destadobtn="Habilitar";
+                      $DestadoIco="thumbs-up";
+                      echo "<td>".$Destado."</td>";
+                      if ($Destado=="Habilitado"){
+                        $Destadobtn="Deshabilitar";
+                        $DestadoIco="thumbs-down";
+                      }
                       
-                 
+                      echo '<td>
+                              <button class="btn" onclick="saveData('.$Did_categoria.',\''.$Did_vehiculo.'\')"><i class="fas fa-edit"></i> Editar</button>
+                              
+                            </td>';
 
 
                       echo "</tr>";
@@ -454,6 +384,92 @@
             <!-- /.card -->
        </div><!--/. container-fluid -->
       </div>
+      <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title"><label id="TituloUser">Agregar Repuesto</label> </h3> 
+                <button id="nuevoNivel" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Repuesto</button>
+                
+              </div>
+              <!-- /.card-header -->
+              <!-- form start -->
+              <form role="form" enctype="multipart/form-data"  method="post"   >
+                <div class="card-body">
+                  <div class="form-group">
+                    <label type="hidden" for="exampleInputId">ID</label>
+                    <input type="hidden"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputNombre">codigo</label>
+                    <input type="text" class="form-control" id="codigo" name="codigo" placeholder="Ingrese el codigo">
+                  </div>
+                  <div class="form-group">
+                    <label for="InputUsuario">Foto Repuesto</label>
+                   <input type="hidden" name="MAX_FILE_SIZE" value="512000" />
+                    <p><input name="subir_archivo" type="file" /></p>
+                  </div>
+                  <div class="form-group">
+
+                    <label for="InputUsuario">descripcion</label>
+                    <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese la descripcion">
+                  </div>
+                   
+                   
+                  <div class="form-group">
+                    <label for="InputUsuario">Marca</label>
+                    <input type="text" class="form-control" id="marca" name="marca" placeholder="Ingrese la Marca">
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="InputUsuario">Precio</label>
+                    <input type="number" class="form-control" id="precio" name="precio" placeholder="Ingrese el Precio">
+                  </div>
+                 
+                  
+                  <div class="form-group">
+                    <label for="InputUsuario">Categoria</label>
+                    <input type="text" class="form-control" id="categoria" name="categoria" >
+                    <input type="hidden" class="form-control" id="idcategoria" name="idcategoria" >
+                   
+                </div>
+                  <div class="form-group">
+                    <label for="InputUsuario">Vehiculo</label>
+                    <input type="text" class="form-control" id="vehiculo" name="vehiculo" >
+                    <input type="hidden" class="form-control" id="idvehiculo" name="idvehiculo" >
+                   
+                </div>
+
+                  
+                </div>
+                <!-- /.card-body -->
+
+                <div class="card-footer">
+                  <?php
+                    $resp= $cuser-> ctrRegistroRepuesto();
+                    //echo "<script> alert(' respuesta: ".$resp." ')</script>";
+                    if ($resp=="true"){
+                     // echo "<script> alert(' respuesta: ".$resp." ')</script>";
+                       echo "<meta http-equiv='refresh' content='0'>";
+                    }elseif($resp=="false"){
+                      //echo "<script> alert(' respuesta: al parecer fue falso XD')</script>";
+                    }else{  
+                      if ($resp!=""){
+                      echo "<script> alert(' respuesta: ".$resp." ')</script>";
+                    } }
+                    
+                  ?>
+                  
+                  <input type="submit" class="btn btn-primary" value="Enviar">
+                </div>
+              </form>
+            </div>
+            <!-- /.card -->
+      </div><!--/. container-fluid -->
+       
+
+
+
+
+
       <div class="card-footer">
         
         <a href="exportarexcel3.php" class="btn btn-success">Descargar Excel</a>
@@ -514,40 +530,17 @@
 <script>
 $(document).ready(function () {
   $('#listdetalle').DataTable({
-    "scrollX": false
+    "scrollX": true
   });
   $('.dataTables_length').addClass('bs-select');
   });
   
-  $("#sector").on('change', function () {
-        $("#sector option:selected").each(function () {
-            //var id_category = $(this).val();
-            var nombre = $("#sector option:selected").text();
-            $.post("AjaxSubsector.php", { nombre: nombre }, function(data) {
-                $("#subsector").html(data);
-                
-                $("#subsector option:selected").each(function () {
-                  var nombre = $("#subsector option:selected").text();
-                  $.post("AjaxCargo.php", { nombre: nombre }, function(data) {
-                    $("#cargo").html(data);
-                  });			
-                });   
-            });			
-        });
-  });
-  $("#subsector").on('change', function () {
-        $("#subsector option:selected").each(function () {
-         //   var nombre = $(this).val();
-            var nombre = $("#subsector option:selected").text();
-            $.post("AjaxCargo.php", { nombre: nombre}, function(data) {
-                $("#cargo").html(data);
-            });			
-        });
-  });
 
-  function saveData(id, nombre){
-    document.getElementById("id").value = id;
-    document.getElementById("nombre").value = nombre;
+
+  //cargandoid
+  function saveData(idcategoria, idvehiculo){
+    document.getElementById("idcategoria").value = idcategoria;
+    document.getElementById("idvehiculo").value = idvehiculo;
     
     $('#TituloUser').text("Editar Categoria");
 //    document.getElementById("TituloUser").value = "Editar Usuario";  
@@ -555,10 +548,12 @@ $(document).ready(function () {
   
   function newUser(){
     document.getElementById("id").value = 0;
-    document.getElementById("nombre").value = "";
-    document.getElementById("tipo").value = null;
-    
-    $('#TituloUser').text("Agregar Categoria");
+    document.getElementById("codigo").value = "";
+    document.getElementById("descripcion").value = "";
+    document.getElementById("marca").value = "";
+    document.getElementById("precio").value = 0;
+
+    $('#TituloUser').text("Agregar Repuesto");
   //  document.getElementById("TituloUser").value = "Agregar Usuario";  
   }
   
@@ -577,10 +572,65 @@ $(document).ready(function () {
         data: parametros,
         success:function( msg ) {
           window.location.href = window.location.href;
-         alert( "Data actualizada. " + msg );
+        // alert( "Data actualizada. " + msg );
         }
        });
   }
+
+
+
+function cargandodatos(idcategoria,idvehiculo){
+    getcategoriavehiculo(idcategoria,idvehiculo),
+    saveData(idcategoria,idvehiculo)
+}
+
+  function getcategoriavehiculo(idcategoria,idvehiculo){
+      var parametros = {
+                "idcategoria" : idcategoria,
+                "idvehiculo" : idvehiculo
+        };
+      
+        $.ajax({
+        type: "POST",
+        url: "tarjetamostrarcv.php",
+        data: parametros,
+        success:function(respuesta )
+        {
+          //window.location.href = window.location.href;
+
+          
+          console.log(respuesta.length);
+          console.log(respuesta);
+       var html='';
+       var i;
+
+       const text = respuesta;
+      const myArr = JSON.parse(text);
+
+      console.log(myArr);      
+      console.log(myArr.length);
+          console.log(myArr[0][0]);
+          console.log(myArr[0][1]);
+
+        
+        document.getElementById("categoria").value =myArr[0][0];
+        document.getElementById("vehiculo").value =myArr[0][1];
+         
+        
+        
+       }
+
+
+       });
+  }
+ 
+
+
+
+
+
+
+
 
   function getTabla(){
       var parametros = {

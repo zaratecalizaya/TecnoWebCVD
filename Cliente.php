@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,21 +75,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Repuesto.php" class="nav-link ">
+                <a href="./UsuarioWeb.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Repuestos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./Categoria.php" class="nav-link ">
+                <a href="./UsuarioMovil.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Categorias</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./Vehiculo.php" class="nav-link ">
+                <a href="./UsuarioMovil.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Vehiculo</p>
+                  <p>Automovil</p>
                 </a>
               </li>
 
@@ -103,13 +105,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Ingresos.php" class="nav-link ">
+                <a href="./Comportamientos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ingresos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./Proveedor.php" class="nav-link ">
+                <a href="./GrupoComportamientos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Proveedor</p>
                 </a>
@@ -127,7 +129,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./consulta_compra.php" class="nav-link ">
+                <a href="./Comportamientos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Consultar Compras</p>
                 </a>
@@ -161,12 +163,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-white">Proveedor</h1>
+            <h1 class="m-0 text-white">Clientes</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="tableroAlmacenero.php">Inicio</a></li>
-              <li class="breadcrumb-item active text-white">Proveedor</li>
+              <li class="breadcrumb-item active text-white">Clientes</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -181,7 +183,7 @@
           <div class="col-12">
             <div class="card card-primary">
               <div class="card-header" >
-                <h3 class="card-title">Lista de Proveedor</h3>
+                <h3 class="card-title">Lista de Clientes</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -189,49 +191,47 @@
                   <thead>
                   <tr>
                     <th>Id</th>
-                    <th>Nit</th>
-                    <th>Razon_Social</th>
+                    <th>NIT</th>
+                    <th>Nombre</th>
+                    <th>Paterno</th>
+                    <th>Materno</th>
+                    <th>Email</th>
                     <th>Telefono</th>
                     <th>Direccion</th>
-                    <th>Email</th>
-                    <th>Acciones</th>
-
+                    <th>Accion</th>
                     
                   </thead>
                   <tbody>
                  <?php 
-                    require_once 'Controlador/ProveedorController.php';
+                    require_once 'Controlador/ClienteController.php';
   
                   
-                    $cproveedor = new ControladorProveedor();
-                    $list=  $cproveedor -> ctrListarProveedor(1,1000);
+                    $cCliente = new ControladorCliente();
+                    $list=  $cCliente -> ctrListarCliente(1,1000);
                     
                     while (count($list)>0){
-                      $Proveedor = array_shift($list);
+                      $Cliente = array_shift($list);
                       echo "<tr>";
-                      $Did = array_shift($Proveedor );
+                      $Did = array_shift($Cliente );
                       echo "<td>".$Did."</td>";
-                      $Dnit = array_shift($Proveedor);
-                      echo "<td>".$Dnit."</td>";
-                      $Drazon_social = array_shift($Proveedor);
-                      echo "<td>".$Drazon_social."</td>";
-                      $Dtelefono = array_shift($Proveedor);
-                      echo "<td>".$Dtelefono."</td>";
-                      $Ddirección = array_shift($Proveedor);
-                      echo "<td>".$Ddirección."</td>";
-                      $Demail = array_shift($Proveedor);
-                      echo "<td>".$Demail."</td>";
+                      $DNit = array_shift($Cliente );
+                      echo "<td>".$DNit."</td>";
+                      $Dnombre = array_shift($Cliente);
+                      echo "<td>".$Dnombre."</td>";
                       
-                     
-                      
-                     
-                    
-                    
+                      $Dpaterno = array_shift($Cliente );
+                      echo "<td>".$Dpaterno."</td>";
+                      $Dmaterno = array_shift($Cliente);
+                      echo "<td>".$Dmaterno."</td>";
+                      $email= array_shift($Cliente);
+                      echo "<td>".$email."</td>";
+                      $telefono= array_shift($Cliente);
+                      echo "<td>".$telefono."</td>";
+                      $direccion= array_shift($Cliente);
+                      echo "<td>".$direccion."</td>";
                       echo '<td>
-                      <button class="btn" onclick="saveData('.$Did.',\''.$Dnit.'\',\''.$Drazon_social.'\',\''.$Dtelefono.'\',\''.$Ddirección.'\',\''.$Demail.'\')"><i class="fas fa-edit"></i> Editar</button> 
-                  
-                      
-                    </td>';
+                            <button class="btn" onclick="saveData('.$Did.',\''.$DNit.'\',\''.$Dnombre.'\',\''.$Dpaterno.'\',\''.$Dmaterno.'\',\''.$email.'\',\''.$telefono.'\',\''.$direccion.'\')"><i class="fas fa-edit"></i> Editar</button>
+                            </td>';
                       echo "</tr>";
                     }
                     
@@ -253,70 +253,57 @@
  
         <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title"><label id="TituloUser">Agregar Proveedor</label> </h3> 
-                <button id="nuevoNivel" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Proveedor</button>
+                <h3 class="card-title"><label id="TituloUser">Agregar cliente</label> </h3> 
+                <button id="nuevoNivel" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Cliente</button>
                 
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form  role="form" enctype="multipart/form-data"  method="post"  >
+              <form role="form" enctype="multipart/form-data"  method="post"   >
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputId"></label>
+                    <label type="hidden" for="exampleInputId"></label>
                     <input type="hidden"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputNombre">Nit</label>
-                    <input type="text" class="form-control" id="nit" name="nit" placeholder="Ingrese el nit">
+                    <label for="exampleInputNombre">NIT</label>
+                    <input type="nunmber" class="form-control" id="nit" name="nit" placeholder="Ingrese la Marca">
                   </div>
                   <div class="form-group">
-                    <label for="InputUsuario">Razon Social</label>
-                    <input type="text" class="form-control" id="razon_social" name="razon_social" placeholder="Ingrese el razon_social">
+                    <label for="InputUsuario">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre">
                   </div>
                    
                    
                   <div class="form-group">
-                    <label for="InputUsuario">Telefono</label>
-                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese el telefono">
+                    <label for="InputUsuario">Paterno</label>
+                    <input type="text" class="form-control" id="paterno" name="paterno" placeholder="Ingrese el apellido paterno">
                   </div>
-                  
-                 
-
                   <div class="form-group">
-                    <label for="InputUsuario">Direccion</label>
-                    <input type="text" class="form-control" id="dirección" name="dirección" placeholder="Ingrese el direccion">
+                    <label for="InputUsuario">Materno</label>
+                    <input type="text" class="form-control" id="materno" name="materno" placeholder="Ingrese el apellido materno">
                   </div>
-                   
-                  
-
                   
                   <div class="form-group">
                     <label for="InputUsuario">Email</label>
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Ingrese el Email">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese el email">
                   </div>
-                  
-                 
 
-                   
-                  
-
-                
-  
-                
-    
-    
-                
-                  
+                  <div class="form-group">
+                    <label for="InputUsuario">Telefono</label>
+                    <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Ingrese el telefono">
+                  </div>
+                  <div class="form-group">
+                    <label for="InputUsuario">Direccion</label>
+                    <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Ingrese la direccion">
+                  </div>
+ 
                 </div>
-                  
-                
-
-               
                 <!-- /.card-body -->
 
                 <div class="card-footer">
                   <?php
-                    $resp= $cproveedor -> ctrRegistroProveedor();
+                    $resp= $cCliente ->ctrRegistroCliente();
                     //echo "<script> alert(' respuesta: ".$resp." ')</script>";
                     if ($resp=="true"){
                      // echo "<script> alert(' respuesta: ".$resp." ')</script>";
@@ -388,34 +375,32 @@
 </script>
 
 <script>
-
-  
-   
-  
-  function saveData(id, nit, razon_social,telefono,direccion,email){
+  function saveData(id, nit, nombre,paterno,materno,email,telefono,direccion){
+      
     document.getElementById("id").value = id;
     document.getElementById("nit").value = nit;
-    document.getElementById("razon_social").value = razon_social;
-    document.getElementById("telefono").value = telefono;
-    document.getElementById("dirección").value = dirección;
+    document.getElementById("nombre").value = nombre;
+    document.getElementById("paterno").value = paterno;
+    document.getElementById("materno").value = materno;
     document.getElementById("email").value = email;
+    document.getElementById("telefono").value = telefono;
+    document.getElementById("direccion").value = direccion;
     
- 
-    $('#TituloUser').text("Editar PROVEEDOR");
- //    document.getElementById("TituloUser").value = "Editar Usuario";  
+    $('#TituloUser').text("Editar Cliente");
+//    document.getElementById("TituloUser").value = "Editar Usuario";  
   }
   
   function newUser(){
     document.getElementById("id").value = 0;
     document.getElementById("nit").value = 0;
-    document.getElementById("razon_social").value = "";
-    document.getElementById("telefono").value = 0;
-    document.getElementById("dirección").value = "";
+    document.getElementById("nombre").value = "";
+    document.getElementById("paterno").value = "";
+    document.getElementById("materno").value = "";
     document.getElementById("email").value = "";
-   
-     
+    document.getElementById("telefono").value = 0;
+    document.getElementById("direccion").value = "";
     
-    $('#TituloUser').text("Agregar PROVEEDOR");
+    $('#TituloUser').text("Agregar Cliente");
   //  document.getElementById("TituloUser").value = "Agregar Usuario";  
   }
   
@@ -430,7 +415,7 @@
       
       $.ajax({
         type: "POST",
-        url: "estadoproveedor.php",
+        url: "estadovehiculo.php",
         data: parametros,
         success:function( msg ) {
           window.location.href = window.location.href;

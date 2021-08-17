@@ -112,7 +112,37 @@ class ControladorVehiculo{
       }
 
 
-
+      public function ctrListarVehiculoselect(){
+      
+            
+        $tabla = "vehiculo";
+        $Vehiculod = new VehiculosDAO();
+         $respuesta = $Vehiculod -> listVehiculomarca();
+     
+         return $respuesta;
+   
+       }
+ 
+       public function ctrListarVehiculoselectmodelo(){
+      
+            
+        $tabla = "vehiculo";
+        $Vehiculod = new VehiculosDAO();
+         $respuesta = $Vehiculod -> listVehiculomodelo();
+     
+         return $respuesta;
+   
+       }
+       public function ctrListarVehiculoselectaño(){
+      
+            
+        $tabla = "vehiculo";
+        $Vehiculod = new VehiculosDAO();
+         $respuesta = $Vehiculod -> listVehiculoaño();
+     
+         return $respuesta;
+   
+       }
 
       
 

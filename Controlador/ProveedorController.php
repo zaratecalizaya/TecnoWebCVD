@@ -18,42 +18,23 @@ class ControladorProveedor{
 
     public function ctrRegistroProveedor(){
       
-        if(isset($_POST["id"])){
-         
-         $mutil = new Utils();
-                   //   $mutil -> console_log('esta ingresando');
-                      
-                      
-                      if(($_POST["id"])==0){
-              
+      if(isset($_POST["id"])){
+       
+       $mutil = new Utils();
+                  //  $mutil -> console_log('esta ingresando');
+                    
+                    
+                    if(($_POST["id"])==0){
             
-                
-                 // $mutil -> console_log('esta ingresando');
-                      $datos = array(
-                        "ci"=>$_POST["nit"],
-                        "razon_social"=>$_POST["razon_social"],
-                        "telefono"=>$_POST["telefono"],
-                        "dirección"=>$_POST["dirección"],
-                        "email"=>$_POST["email"],
-                        
-                     
-                       // "imagen"=>""
-                        );
-                    $tabla = "proveedor";
-                    $Proveedord = new ProveedorDAO ();
-                    $respuesta = $Proveedord ->addProveedor($tabla,$datos);
-
-                   // return $respuesta;  
-                    if ($respuesta==true){
-                      return "true";
-                    }else{
-                      return $respuesta;  
-                    }
-  
-  
-  
-                 // return "La subida de imagen ha fallado";
-                
+          
+              
+               // $mutil -> console_log('esta ingresando');
+                  $datos = array("nit"=>$_POST["nit"],
+                         "razon_social"=>$_POST["razon_social"],
+                         "telefono"=>$_POST["telefono"],
+                         "direccion"=>$_POST["direccion"],
+                         "email"=>$_POST["email"],
+                         );
           
             }else{
              
@@ -68,10 +49,9 @@ class ControladorProveedor{
                     );
             
                   $tabla = "proveedor";
-                  $Proveedord = new ProveedorDAO();
-                  $respuesta = $Proveedord -> updateProveedor($tabla,$datos);
-            
-                  //return $respuesta;
+                  $Proveedord = new ProveedorDAO ();
+                  $respuesta = $Proveedord ->addProveedor($tabla,$datos);
+                 // return $respuesta;  
                   if ($respuesta==true){
                     return "true";
                   }else{
@@ -118,8 +98,8 @@ class ControladorProveedor{
     }
       
     
-
-
+  
+  
     
 
 
