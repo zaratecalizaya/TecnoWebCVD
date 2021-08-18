@@ -268,20 +268,15 @@ class RepuestoDAO {
 
       		$json = array();
       		
-      			
-      				
-              $consulta ="INSERT INTO ".$tabla." (nombre) VALUES('".$datos["nombre"]."')";
+          $consulta ="INSERT INTO ".$tabla." (nombre) VALUES('".$datos["nombre"]."')";
            
               $result=mysqli_query($link,$consulta);
               if ($result ==true){
                 return "true";
               }else {
-                return "Error al guardar el almacen";
+                return "Error al guardar la medida";
               }
             
-			
-         
-
     }
 
     
@@ -293,7 +288,7 @@ class RepuestoDAO {
       $this->db = new DB_Connect();
       $link=$this->db->connect();
   
-      if ($result = mysqli_query($link,"SELECT * from ".$tabla." WHERE id_almacen = '".$id."'")) {
+      if ($result = mysqli_query($link,"SELECT * from ".$tabla." WHERE id_unidad = '".$id."'")) {
 
         /* determinar el número de filas del resultado */
         $num_rows  = mysqli_num_rows($result);
@@ -330,14 +325,14 @@ class RepuestoDAO {
       }
     }
  
-    public function listMedida($pagina,$cantidad){
+    public function listMedida(){
       require_once 'modelo/Conexion/connectbd.php';
           // connecting to database
           $this->db = new DB_Connect();
           $link=$this->db->connect();
       //$json=$cuenta;
       
-      $query = "SELECT id_almacen,nombre FROM unidad_medida   ";
+      $query = "SELECT id_unidad,nombre FROM unidad_medida";
       $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
   
       $json = array();
@@ -347,7 +342,7 @@ class RepuestoDAO {
         while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
         
         
-            array_push($json, array($line["id_almacen"],$line["nombre"]));
+            array_push($json, array($line["id_unidad"],$line["nombre"]));
         }
         
       }

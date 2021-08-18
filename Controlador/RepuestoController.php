@@ -123,12 +123,12 @@ class ControladorRepuesto{
 
   
 
-   public function ctrRegistroMedida(){
+  /* public function ctrRegistroMedida(){
       
     if(isset($_POST["id"])){
      
      $mutil = new Utils();
-               //   $mutil -> console_log('esta ingresando');
+                // $mutil -> console_log('esta ingresando');
                   
                   
                if(($_POST["id"])==0){
@@ -171,14 +171,14 @@ class ControladorRepuesto{
     }
     
 }
-
+*/
 
 public function ctrListarMedida(){
       
             
   $tabla = "unidad_medida";
   $Almacend = new RepuestoDAO();
-   $respuesta = $Almacend -> listAlmacen();
+   $respuesta = $Almacend -> listMedida();
 
    return $respuesta;
 
@@ -283,24 +283,6 @@ public function ctrListarMedida(){
     
   }
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

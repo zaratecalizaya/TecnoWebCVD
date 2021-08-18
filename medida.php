@@ -182,64 +182,98 @@
 
     
 
+
+
+
    <div  class="container" >
-                     <div class="modal fade" tabindex="-1" id="modal1">
+                     <div class="modal fade" tabindex="-1" id="modal2">
                            <div class="modal-dialog modal-xl  modal-dialog-scrollable">
 
                               <div class="modal-content">
                                  <div class="modal-header hero-image">
-                                        <label for="" style="color:white">Insertar Unidad Medida: </label> 
-                                          <button class="btn btn-danger" data-dismiss='modal'>&times;</button>
+                                        <label for="" style="color:white">Mostrar producto: </label> 
+                                          
                                  </div>
          
 
          <div class="col" id="col">
   
-                    <form role="form" enctype="multipart/form-data"  method="post"   >
-                        <div class="modal-body">
+         <table id="listdetalle" class="table table-bordered table-striped">
+                  <thead>
+                    <tr>
+                     <th>id</th>
+                     <th>nombre</th>
+                     <th>descripcion</th>
+                     <th>imagen</th>
+                     <th>marca</th> 
+                     <th>precio (Bs)</th>
+                     <th>categoria</th>
+                     <th>vehiculo</th>
+                     
+                     <th>Añadir</th>
+                    </tr>
+                  </thead>
+               <tbody>
+                <?php 
+                    require_once 'Controlador/RepuestoController.php';
+  
+                  
+                    $cuser = new ControladorRepuesto;
+                    $list=  $cuser -> ctrListarRepuesto(1,1000);
+                   
+                    while (count($list)>0){
+                      $cont = array_shift($list);
+                      echo "<tr>";
+                      
+                      $Did= array_shift($cont);
+                      echo "<td>".$Did."</td>";
+                      $Dnombres= array_shift($cont);
+                      echo "<td>".$Dnombres."</td>";
+                      
+                      
+                      
+                      $Dcodigo= array_shift($cont);
+                      echo "<td>".$Dcodigo."</td>";
+                      
+                      $Dimagen = array_shift($cont);
+                      if ($Dimagen!=""){
+                        echo "<td><img src='".$Dimagen."' width='100'></td>";  
+                      }else{
+                        echo "<td></td>";
+                      }
+                    
+                      $Dmarca= array_shift($cont);
+                      echo "<td>".$Dmarca."</td>";
+                      
+                      $Dprecio= array_shift($cont);
+                      echo "<td>".$Dprecio."</td>";
+                      
+                      $Did_categoria= array_shift($cont);
+                  
+                      $Did_vehiculo= array_shift($cont);
+                     
 
-                            <div class="col" id="col">
+                      $Dnombre= array_shift($cont);
+                      echo "<td>".$Dnombre."</td>";
+                      
+                      $Dnombrevehiculo= array_shift($cont);
+                      echo "<td>".$Dnombrevehiculo."</td>";
 
-                              <div class="card card-primary">
-                                <div class="card-body">
-                                        
-                                          <div class="form-group">
-                                              <label type="hidden" for="exampleInputId">ID</label>
-                                              <input type="hidden"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
-                                          </div>
-                                              <div class="form-group">
-                                                 <label for="exampleInputNombre">Nombre</label>
-                                                 <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese Nombre almacen ">
-                                              </div>
-                                        
-          
-         
-                               </div>
-       <!-- /.card-body -->
-                   </div>
-              <div class="card-footer">
-         <?php
-           require_once 'Controlador/RepuestoController.php';
-           $cCategoria = new ControladorRepuesto();
-           $resp= $cCategoria -> ctrRegistroMedida();
-           //echo "<script> alert(' respuesta: ".$resp." ')</script>";
-           if ($resp=="true"){
-            // echo "<script> alert(' respuesta: ".$resp." ')</script>";
-              echo "<meta http-equiv='refresh' content='0'>";
-           }elseif($resp=="false"){
-             //echo "<script> alert(' respuesta: al parecer fue falso XD')</script>";
-           }else{  
-             if ($resp!=""){
-             echo "<script> alert(' respuesta: ".$resp." ')</script>";
-           } }
-           
-         ?>
-         
-         <input type="submit" class="btn btn-primary" value="Enviar">
-       </div>
-       </div>
-     
-      </form>
+                     $Destado = array_shift($cont);
+                      
+                      
+                      echo '<td>
+                              <button class="btn" onclick="saveData('.$Did.',\''.$Dnombres.'\',\''.$Dmarca.'\')"><i class="fas fa-edit"></i> Editar</button>
+                              
+                            </td>';
+
+
+                      echo "</tr>";
+                    }               
+                ?>   
+              </tbody>
+          </table>
+
 
 
           </div>
@@ -254,13 +288,31 @@
    </div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    <form role="form" enctype="multipart/form-data" method="post"  >
     <!-- Main content -->
     <section class="content hero-image" >
       <div class="container-fluid" >
 
         <div class="row">
-        >
+        
           <div class="col-12">
             <div class="card card-primary">
               <div class="card-header" >
@@ -273,40 +325,33 @@
               <!-- /.card-header -->
               <div class="card-body">
                 
-              <table class="table table-bordered table-striped" >
-                    <thead>
-                      <tr>
-                       <th>
-                         <div class="row">
-    
-                           
-                              <label for="start" class="form-label"  >Descripcion: </label>
-                              <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese la descripcion">  
-          
-                           
-                         </div>
-
-
-                       </th>
-                      </tr>
-                   </thead>
-               </table>     
-              <table  class="table table-bordered table-striped " id="busquedas" >
+                  
+              <table  class="table table-bordered table-striped ">
                     <thead  >
                           <tr>
+                            <th style="width: 10%;">
+                              <div class="col">
+    
+                                  <div >
+                                  <label for="disabledSelect" class="form-label">Unidad: </label>
+      
+                                         <input type="number"id="cantidad" name="cantidad" style="width: 100%;">
+                                   </div>
+                               </div>
+                            </th>
                             <th>
                               <div class="col">
     
                                   <div >
-                                  <label for="disabledSelect" class="form-label">Categoria: </label>
-      
+                                  <label for="disabledSelect" class="form-label">Medida: </label>
+                                           
                                          <select class="form-control select2" id="categoria" name="categoria"  style="width: 100%;"> 
                                              <option selected="selected">seleccione</option>
                                                 <?php
                                                    require_once 'Controlador/RepuestoController.php';
                      
                                                      $cusuario = new ControladorRepuesto();
-                                                     $list=  $cusuario -> ctrListarCategoria();
+                                                     $list=  $cusuario -> ctrListarMedida();
                     
                                                         while (count($list)>0){
                                                           $User = array_shift($list);
@@ -318,30 +363,16 @@
                                           </select>
                                    </div>
                                </div>
-                            </th>
- 
+                            </th> 
                             <th>
-                              <div class="col order-1">
+                              <div class="col ">
     
                                   <div >
-                                      <label for="disabledSelect" class="form-label">vehiculo : </label>
-      
-                                         <select class="form-control select2" id="sector" name="sector"  style="width: 100%;"> 
-                                             <option selected="selected">seleccione</option>
-                                                <?php
-                                                   require_once 'Controlador/vehiculoController.php';
-                     
-                                                     $cusuario = new ControladorVehiculo();
-                                                     $list=  $cusuario -> ctrListarVehiculoselect();
-                    
-                                                        while (count($list)>0){
-                                                          $User = array_shift($list);
-                                                          $Did = array_shift($User);
-                                                          $Dnombres = array_shift($User);
-                                                          echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
-                                                        }
-                                                 ?>
-                                          </select>
+                                      <label for="disabledSelect" class="form-label">Producto : </label>
+                                        <br>
+                                      <input type="text" id="producto" name="producto"style="width: 50%;">
+                                      <input type="hidden" id="id_producto" name="id_producto"style="width: 50%;" value="">
+                                          <button type="button" class="btn btn-info"    data-toggle="modal" data-target="#modal2">Info</button>
                                    </div>
                              </div>
                            </th>  
@@ -370,12 +401,12 @@
                     } }
                     
                   ?>
+                  <button type="submit" class="btn btn-primary" value="Registrar"></button>
                   
-                  <input type="submit" class="btn btn-primary" value="Registrar">
                 
                                    
                                                                          <br><br>
-                                     <button  class="btn btn-warning" type="button"  data-toggle="modal" data-target="#modal1" >addCategoria</button>
+                                     <button  class="btn btn-warning" type="button"  data-toggle="modal" data-target="#modal1" >addMedida</button>
                      
                                    </div>
                                    
@@ -383,6 +414,12 @@
 
                </thead>
             </table>
+
+
+
+
+
+
               <table id="listdetalle" class="table table-bordered table-striped">
                   <thead>
                     <tr>
@@ -512,44 +549,19 @@ $(document).ready(function () {
   $('.dataTables_length').addClass('bs-select');
   });
   
-  $("#sector").on('change', function () {
-        $("#sector option:selected").each(function () {
-            //var id_category = $(this).val();
-            var nombre = $("#sector option:selected").text();
-            $.post("AjaxSubsector.php", { nombre: nombre }, function(data) {
-                $("#subsector").html(data);
-                
-                $("#subsector option:selected").each(function () {
-                  var nombre = $("#subsector option:selected").text();
-                  $.post("AjaxCargo.php", { nombre: nombre }, function(data) {
-                    $("#cargo").html(data);
-                  });			
-                });   
-            });			
-        });
-  });
-  $("#subsector").on('change', function () {
-        $("#subsector option:selected").each(function () {
-         //   var nombre = $(this).val();
-            var nombre = $("#subsector option:selected").text();
-            $.post("AjaxCargo.php", { nombre: nombre}, function(data) {
-                $("#cargo").html(data);
-            });			
-        });
-  });
 
-  function saveData(id, nombre){
-    document.getElementById("id").value = id;
-    document.getElementById("nombre").value = nombre;
+ // function saveData(id, nombres,marca){
+    //document.getElementById("id_producto").value = id;
+   // document.getElementById("producto").value = nombres+marca;
     
-    $('#TituloUser').text("Editar Categoria");
+    //$('#TituloUser').text("Editar Categoria");
 //    document.getElementById("TituloUser").value = "Editar Usuario";  
-  }
+  //}
   
   function newUser(){
     document.getElementById("id").value = 0;
-    document.getElementById("nombre").value = "";
-    document.getElementById("tipo").value = null;
+    document.getElementById("producto").value = "";
+    
     
     $('#TituloUser').text("Agregar Categoria");
   //  document.getElementById("TituloUser").value = "Agregar Usuario";  
@@ -575,46 +587,7 @@ $(document).ready(function () {
        });
   }
 
-  function getTabla(){
-      var parametros = {
-               
-              
-        };
-      
-        $.ajax({
-        type: "POST",
-        url: "tarjetalistarmodal.php",
-        data: parametros,
-        success:function(respuesta ) {
-          //window.location.href = window.location.href;
-
-          
-          console.log(respuesta.length);
-          console.log(respuesta);
-       var html='';
-       var i;
-
-       const text = respuesta;
-      const myArr = JSON.parse(text);      
-      console.log(myArr.length);
-          console.log(myArr);
-      for(i=0;i<myArr.length;i++){
-
-            html+='<tr>'+
-          
-          '<td>'+myArr[i][0]+'</td>'+
-          '<td>'+myArr[i][1]+'</td>'+      
-//          '<td><button class="btn" onclick="saveData('+myArr[i][0]+',\''+myArr[i][2]+'\')"><i class="fas fa-edit"></i> Editar</button></td>'+
-
-         '</tr>';
-         
-        }
-        $('#listar').html(html);
-       }
-       
-      });
-  }
-
+  
   
 </script>
 

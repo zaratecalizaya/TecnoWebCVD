@@ -183,11 +183,11 @@ class UsuarioDAO {
         $this->db = new DB_Connect();
         $link=$this->db->connect();
 		$query = "SELECT * FROM EFUsuario where Nick='".$Nick."'";
-		$result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error());
+		$result = mysqli_query($link,$query) or die('Consulta fallida: ');
 
 		$json = array();
 		if(mysqli_num_rows($result)>0){
-			while ($line = mysqli_fetch_array($result, MYSQL_ASSOC)) {
+			while ($line = mysqli_fetch_array($result)) {
 				$json['usuario'][]=$line;
 			}
 			

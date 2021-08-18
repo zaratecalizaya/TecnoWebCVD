@@ -166,12 +166,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-white">Reportes</h1>
+            <h1 class="m-0 text-white">DetalleCategoria</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="tablero.php">Inicio</a></li>
-              <li class="breadcrumb-item active text-white">Reportes</li>
+              <li class="breadcrumb-item active text-white">  Detalle Categoria</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -267,7 +267,7 @@
       <div class="container-fluid" >
 
         <div class="row">
-        >
+        
           <div class="col-12">
             <div class="card card-primary">
               <div class="card-header" >
@@ -519,31 +519,7 @@ $(document).ready(function () {
   $('.dataTables_length').addClass('bs-select');
   });
   
-  $("#sector").on('change', function () {
-        $("#sector option:selected").each(function () {
-            //var id_category = $(this).val();
-            var nombre = $("#sector option:selected").text();
-            $.post("AjaxSubsector.php", { nombre: nombre }, function(data) {
-                $("#subsector").html(data);
-                
-                $("#subsector option:selected").each(function () {
-                  var nombre = $("#subsector option:selected").text();
-                  $.post("AjaxCargo.php", { nombre: nombre }, function(data) {
-                    $("#cargo").html(data);
-                  });			
-                });   
-            });			
-        });
-  });
-  $("#subsector").on('change', function () {
-        $("#subsector option:selected").each(function () {
-         //   var nombre = $(this).val();
-            var nombre = $("#subsector option:selected").text();
-            $.post("AjaxCargo.php", { nombre: nombre}, function(data) {
-                $("#cargo").html(data);
-            });			
-        });
-  });
+  
 
   function saveData(id, nombre){
     document.getElementById("id").value = id;
