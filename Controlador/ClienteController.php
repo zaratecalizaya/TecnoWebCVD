@@ -93,7 +93,18 @@ class ControladorCliente{
         return $respuesta;
   
       }
-
+     
+       
+      
+      public function ctrListarClienteselect(){
+           
+        $tabla = "cliente";
+        $Cliented = new ClienteDAO();
+         $respuesta = $Cliented->listClienteSelect();
+     
+         return $respuesta;
+   
+       }
 
 
 
