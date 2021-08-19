@@ -252,6 +252,33 @@ class RepuestoDAO {
     }
 
 
+
+    public function listAlmacenselect(){
+      require_once 'modelo/Conexion/connectbd.php';
+          // connecting to database
+          $this->db = new DB_Connect();
+          $link=$this->db->connect();
+      //$json=$cuenta;
+      
+      $query = "SELECT id_almacen,nombre FROM almacen   ";
+      $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+  
+      $json = array();
+      //$json =mysqli_num_rows($result);
+      if(mysqli_num_rows($result)>0){
+          //$json['cliente'][]=nada;
+        while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+        
+        
+            array_push($json, array($line["id_almacen"],$line["nombre"]));
+        }
+        
+      }
+      
+      mysqli_close($link);
+      return $json;
+      
+    }
     public function addMedida($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
@@ -405,6 +432,138 @@ class RepuestoDAO {
 
       
   
+
+     
+    public function addrepuestosdetalle($datos) { //regusu et no es
+
+      require_once 'modelo/Conexion/connectbd.php';
+      //require_once 'modelo/utilitario.php';
+      //$mutil = new Utils();
+      //$mutil -> console_log('Entro AddMovil');
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+        //$mutil -> console_log('is user:'.$pu);
+        
+      		$json = array();
+
+          
+     
+    
+          $consulta ="INSERT INTO unidad_repuesto (Cantidad_medida,id_repuesto,id_unidad) VALUES('".$datos["cantidad"]."','".$datos["producto"]."','".$datos["medida"]."')";
+
+           
+              $result=mysqli_query($link,$consulta);
+              if ($result ==true){
+                return "true";
+              }else {
+                return "Error al guardar categoria";
+              }
+            
+    }
+
+
+
+
+    public function listProductodetalle(){
+      require_once 'modelo/Conexion/connectbd.php';
+          // connecting to database
+          $this->db = new DB_Connect();
+          $link=$this->db->connect();
+      //$json=$cuenta;
+
+      
+      
+      $query = "SELECT ur.id_repuesto,ur.id_unidad,r.imagen,r.nombre,r.marca, GROUP_CONCAT(ur.Cantidad_medida,' ',um.nombre) as medidas
+      from repuesto r inner join unidad_repuesto ur on r.id_repuesto=ur.id_repuesto inner join unidad_medida um on um.id_unidad=ur.id_unidad
+      GROUP BY ur.id_repuesto";
+      $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+  
+      $json = array();
+      //$json =mysqli_num_rows($result);
+      if(mysqli_num_rows($result)>0){
+          //$json['cliente'][]=nada;
+        while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+        
+        
+            array_push($json, array($line["id_repuesto"],$line["id_unidad"],$line["imagen"],$line["nombre"],$line["marca"],$line["medidas"]));
+        }
+        
+      }
+      
+      mysqli_close($link);
+      return $json;
+      
+    }
+
+
+
+    
+
+     
+    public function addalmacendetalle($datos) { //regusu et no es
+
+      require_once 'modelo/Conexion/connectbd.php';
+      //require_once 'modelo/utilitario.php';
+      //$mutil = new Utils();
+      //$mutil -> console_log('Entro AddMovil');
+        // connecting to database
+        $this->db = new DB_Connect();
+        $link=$this->db->connect();
+        //$mutil -> console_log('is user:'.$pu);
+        
+      		$json = array();
+
+          
+     
+    
+          $consulta ="INSERT INTO almacen_unidad(stock,id_repuesto,id_unidad,id_almacen) VALUES('".$datos["stock"]."','".$datos["idproducto"]."','".$datos["idmedida"]."','".$datos["almacen"]."')";
+
+           
+              $result=mysqli_query($link,$consulta);
+              if ($result ==true){
+                return "true";
+              }else {
+                return "Error al guardar categoria";
+              }
+            
+    }
+
+
+
+    public function listAlmacendetalle(){
+      require_once 'modelo/Conexion/connectbd.php';
+          // connecting to database
+          $this->db = new DB_Connect();
+          $link=$this->db->connect();
+      //$json=$cuenta;
+
+      
+      
+      $query = "SELECT au.id_repuesto,au.id_unidad,au.id_almacen,a.nombre as almacen,au.stock,r.imagen,r.nombre,r.marca, GROUP_CONCAT(ur.Cantidad_medida,um.nombre) as medidas
+      from repuesto r,unidad_repuesto ur , unidad_medida um ,almacen a ,almacen_unidad au where r.id_repuesto =ur.id_repuesto and ur.id_unidad=um.id_unidad and au.id_almacen=a.id_almacen and ur.id_repuesto=au.id_repuesto and ur.id_unidad=au.id_unidad
+GROUP BY ur.id_repuesto";
+      $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+  
+      $json = array();
+      //$json =mysqli_num_rows($result);
+      if(mysqli_num_rows($result)>0){
+          //$json['cliente'][]=nada;
+        while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+        
+        
+            array_push($json, array($line["id_repuesto"],$line["id_unidad"],$line["id_almacen"],$line["almacen"],$line["stock"],$line["imagen"],$line["nombre"],$line["marca"],$line["medidas"]));
+        }
+        
+      }
+      
+      mysqli_close($link);
+      return $json;
+      
+    }
+
+
+
 }
  
  

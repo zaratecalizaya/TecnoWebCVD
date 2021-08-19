@@ -258,6 +258,30 @@ public function ctrListarMedida(){
       }
 
 
+      public function ctrListarAlmacenselect(){
+      
+            
+        $tabla = "almacen";
+        $Almacend = new RepuestoDAO();
+         $respuesta = $Almacend -> listAlmacenselect();
+     
+         return $respuesta;
+   
+       }
+
+
+ 
+      public function ctrListarRepuestoDetalle(){
+      
+            
+       
+        $Almacend = new RepuestoDAO();
+         $respuesta = $Almacend -> listProductodetalle();
+     
+         return $respuesta;
+   
+       }
+
 
 
       
@@ -285,6 +309,97 @@ public function ctrListarMedida(){
   
 
 
+   
+  public function ctrRespuestoMedida(){
+    $mutil = new Utils();
+   // $mutil -> console_log("recibiendo");
+    if(isset($_POST["categoria"]) ){
+      
+     
+
+
+      
+      $cantidad=$_POST["cantidad"];
+
+      
+      $medida=$_POST["categoria"];
+     
+      $producto=$_POST["id_producto"];
+             
+            // $mutil -> console_log($cantidad);
+            // $mutil -> console_log($medida);
+             //$mutil -> console_log($producto);
+        $datos = array(
+        "cantidad"=>$cantidad,
+        "medida"=>$medida,
+        "producto"=>$producto
+      );
+        
+       
+           
+      
+    
+    $Vehiculod = new RepuestoDAO();
+    $respuesta = $Vehiculod -> addrepuestosdetalle($datos);
+    return $respuesta;
+    }
+     
+    
+  
+}
+
+public function ctralmacenrepuesto(){
+    $mutil = new Utils();
+   // $mutil -> console_log("recibiendo");
+    if(isset($_POST["categoria"]) ){
+      
+     
+
+
+      
+      $stock=$_POST["cantidad"];
+
+      
+      $almacen=$_POST["categoria"];
+     
+      $idproducto=$_POST["id_producto"];
+      $idmedida=$_POST["id_medida"];
+             
+            // $mutil -> console_log($cantidad);
+            // $mutil -> console_log($medida);
+             //$mutil -> console_log($producto);
+        $datos = array(
+        "stock"=>$stock,
+        "almacen"=>$almacen,
+        "idproducto"=>$idproducto,
+        "idmedida"=>$idmedida
+      );
+        
+       
+           
+      
+    
+    $Vehiculod = new RepuestoDAO();
+    $respuesta = $Vehiculod ->addalmacendetalle($datos);
+    return $respuesta;
+    }
+     
+    
+  
+}
+
+
+
+public function ctrListarAlmacenDetalle(){
+      
+            
+       
+  $Almacend = new RepuestoDAO();
+   $respuesta = $Almacend -> listAlmacendetalle();
+
+   return $respuesta;
+
+ }
 
   
 

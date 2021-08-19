@@ -191,7 +191,7 @@
 
                               <div class="modal-content">
                               <div class="modal-header hero-image">
-                                        <label for="" style="color:white">Lista producto: </label> 
+                                        <label for="" style="color:white">Lista producto detalle: </label> 
                                           <button class="btn btn-danger" data-dismiss='modal'>&times;</button>
                                   
                                  </div>
@@ -202,71 +202,49 @@
          <table id="listdetalle" class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                     <th>id</th>
-                     <th>nombre</th>
-                     <th>descripcion</th>
-                     <th>imagen</th>
-                     <th>marca</th> 
-                     <th>precio (Bs)</th>
-                     <th>categoria</th>
-                     <th>vehiculo</th>
-                     
-                     <th>Añadir</th>
-                    </tr>
+                    <th>imagen</th>
+                     <th>producto</th>
+                     <th>marca</th>
+                     <th>medida</th>
+                     <th>action</th>
+                                         </tr>
                   </thead>
                <tbody>
                 <?php 
                     require_once 'Controlador/RepuestoController.php';
   
                   
-                    $cuser = new ControladorRepuesto;
-                    $list=  $cuser -> ctrListarRepuesto(1,1000);
+                    $cuser = new ControladorRepuesto();
+                    $list=  $cuser -> ctrListarRepuestoDetalle();
                    
                     while (count($list)>0){
                       $cont = array_shift($list);
                       echo "<tr>";
                       
-                      $Did= array_shift($cont);
-                      echo "<td>".$Did."</td>";
-                      $Dnombres= array_shift($cont);
-                      echo "<td>".$Dnombres."</td>";
-                      
-                      
-                      
-                      $Dcodigo= array_shift($cont);
-                      echo "<td>".$Dcodigo."</td>";
-                      
+                      $Did_repuesto= array_shift($cont);
+                      $Did_unidad= array_shift($cont);
+                     
+                     
                       $Dimagen = array_shift($cont);
                       if ($Dimagen!=""){
-                        echo "<td><img src='".$Dimagen."' width='100'></td>";  
+                        echo "<td><img src='".$Dimagen."' width='70'></td>";  
                       }else{
                         echo "<td></td>";
                       }
                     
-                      $Dmarca= array_shift($cont);
-                      echo "<td>".$Dmarca."</td>";
-                      
-                      $Dprecio= array_shift($cont);
-                      echo "<td>".$Dprecio."</td>";
-                      
-                      $Did_categoria= array_shift($cont);
-                  
-                      $Did_vehiculo= array_shift($cont);
-                     
-
                       $Dnombre= array_shift($cont);
                       echo "<td>".$Dnombre."</td>";
                       
-                      $Dnombrevehiculo= array_shift($cont);
-                      echo "<td>".$Dnombrevehiculo."</td>";
-
-                     $Destado = array_shift($cont);
-                      
+                      $Dmarca= array_shift($cont);
+                      echo "<td>".$Dmarca."</td>";
+                      $Dmedida= array_shift($cont);
+                      echo "<td>".$Dmedida."</td>";
                       
                       echo '<td>
-                              <button class="btn" onclick="saveData('.$Did.',\''.$Dnombres.'\',\''.$Dmarca.'\')"><i class="fas fa-edit"></i> Editar</button>
-                              
-                            </td>';
+                      <button class="btn" onclick="saveData('.$Did_repuesto.',\''.$Did_unidad.'\',\''.$Dnombre.'\',\''.$Dmarca.'\')"><i class="fas fa-edit"></i> Editar</button>
+                      
+                    </td>';
+
 
 
                       echo "</tr>";
@@ -334,7 +312,7 @@
                               <div class="col">
     
                                   <div >
-                                  <label for="disabledSelect" class="form-label">Unidad: </label>
+                                  <label for="disabledSelect" class="form-label">Stock: </label>
       
                                          <input type="number"id="cantidad" name="cantidad" style="width: 100%;">
                                    </div>
@@ -344,7 +322,7 @@
                               <div class="col">
     
                                   <div >
-                                  <label for="disabledSelect" class="form-label">Medida: </label>
+                                  <label for="disabledSelect" class="form-label">Almacen: </label>
                                            
                                          <select class="form-control select2" id="categoria" name="categoria"  style="width: 100%;"> 
                                              <option selected="selected">seleccione</option>
@@ -352,7 +330,7 @@
                                                    require_once 'Controlador/RepuestoController.php';
                      
                                                      $cusuario = new ControladorRepuesto();
-                                                     $list=  $cusuario -> ctrListarMedida();
+                                                     $list=  $cusuario -> ctrListarAlmacenselect();
                     
                                                         while (count($list)>0){
                                                           $User = array_shift($list);
@@ -373,6 +351,7 @@
                                         <br>
                                       <input type="text" id="producto" name="producto"style="width: 50%;">
                                       <input type="hidden" id="id_producto" name="id_producto"style="width: 50%;" value="">
+                                      <input type="hidden" id="id_medida" name="id_medida"style="width: 50%;" value="">
 
                                           <button type="button" class="btn btn-info"    data-toggle="modal" data-target="#modal2">Info</button>
                                    </div>
@@ -387,7 +366,7 @@
          <?php
            require_once 'Controlador/RepuestoController.php';
            $cCategoria = new ControladorRepuesto();
-           $resp= $cCategoria -> ctrRespuestoMedida();
+           $resp= $cCategoria -> ctralmacenrepuesto();
            //echo "<script> alert(' respuesta: ".$resp." ')</script>";
            if ($resp=="true"){
             // echo "<script> alert(' respuesta: ".$resp." ')</script>";
@@ -419,11 +398,13 @@
             <table id="listdetalle" class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                    <th>imagen</th>
-                     <th>producto</th>
-                     <th>marca</th>
-                     <th>medida</th>
-                     <th>action</th>
+                    <th>Almacen</th>
+                    <th>Stock</th>
+                    <th>Imagen</th>
+                     <th>Producto</th>
+                     <th>Marca</th>
+                     <th>Medida</th>
+                     <th>Action</th>
                                          </tr>
                   </thead>
                <tbody>
@@ -432,7 +413,7 @@
   
                   
                     $cuser = new ControladorRepuesto();
-                    $list=  $cuser -> ctrListarRepuestoDetalle();
+                    $list=  $cuser -> ctrListarAlmacenDetalle();
                    
                     while (count($list)>0){
                       $cont = array_shift($list);
@@ -440,8 +421,15 @@
                       
                       $Did_repuesto= array_shift($cont);
                       $Did_unidad= array_shift($cont);
+                      $Did_almacen= array_shift($cont);
                      
-                     
+                      $Dalmacen= array_shift($cont);
+                      echo "<td>".$Dalmacen."</td>";
+                      
+                      
+                      $Dstock= array_shift($cont);
+                      echo "<td>".$Dstock."</td>";
+                      
                       $Dimagen = array_shift($cont);
                       if ($Dimagen!=""){
                         echo "<td><img src='".$Dimagen."' width='70'></td>";  
@@ -546,9 +534,10 @@ $(document).ready(function () {
   });
   
 
-  function saveData(id, nombres,marca){
-  document.getElementById("id_producto").value = id;
-   document.getElementById("producto").value = nombres+" "+marca;
+  function saveData(id_repuesto,id_unidad, nombre,marca){
+  document.getElementById("id_producto").value = id_repuesto;
+  document.getElementById("id_medida").value = id_unidad;
+   document.getElementById("producto").value = nombre+" "+marca;
     
    // /$('#TituloUser').text("Editar Categoria");
 //    document.getElementById("TituloUser").value = "Editar Usuario";  
