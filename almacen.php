@@ -75,21 +75,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./UsuarioWeb.php" class="nav-link ">
+                <a href="./Repuesto.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Repuestos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./UsuarioMovil.php" class="nav-link ">
+                <a href="./Categoria.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Categorias</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./UsuarioMovil.php" class="nav-link ">
+                <a href="./Vehiculo.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Automovil</p>
+                  <p>Vehiculo</p>
                 </a>
               </li>
 
@@ -105,13 +105,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Comportamientos.php" class="nav-link ">
+                <a href="./Ingesos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ingresos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./GrupoComportamientos.php" class="nav-link ">
+                <a href="./Proveedor.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Proveedor</p>
                 </a>
@@ -129,7 +129,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Comportamientos.php" class="nav-link ">
+                <a href="./Consultarcompra.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Consultar Compras</p>
                 </a>
@@ -183,7 +183,7 @@
           <div class="col-12">
             <div class="card card-primary">
               <div class="card-header" >
-                <h3 class="card-title">Lista de Almacenes</h3>
+                <h3 class="card-title">Lista de Almacen</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -191,26 +191,33 @@
                   <thead>
                   <tr>
                     <th>Id</th>
-                    
+                   
                     <th>Nombre</th>
-                    <th>Acciones</th>
+                    <th>Accion</th>
+                    
                   </thead>
                   <tbody>
                  <?php 
-                    require_once 'Controlador/RepuestoController.php';
-                    $calmacen = new ControladorAlmacen();
-                    $list=  $calmacen -> ctrListarAlmacen(1,1000);
+                    require_once 'Controlador/AlmacenController.php';
+  
+                  
+                    $cAlmacen = new ControladorAlmacen();
+                    $list=  $cAlmacen -> ctrListarAlmacen(1,1000);
                     
                     while (count($list)>0){
                       $Almacen = array_shift($list);
                       echo "<tr>";
-                      $Did = array_shift($Almacen);
+                      $Did = array_shift($Almacen );
                       echo "<td>".$Did."</td>";
                       $Dnombre = array_shift($Almacen);
                       echo "<td>".$Dnombre."</td>";
                       echo '<td>
-                              <button class="btn" onclick="saveData('.$Did.',\''.$Dnombre.'\')"><i class="fas fa-edit"></i> Editar</button>
-                                  </td>';
+                            <button class="btn" onclick="saveData('.$Did.',\''.$Dnombre.'\')"><i class="fas fa-edit"></i> Editar</button>
+                            <form action="Almacendelete.php" class="d-inline" method="post" >
+                      <input type="hidden" id="alma" name="alma" value="'.$Did .'" />
+                       <button type="submit" class="btn btn-danger">borrar</button>
+                    </form> 
+                            </td>';
                       echo "</tr>";
                     }
                     
@@ -233,7 +240,7 @@
         <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title"><label id="TituloUser">Agregar Almacen</label> </h3> 
-                <button id="nuevoNivel" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Almacen</button>
+                <button id="nuevoNivel" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Cliente</button>
                 
               </div>
               <!-- /.card-header -->
@@ -241,22 +248,22 @@
               <form role="form" enctype="multipart/form-data"  method="post"   >
                 <div class="card-body">
                   <div class="form-group">
-                    <label type="hidden" for="exampleInputId">ID</label>
+                    <label type="hidden" for="exampleInputId"></label>
                     <input type="hidden"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
                   </div>
+
                   <div class="form-group">
-                    <label for="exampleInputNombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese Nombre almacen ">
+                    <label for="InputUsuario">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre">
                   </div>
                    
-                   
-                  
+ 
                 </div>
                 <!-- /.card-body -->
 
                 <div class="card-footer">
                   <?php
-                    $resp= $calmacen -> ctrRegistroAlmacen();
+                    $resp= $cAlmacen ->ctrRegistroAlmacen();
                     //echo "<script> alert(' respuesta: ".$resp." ')</script>";
                     if ($resp=="true"){
                      // echo "<script> alert(' respuesta: ".$resp." ')</script>";
@@ -329,8 +336,10 @@
 
 <script>
   function saveData(id, nombre){
+      
     document.getElementById("id").value = id;
     document.getElementById("nombre").value = nombre;
+    
     
     $('#TituloUser').text("Editar Almacen");
 //    document.getElementById("TituloUser").value = "Editar Usuario";  
@@ -339,7 +348,7 @@
   function newUser(){
     document.getElementById("id").value = 0;
     document.getElementById("nombre").value = "";
-     
+   
     
     $('#TituloUser').text("Agregar Almacen");
   //  document.getElementById("TituloUser").value = "Agregar Usuario";  
@@ -347,23 +356,7 @@
   
   
   
-  function updateStatus(id){
-      var parametros = {
-                "id" : id,
-        
-              
-        };
-      
-      $.ajax({
-        type: "POST",
-        url: "estadovehiculo.php",
-        data: parametros,
-        success:function( msg ) {
-          window.location.href = window.location.href;
-         alert( "Data actualizada. " + msg );
-        }
-       });
-  }
+  
 </script>
 
 <!-- Usuario SCRIPTS -->

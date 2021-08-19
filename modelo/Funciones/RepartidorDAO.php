@@ -1,6 +1,6 @@
 <?php
  
-class EmpleadoDAO {
+class RepartidorDAO {
  
     private $db;
     // constructor
@@ -22,19 +22,19 @@ class EmpleadoDAO {
     /**
      * agregar nuevo usuario
      */
+     
 
 
 
-
-
+	
   
        
-    public function addEmpleado($tabla,$datos) { //regusu et no es
+    public function addRepartidor($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
       require_once 'modelo/utilitario.php';
       $mutil = new Utils();
-      $mutil -> console_log('Entro AddMovil');
+     // $mutil -> console_log('Entro AddMovil');
         // connecting to database
         $this->db = new DB_Connect();
         $link=$this->db->connect();
@@ -47,13 +47,13 @@ class EmpleadoDAO {
       		
       			
       				
-              $consulta ="INSERT INTO ".$tabla." (ci, nombre, paterno, materno, telefono,direccion, cargo) VALUES('".$datos["ci"]."','".$datos["nombre"]."','".$datos["paterno"]."','".$datos["materno"]."','".$datos["telefono"]."','".$datos["direccion"]."','".$datos["cargo"]."')";
+              $consulta ="INSERT INTO ".$tabla." (nombre, paterno, materno,telefono,licencia, estado) VALUES('".$datos["nombre"]."','".$datos["paterno"]."','".$datos["materno"]."','".$datos["telefono"]."','".$datos["licencia"]."',1)";
            
               $result=mysqli_query($link,$consulta);
               if ($result ==true){
                 return "true";
               }else {
-                return "Error al guardar el empleado";
+                return "Error al guardar el repartidor";
               }
             
 			
@@ -63,14 +63,14 @@ class EmpleadoDAO {
 
     
        
-	   public function isempleadoexist($tabla, $id) {
+	   public function isrepartidorexist($tabla, $id) {
 
       require_once 'modelo/Conexion/connectbd.php';
       // connecting to database
       $this->db = new DB_Connect();
       $link=$this->db->connect();
   
-      if ($result = mysqli_query($link,"SELECT * from ".$tabla." WHERE id_empleado = '".$id."'")) {
+      if ($result = mysqli_query($link,"SELECT * from ".$tabla." WHERE id_repartidor = '".$id."'")) {
 
         /* determinar el número de filas del resultado */
         $num_rows  = mysqli_num_rows($result);
@@ -89,35 +89,32 @@ class EmpleadoDAO {
   }
 
 
-    public function updateEmpleado($tabla,$datos) { //regusu et no es
+    public function updateRepartidor($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
       // connecting to database
       $this->db = new DB_Connect();
       $link=$this->db->connect();
   
-      $pu=$this->isempleadoexist($tabla, $datos["id"]);
+      $pu=$this->isrepartidorexist($tabla, $datos["id"]);
       if($pu==true){
         
-          $result=mysqli_query($link,"UPDATE ".$tabla." SET ci ='".$datos["ci"]."',nombre='".$datos["nombre"]."' ,paterno='".$datos["paterno"]."',materno='".$datos["materno"]."', telefono ='".$datos["telefono"]."',direccion='".$datos["direccion"]."',cargo='".$datos["cargo"]."'   where id_empleado = ".$datos["id"]);
+          $result=mysqli_query($link,"UPDATE ".$tabla." SET nombre ='".$datos["nombre"]."',paterno='".$datos["paterno"]."' ,telefono='".$datos["telefono"]."',licencia='".$datos["licencia"]."'   where id_repartidor = ".$datos["id"]);
           return $result;
              
       }else{
         return false;
       }
     }
-
-   
-
-  
-    public function listEmpleado($pagina,$cantidad){
+ 
+    public function listRepartidor($pagina,$cantidad){
       require_once 'modelo/Conexion/connectbd.php';
           // connecting to database
           $this->db = new DB_Connect();
           $link=$this->db->connect();
       //$json=$cuenta;
       
-      $query = "SELECT id_empleado,ci,nombre,paterno,materno,telefono,direccion,cargo FROM empleado   ";
+      $query = "SELECT id_repartidor,nombre,paterno,materno,telefono,licencia,estado FROM repartidor   ";
       $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
   
       $json = array();
@@ -125,11 +122,11 @@ class EmpleadoDAO {
       if(mysqli_num_rows($result)>0){
           //$json['cliente'][]=nada;
         while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-         // $destado ="Deshabilitado";
-         // if ($line["estado"]==1){
-           //   $destado ="Habilitado";
-        //  }        
-          array_push($json, array($line["id_empleado"],$line["ci"],$line["nombre"],$line["paterno"],$line["materno"],$line["telefono"],$line["direccion"],$line["cargo"]));
+          $destado ="Ocupado";
+          if ($line["estado"]==1){
+              $destado ="Libre";
+          }        
+          array_push($json, array($line["id_repartidor"],$line["nombre"],$line["paterno"],$line["materno"],$line["telefono"],$line["licencia"],$destado));
         }
         
       }
@@ -138,9 +135,12 @@ class EmpleadoDAO {
       return $json;
       
     }
+
+
   
 
-    public function updatestatusempleado($tabla,$datos) { //regusu et no es
+
+    public function updatestatusrepartidor($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
         // connecting to database
@@ -149,9 +149,9 @@ class EmpleadoDAO {
     
       
         
-        $pu=$this->isempleadoexist($tabla, $datos["id"]);
+        $pu=$this->isrepartidorexist($tabla, $datos["id"]);
         if($pu==true){
-          $result=mysqli_query($link,"UPDATE ".$tabla." SET estado=ABS(estado-1) where id_empleado = ".$datos["id"]);
+          $result=mysqli_query($link,"UPDATE ".$tabla." SET estado=ABS(estado-1) where id_repartidor = ".$datos["id"]);
           return $result;
       	}else{
       		return false;
@@ -159,21 +159,18 @@ class EmpleadoDAO {
       
     }  
 
-    public function delete ($tabla,$datos) {
-      require_once 'modelo/Conexion/connectbd.php';
-      // connecting to database
-      $this->db = new DB_Connect();
-      $link=$this->db->connect(); 
-      $result=mysqli_query($link,"DELETE from".$tabla."where id_empleado = ".$datos["id"]);
-      if(   $result){
-          header("Location: Empleado.php");
-      } else{
-          echo "Error a eliminar";
-      }
-     }
-      
+
+    
+     
   
+
+
 }
+		
+	
+  
+
+
  
  
  

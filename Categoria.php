@@ -166,12 +166,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-white">Nota venta</h1>
+            <h1 class="m-0 text-white">Detalle Categoria</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="tablero.php">Inicio</a></li>
-              <li class="breadcrumb-item active text-white">Nota venta</li>
+              <li class="breadcrumb-item active text-white">Detalle Categoria</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -188,7 +188,7 @@
 
                               <div class="modal-content">
                                  <div class="modal-header hero-image">
-                                        <label for="" style="color:white">Seleccionar Repuesto: </label> 
+                                        <label for="" style="color:white">Insertar Categoria: </label> 
                                           <button class="btn btn-danger" data-dismiss='modal'>&times;</button>
                                  </div>
          
@@ -202,98 +202,23 @@
 
                               <div class="card card-primary">
                                 <div class="card-body">
-                                
-                     <div class="form-group">
-                    <label type="hidden" for="exampleInputId"></label>
-                    <input type="hidden"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
-                  </div>
-
-
-                  <table id="listdetalle" class="table table-bordered table-striped">
-                  <thead>
-                    <tr>
-                     <th>Id</th>
-                     <th>Nombre</th>
-                     <th>descripcion</th>
-                     <th>Imagen</th>
-                     <th>Marca</th> 
-                     <th>Precio (Bs)</th>
-                     <th>Categoria</th>
-                     <th>Vehiculo</th>
-                   
-                     <th>Accion</th>
-                    </tr>
-                  </thead>
-               <tbody>
-                <?php 
-                    require_once 'Controlador/RepuestoController.php';
-  
-                  
-                    $cuser = new ControladorRepuesto;
-                    $list=  $cuser -> ctrListarRepuesto(1,1000);
-                   
-                    while (count($list)>0){
-                      $cont = array_shift($list);
-                      echo "<tr>";
-                      
-                      $Did= array_shift($cont);
-                      echo "<td>".$Did."</td>";
-                      $Dnombres= array_shift($cont);
-                      echo "<td>".$Dnombres."</td>";
-                      
-                      
-                      
-                      $Dcodigo= array_shift($cont);
-                      echo "<td>".$Dcodigo."</td>";
-                      
-                      $Dimagen = array_shift($cont);
-                      if ($Dimagen!=""){
-                        echo "<td><img src='".$Dimagen."' width='100'></td>";  
-                      }else{
-                        echo "<td></td>";
-                      }
-                    
-                      $Dmarca= array_shift($cont);
-                      echo "<td>".$Dmarca."</td>";
-                      
-                      $Dprecio= array_shift($cont);
-                      echo "<td>".$Dprecio."</td>";
-                      
-                      $Did_categoria= array_shift($cont);
-                  
-                      $Did_vehiculo= array_shift($cont);
-                     
-
-                      $Dnombre= array_shift($cont);
-                      echo "<td>".$Dnombre."</td>";
-                      
-                      $Dnombrevehiculo= array_shift($cont);
-                      echo "<td>".$Dnombrevehiculo."</td>";
-
-                   //  $Destado = array_shift($cont);
-                     // $Destadobtn="Habilitar";
-                     // $DestadoIco="thumbs-up";
-                    //  echo "<td>".$Destado."</td>";
-                    //  if ($Destado=="Habilitado"){
-                    //    $Destadobtn="Deshabilitar";
-                       // $DestadoIco="thumbs-down";
-                      }
-                      
-                      echo '<td>
-                              <button class="btn" onclick="saveDatapro('.$Did.',\''.$Dnombres.'\',\''.$Dcodigo.'\',\''.$Dmarca.'\',\''.$Dprecio.'\')"><i class="fas fa-plus"></i></button>
-                              
-                            </td>';
-
-
-                      echo "</tr>";
-                                
-                ?>   
-              </tbody>
-          </table>
-
-
-
-
+                                        
+                                          <div class="form-group">
+                                              <label type="hidden" for="exampleInputId">ID</label>
+                                              <input type="hidden"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
+                                          </div>
+                                              <div class="form-group">
+                                                 <label for="exampleInputNombre">Nombre</label>
+                                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese Nombre almacen ">
+                                               </div>
+                                          <div class="form-group">
+                                                <label>Tipo</label>
+                                                    <select class="form-control select2"  id="tipo" name="tipo" style="width: 100%;"> 
+                                                        <option selected="selected">Sistema electrico</option>
+                                                          <option>Sistema de motor</option>
+                                                          <option>Sistema perno</option>
+}                                                   </select>
+                                           </div>
           
          
                                </div>
@@ -346,7 +271,7 @@
           <div class="col-12">
             <div class="card card-primary">
               <div class="card-header" >
-                <h3 class="card-title">Agregar Nota venta </h3>
+                <h3 class="card-title">Busquedas </h3>
               </div>
  
    
@@ -362,15 +287,12 @@
                          <div class="row">
     
                            
-                              <label for="start" class="form-label"  >Fecha venta: </label>
-                              <input type="datetime-local" class="form-control" id="fecha_compra" name="fecha_compra" value="<?php echo date("Y-m-d\TH-i");?>">  
+                              <label for="start" class="form-label"  >Descripcion: </label>
+                              <input type="text" class="form-control" id="descripcion" name="descripcion" placeholder="Ingrese la descripcion">  
           
-                            
-
-                              <label for="start" class="form-label"  >Precio Total: </label>
-                              <input type="text" class="form-control" id="precio_total" name="precio_total" placeholder="Ingrese la fecha de compra">  
                            
-                          
+                         </div>
+
 
                        </th>
                       </tr>
@@ -383,15 +305,15 @@
                               <div class="col">
     
                                   <div >
-                                  <label for="disabledSelect" class="form-label">Cliente: </label>
+                                  <label for="disabledSelect" class="form-label">Categoria: </label>
       
-                                         <select class="form-control select2" id="proveedor" name="proveedor"  style="width: 100%;"> 
-                                             <option selected="selected"></option>
+                                         <select class="form-control select2" id="categoria" name="categoria"  style="width: 100%;"> 
+                                             <option selected="selected">seleccione</option>
                                                 <?php
-                                                   require_once 'Controlador/NotacompraController.php';
+                                                   require_once 'Controlador/CategoriaController.php';
                      
-                                                     $cusuario = new ControladorNotacompra();
-                                                  //   $list=  $cusuario -> ctrListarNotacompra();
+                                                     $cusuario = new ControladorCategoria();
+                                                     $list=  $cusuario -> ctrListarCategoria();
                     
                                                         while (count($list)>0){
                                                           $User = array_shift($list);
@@ -409,10 +331,10 @@
                               <div class="col order-1">
     
                                   <div >
-                                      <label for="disabledSelect" class="form-label">Empleado : </label>
+                                      <label for="disabledSelect" class="form-label">vehiculo : </label>
       
                                          <select class="form-control select2" id="sector" name="sector"  style="width: 100%;"> 
-                                             <option selected="selected"></option>
+                                             <option selected="selected">seleccione</option>
                                                 <?php
                                                    require_once 'Controlador/vehiculoController.php';
                      
@@ -460,8 +382,8 @@
                 
                                    
                                                                          <br><br>
-      <button  class="btn btn-warning" type="button"  data-toggle="modal" data-target="#modal1" >agregar repuesto</button>
-                                                  
+                                     <button  class="btn btn-warning" type="button"  data-toggle="modal" data-target="#modal1" >addCategoria</button>
+                     
                                    </div>
                                    
                                 </th>
@@ -471,16 +393,18 @@
               <table id="listdetalle" class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                    <th>Id</th>
-                    <th>Fecha Compra</th>
-                    <th>Precio Total</th>
-                    <th>Nombre</th>
-                    <th>Empleado</th>
-                    <th>Acciones</th>                  </tr>
+                     <th>Nombre</th>
+                     <th>Tipo</th>
+                     <th>Descripcion</th>
+                     <th>Marca</th> 
+                     <th>Modelo</th>
+                     <th>Año</th>
+                     <th>Acciones</th>
+                            </tr>
                   </thead>
                <tbody>
                 <?php 
-                    require_once 'Controlador/NotacompraController.php';
+                    require_once 'Controlador/CategoriaController.php';
   
                   
                     $cuser = new ControladorCategoria;
@@ -508,11 +432,20 @@
                       echo "<td>".$Dmodelo."</td>";
                       $Daño= array_shift($cont);
                       echo "<td>".$Daño."</td>";
+
+
+                      echo '<td>
+                      <form action="Categoriadelete.php" class="d-inline" method="post" >
+                      <input type="hidden" id="cate" name="cate" value="'.$Did_categoria .'" />
+                      <input type="hidden" id="vehi" name="vehi" value="'.$Did_vehiculo.'" />
+                      <button type="submit" class="btn btn-danger">borrar</button>
+                    </form>
                       
                  
 
-
-                      echo "</tr>";
+   
+                    </td>';
+                    echo "</tr>";
                     }               
                 ?>   
               </tbody>
@@ -722,8 +655,3 @@ $(document).ready(function () {
 <!-- PAGE SCRIPTS -->
 </body>
 </html>
-
-
-
-
-

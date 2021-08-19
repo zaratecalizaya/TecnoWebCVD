@@ -39,7 +39,7 @@ class ClienteDAO {
         
       		$json = array();
       					
-              $consulta ="INSERT INTO ".$tabla." (nit, nombre, paterno, materno,email,telefono,direccion) VALUES('".$datos["nit"]."','".$datos["nombre"]."','".$datos["paterno"]."','".$datos["materno"]."','".$datos["email"]."','".$datos["telefono"]."','".$datos["direccion"]."')";
+              $consulta ="INSERT INTO ".$tabla." (ci, nombre, paterno, materno,telefono) VALUES('".$datos["ci"]."','".$datos["nombre"]."','".$datos["paterno"]."','".$datos["materno"]."','".$datos["telefono"]."')";
            
               $result=mysqli_query($link,$consulta);
               if ($result ==true){
@@ -88,7 +88,7 @@ class ClienteDAO {
       $pu=$this->isclienteexist($tabla, $datos["id"]);
       if($pu==true){
         
-          $result=mysqli_query($link,"UPDATE ".$tabla." SET nit ='".$datos["nit"]."',nombre='".$datos["nombre"]."' ,paterno='".$datos["materno"]."',email='".$datos["email"]."',telefono='".$datos["telefono"]."',direccion='".$datos["direccion"]."'   where id_cliente = ".$datos["id"]);
+          $result=mysqli_query($link,"UPDATE ".$tabla." SET ci ='".$datos["ci"]."',nombre='".$datos["nombre"]."' ,paterno='".$datos["materno"]."',telefono='".$datos["telefono"]."'  where id_cliente = ".$datos["id"]);
           return $result;
              
       }else{
@@ -103,7 +103,7 @@ class ClienteDAO {
           $link=$this->db->connect();
       //$json=$cuenta;
       
-      $query = "SELECT id_cliente, nit, nombre,paterno,materno,email,telefono,direccion FROM cliente";
+      $query = "SELECT id_cliente, ci, nombre,paterno,materno,telefono FROM cliente";
       $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
   
       $json = array();
@@ -112,7 +112,7 @@ class ClienteDAO {
           //$json['cliente'][]=nada;
         while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                 
-          array_push($json, array($line["id_cliente"],$line["nit"],$line["nombre"],$line["paterno"],$line["materno"],$line["email"],$line["telefono"],$line["direccion"]));
+          array_push($json, array($line["id_cliente"],$line["ci"],$line["nombre"],$line["paterno"],$line["materno"],$line["telefono"]));
         }
         
       }
@@ -123,19 +123,6 @@ class ClienteDAO {
     }
   
 
-    
-    public function delete ($tabla,$datos) {
-      require_once 'modelo/Conexion/connectbd.php';
-      // connecting to database
-      $this->db = new DB_Connect();
-      $link=$this->db->connect(); 
-      $result=mysqli_query($link,"DELETE from".$tabla."where id_cliente = ".$datos["id"]);
-      if(   $result){
-          header("Location: Cliente.php");
-      } else{
-          echo "Error a eliminar";
-      }
-     }
 
 
       

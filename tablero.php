@@ -81,7 +81,7 @@ if (!isset($_SESSION['session_id'])) {
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="almacen.php" class="nav-link">
+            <a href="Almacen.php" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Almacen
@@ -196,15 +196,15 @@ if (!isset($_SESSION['session_id'])) {
     require_once 'Controlador/logros.controlador.php';
   
                   
-    $cusuario = new ControladorUsuario();
+   // $cusuario = new ControladorUsuario();
     $Dcantidad=  $cusuario -> ctrContarUsuarios();
   
-    $clogro = new ControladorLogro();
+    //$clogro = new ControladorLogro();
     $Dcantidadlo= $clogro ->ctrContarLogros();
 
   
 
-    $creconocimiento = new ControladorLogro();
+  //  $creconocimiento = new ControladorLogro();
     $Dcantidadre= $creconocimiento ->ctrContarReconocimientos();
 
   
@@ -324,7 +324,7 @@ if (!isset($_SESSION['session_id'])) {
       
                     <?php
                   require_once 'Controlador/logros.controlador.php' ;
-                  $ctablero =  new ControladorLogro();
+                //  $ctablero =  new ControladorLogro();
                   $list=$ctablero->ctrlistTablero(1,1000);
                   
                   while (count($list)>0){

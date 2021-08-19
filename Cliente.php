@@ -52,7 +52,6 @@
         
       </div>
 
-      <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
@@ -66,7 +65,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="Almacen.php" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Almacen
@@ -75,21 +74,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./UsuarioWeb.php" class="nav-link ">
+                <a href="./Repuesto.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Repuestos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./UsuarioMovil.php" class="nav-link ">
+                <a href="./Categoria.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Categorias</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./UsuarioMovil.php" class="nav-link ">
+                <a href="./Vehiculo.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Automovil</p>
+                  <p>Vehiculo</p>
                 </a>
               </li>
 
@@ -105,13 +104,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Comportamientos.php" class="nav-link ">
+                <a href="./Ingresos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ingresos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./GrupoComportamientos.php" class="nav-link ">
+                <a href="./Proveedor.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Proveedor</p>
                 </a>
@@ -129,7 +128,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Comportamientos.php" class="nav-link ">
+                <a href="./consultar_compra.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Consultar Compras</p>
                 </a>
@@ -150,6 +149,7 @@
           </li>
         </ul>
       </nav>
+    
     
       <!-- /.sidebar-menu -->
     </div>
@@ -191,13 +191,11 @@
                   <thead>
                   <tr>
                     <th>Id</th>
-                    <th>NIT</th>
+                    <th>Ci</th>
                     <th>Nombre</th>
                     <th>Paterno</th>
                     <th>Materno</th>
-                    <th>Email</th>
                     <th>Telefono</th>
-                    <th>Direccion</th>
                     <th>Accion</th>
                     
                   </thead>
@@ -214,23 +212,19 @@
                       echo "<tr>";
                       $Did = array_shift($Cliente );
                       echo "<td>".$Did."</td>";
-                      $DNit = array_shift($Cliente );
-                      echo "<td>".$DNit."</td>";
+                      $DCi = array_shift($Cliente );
+                      echo "<td>".$DCi."</td>";
                       $Dnombre = array_shift($Cliente);
                       echo "<td>".$Dnombre."</td>";
-                      
-                      $Dpaterno = array_shift($Cliente );
+                     $Dpaterno = array_shift($Cliente );
                       echo "<td>".$Dpaterno."</td>";
                       $Dmaterno = array_shift($Cliente);
                       echo "<td>".$Dmaterno."</td>";
-                      $email= array_shift($Cliente);
-                      echo "<td>".$email."</td>";
                       $telefono= array_shift($Cliente);
                       echo "<td>".$telefono."</td>";
-                      $direccion= array_shift($Cliente);
-                      echo "<td>".$direccion."</td>";
+                     
                       echo '<td>
-                            <button class="btn" onclick="saveData('.$Did.',\''.$DNit.'\',\''.$Dnombre.'\',\''.$Dpaterno.'\',\''.$Dmaterno.'\',\''.$email.'\',\''.$telefono.'\',\''.$direccion.'\')"><i class="fas fa-edit"></i> Editar</button>
+                            <button class="btn" onclick="saveData('.$Did.',\''.$DCi.'\',\''.$Dnombre.'\',\''.$Dpaterno.'\',\''.$Dmaterno.'\',\''.$telefono.'\')"><i class="fas fa-edit"></i> Editar</button>
                             <form action="Clientedelete.php" class="d-inline" method="post" >
                       <input type="hidden" id="idcliente" name="idcliente" value="'.$Did .'" />
                        <button type="submit" class="btn btn-danger">borrar</button>
@@ -270,8 +264,8 @@
                     <input type="hidden"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputNombre">NIT</label>
-                    <input type="nunmber" class="form-control" id="nit" name="nit" placeholder="Ingrese la Marca">
+                    <label for="exampleInputNombre">Ci</label>
+                    <input type="nunmber" class="form-control" id="ci" name="ci" placeholder="Ingrese la ci">
                   </div>
                   <div class="form-group">
                     <label for="InputUsuario">Nombre</label>
@@ -288,20 +282,12 @@
                     <input type="text" class="form-control" id="materno" name="materno" placeholder="Ingrese el apellido materno">
                   </div>
                   
-                  <div class="form-group">
-                    <label for="InputUsuario">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Ingrese el email">
-                  </div>
 
                   <div class="form-group">
                     <label for="InputUsuario">Telefono</label>
                     <input type="number" class="form-control" id="telefono" name="telefono" placeholder="Ingrese el telefono">
                   </div>
-                  <div class="form-group">
-                    <label for="InputUsuario">Direccion</label>
-                    <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Ingrese la direccion">
-                  </div>
- 
+                
                 </div>
                 <!-- /.card-body -->
 
@@ -379,16 +365,15 @@
 </script>
 
 <script>
-  function saveData(id, nit, nombre,paterno,materno,email,telefono,direccion){
+  function saveData(id, ci, nombre,paterno,materno,telefono){
       
     document.getElementById("id").value = id;
-    document.getElementById("nit").value = nit;
+    document.getElementById("ci").value = ci;
     document.getElementById("nombre").value = nombre;
     document.getElementById("paterno").value = paterno;
     document.getElementById("materno").value = materno;
-    document.getElementById("email").value = email;
     document.getElementById("telefono").value = telefono;
-    document.getElementById("direccion").value = direccion;
+    
     
     $('#TituloUser').text("Editar Cliente");
 //    document.getElementById("TituloUser").value = "Editar Usuario";  
@@ -396,13 +381,13 @@
   
   function newUser(){
     document.getElementById("id").value = 0;
-    document.getElementById("nit").value = 0;
+    document.getElementById("ci").value = 0;
     document.getElementById("nombre").value = "";
     document.getElementById("paterno").value = "";
     document.getElementById("materno").value = "";
-    document.getElementById("email").value = "";
+   
     document.getElementById("telefono").value = 0;
-    document.getElementById("direccion").value = "";
+   
     
     $('#TituloUser').text("Agregar Cliente");
   //  document.getElementById("TituloUser").value = "Agregar Usuario";  
@@ -419,7 +404,7 @@
       
       $.ajax({
         type: "POST",
-        url: "estadovehiculo.php",
+        url: "estadocliente.php",
         data: parametros,
         success:function( msg ) {
           window.location.href = window.location.href;

@@ -66,7 +66,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="almacen.php" class="nav-link">
+            <a href="Almacen.php" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Almacen
@@ -195,6 +195,7 @@
                     <th>Marca</th>
                     <th>Placa</th>
                     <th>Tipo</th>
+                    <th>Nombre</th>
                     <th>Estado</th>
                     <th>Acciones</th>
                 
@@ -219,6 +220,8 @@
                       echo "<td>".$Dplaca."</td>";
                       $Dtipo = array_shift($Transporte);
                       echo "<td>".$Dtipo."</td>";
+                      $Did_repartidor = array_shift($Transporte);
+                      echo "<td>".$D."</td>";
                       $Destado = array_shift($Transporte);
                       $Destadobtn="Habilitar";
                       $DestadoIco="thumbs-up";
@@ -226,15 +229,16 @@
                       if ($Destado=="Habilitado"){
                         $Destadobtn="Deshabilitar";
                         $DestadoIco="thumbs-down";
-                      }
-                   
-                      
-                     
-                    
+                      }  
                     
                       echo '<td>
                       <button class="btn" onclick="saveData('.$Did.',\''.$Dmarca.'\',\''.$Dplaca.'\',\''.$Dtipo.'\')"><i class="fas fa-edit"></i> Editar</button> 
                       <button class="btn" onclick="updateStatus('.$Did.')"><i class="far fa-'.$DestadoIco.'"></i>'.$Destadobtn.'</button>
+                     
+                      <form action="Transportedelete.php" class="d-inline" method="post" >
+                      <input type="hidden" id="idtransporte" name="idtransporte" value="'.$Did .'" />
+                       <button type="submit" class="btn btn-danger">borrar</button>
+                    </form> 
                       </td>';
                       
                 
@@ -379,23 +383,7 @@
 
 <script>
 
-  /*function eliminar(){
-   
-        var id = $("input[name=id_empleado]").val();
-
-        $.ajax({
-            url:'/empleado/eliminar/'+id,
-            method: 'DELETE',
-            data:{
-              _token:$('input[name="_token"]').val()
-            }
-        }).done(function(res){
-          alert("empleado eliminado!..");
-        })
-        $("#tb1").val('');
-        listar('empleado.id','');
-        limpiar();
-      });*/
+ 
    
   
   function saveData(id, marca, placa, tipo){
@@ -421,8 +409,7 @@
   //  document.getElementById("TituloUser").value = "Agregar Usuario";  
   }
   
-  
-  
+   
   function updateStatus(id){
       var parametros = {
                 "id" : id,
@@ -436,10 +423,11 @@
         data: parametros,
         success:function( msg ) {
           window.location.href = window.location.href;
-         alert( "Data actualizada. " + msg );
+        // alert( "Data actualizada. " + msg );
         }
        });
   }
+ 
 </script>
 
 <!-- Usuario SCRIPTS -->

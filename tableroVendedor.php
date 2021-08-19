@@ -68,6 +68,7 @@ if (!isset($_SESSION['session_id'])) {
 
       <!-- Sidebar Menu -->
       <!-- Sidebar Menu -->
+      
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
@@ -81,57 +82,77 @@ if (!isset($_SESSION['session_id'])) {
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="Almacen.php" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
-                Ventas
+                Almacen
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./UsuarioWeb.php" class="nav-link ">
+                <a href="./Repuesto.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ventas</p>
+                  <p>Repuestos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./UsuarioMovil.php" class="nav-link ">
+                <a href="./Categoria.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Clientes</p>
+                  <p>Categorias</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="./Vehiculo.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Vehiculo</p>
+                </a>
+              </li>
+
             </ul>
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-trophy"></i>
               <p>
-                Consultar Ventas
+                Compras
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./nota_venta.php" class="nav-link ">
+                <a href="./Ingresos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Consultar Ventas</p>
+                  <p>Ingresos</p>
                 </a>
               </li>
-              
-              
+              <li class="nav-item">
+                <a href="./Proveedor.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Proveedor</p>
+                </a>
+              </li>
             </ul>
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Reportes
+                Consultar Compras
                 <i class="fas fa-angle-left right"></i>
                 <span class="badge badge-info right">3</span>
               </p>
             </a>
-           
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="./consultar_compra.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Consultar Compras</p>
+                </a>
+              </li>
+              
+            </ul>
+            
           </li>
           <li class="nav-item ">
             <a href="./Configuraciones.php" class="nav-link">
@@ -145,6 +166,8 @@ if (!isset($_SESSION['session_id'])) {
           </li>
         </ul>
       </nav>
+    
+    
     
       <!-- /.sidebar-menu -->
     </div>
@@ -176,17 +199,6 @@ if (!isset($_SESSION['session_id'])) {
     require_once 'Controlador/logros.controlador.php';
   
                   
-    $cusuario = new ControladorUsuario();
-    $Dcantidad=  $cusuario -> ctrContarUsuarios();
-  
-    $clogro = new ControladorLogro();
-    $Dcantidadlo= $clogro ->ctrContarLogros();
-
-  
-
-    $creconocimiento = new ControladorLogro();
-    $Dcantidadre= $creconocimiento ->ctrContarReconocimientos();
-
   
 
   //  $listuser=  $cusuario -> ctrListarUsuariosMovil(1,1000);
@@ -304,7 +316,7 @@ if (!isset($_SESSION['session_id'])) {
       
                     <?php
                   require_once 'Controlador/logros.controlador.php' ;
-                  $ctablero =  new ControladorLogro();
+                //  $ctablero =  new ControladorLogro();
                   $list=$ctablero->ctrlistTablero(1,1000);
                   
                   while (count($list)>0){

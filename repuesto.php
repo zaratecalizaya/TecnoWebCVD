@@ -56,8 +56,6 @@
       </div>
 
       <!-- Sidebar Menu -->
-      
-      <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
@@ -71,7 +69,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="almacen.php" class="nav-link">
+            <a href="Almacen.php" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Almacen
@@ -134,7 +132,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./consulta_compra.php" class="nav-link ">
+                <a href="./Consultarcompra.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Consultar Compras</p>
                 </a>
@@ -201,12 +199,12 @@
                                            <table id="listdetallecategoria" class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                     <th>Nombre</th>
-                     <th>Tipo</th>
-                     <th>Descripcion</th>
-                     <th>Marca</th> 
-                     <th>Modelo</th>
-                     <th>Año</th>
+                     <th>nombre</th>
+                     <th>tipo</th>
+                     <th>descripcion</th>
+                     <th>marca</th> 
+                     <th>modelo</th>
+                     <th>año</th>
                      <th>Accion</th>                    
                     </tr>
                   </thead>
@@ -299,15 +297,15 @@
               <table id="listdetalle" class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                     <th>Id</th>
-                     <th>Nombre</th>
+                     <th>id</th>
+                     <th>nombre</th>
                      <th>descripcion</th>
-                     <th>Imagen</th>
-                     <th>Marca</th> 
-                     <th>Precio (Bs)</th>
-                     <th>Categoria</th>
-                     <th>Vehiculo</th>
-                     <th>Estado</th>
+                     <th>imagen</th>
+                     <th>marca</th> 
+                     <th>precio (Bs)</th>
+                     <th>categoria</th>
+                     <th>vehiculo</th>
+                     <th>estado</th>
                      <th>Accion</th>
                     </tr>
                   </thead>
@@ -592,7 +590,7 @@ $(document).ready(function () {
       
       $.ajax({
         type: "POST",
-        url: "estadoproducto.php",
+        url: "estadorepuesto.php",
         data: parametros,
         success:function( msg ) {
           window.location.href = window.location.href;

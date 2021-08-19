@@ -196,7 +196,7 @@
                     <th>Paterno</th>
                     <th>Materno</th>
                     <th>Telefono</th>
-                    <th>Email</th>
+                  
                     <th>Direccion</th>
                     <th>Cargo</th>
                     <th>Acciones</th>
@@ -225,8 +225,7 @@
                       echo "<td>".$Dmaterno."</td>";
                       $Dtelefono = array_shift($Empleado);
                       echo "<td>".$Dtelefono."</td>";
-                      $Demail = array_shift($Empleado);
-                      echo "<td>".$Demail."</td>";
+                     
                       $Ddireccion = array_shift($Empleado);
                       echo "<td>".$Ddireccion."</td>";
                       $Dcargo = array_shift($Empleado);
@@ -236,7 +235,7 @@
                     
                     
                       echo '<td>
-                      <button class="btn" onclick="saveData('.$Did.',\''.$Dci.'\',\''.$Dnombre.'\',\''.$Dpaterno.'\',\''.$Dmaterno.'\',\''.$Dtelefono.'\',\''.$Demail.'\',\''.$Ddireccion.'\',\''.$Dcargo.'\')"><i class="fas fa-edit"></i> Editar</button> 
+                      <button class="btn" onclick="saveData('.$Did.',\''.$Dci.'\',\''.$Dnombre.'\',\''.$Dpaterno.'\',\''.$Dmaterno.'\',\''.$Dtelefono.'\',\''.$Ddireccion.'\',\''.$Dcargo.'\')"><i class="fas fa-edit"></i> Editar</button> 
                       <form action="Empleadodelete.php" class="d-inline" method="post" >
                       <input type="hidden" id="idempleado" name="idempleado" value="'.$Did .'" />
                        <button type="submit" class="btn btn-danger">borrar</button>
@@ -304,12 +303,6 @@
                     <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese el Telefono">
                   </div>
 
-                  
-                  <div class="form-group">
-                    <label for="InputUsuario">Email</label>
-                    <input type="text" class="form-control" id="email" name="email" placeholder="Ingrese el Email">
-                  </div>
-                  
                  
 
                   <div class="form-group">
@@ -438,14 +431,14 @@
       });*/
    
   
-  function saveData(id, ci, nombre,paterno,materno,telefono,email,direccion,cargo){
+  function saveData(id, ci, nombre,paterno,materno,telefono,direccion,cargo){
     document.getElementById("id").value = id;
     document.getElementById("ci").value = ci;
     document.getElementById("nombre").value = nombre;
     document.getElementById("paterno").value = paterno;
     document.getElementById("materno").value = materno;
     document.getElementById("telefono").value = telefono;
-    document.getElementById("email").value = email;
+    //document.getElementById("email").value = email;
     document.getElementById("direccion").value = direccion;
     document.getElementById("cargo").value = cargo;
  
@@ -460,7 +453,7 @@
     document.getElementById("paterno").value = "";
     document.getElementById("materno").value = "";
     document.getElementById("telefono").value = 0;
-    document.getElementById("email").value = "";
+    //document.getElementById("email").value = "";
     document.getElementById("direccion").value = "";
     document.getElementById("cargo").value = "";
      

@@ -64,7 +64,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="almacen.php" class="nav-link">
+            <a href="Almacen.php" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Almacen

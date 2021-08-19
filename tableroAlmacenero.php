@@ -68,6 +68,7 @@ if (!isset($_SESSION['session_id'])) {
 
       <!-- Sidebar Menu -->
       <!-- Sidebar Menu -->
+     
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
@@ -80,9 +81,8 @@ if (!isset($_SESSION['session_id'])) {
               </p>
             </a>
           </li>
-
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="Almacen.php" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Almacen
@@ -91,52 +91,26 @@ if (!isset($_SESSION['session_id'])) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./repuesto.php" class="nav-link ">
+                <a href="./Repuesto.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Repuestos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./categoria.php" class="nav-link ">
+                <a href="./Categoria.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Categorias</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./UsuarioMovil.php" class="nav-link ">
+                <a href="./Vehiculo.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Automovil</p>
+                  <p>Vehiculo</p>
                 </a>
               </li>
 
             </ul>
           </li>
-          
-
-          <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-                Compras
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="./ingresos.php" class="nav-link ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Ingresos</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./proveedores.php" class="nav-link ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Proveedores</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-trophy"></i>
@@ -147,13 +121,13 @@ if (!isset($_SESSION['session_id'])) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./consultar_compra.php" class="nav-link ">
+                <a href="./Ingresos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ingresos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./GrupoComportamientos.php" class="nav-link ">
+                <a href="./Proveedor.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Proveedor</p>
                 </a>
@@ -171,7 +145,7 @@ if (!isset($_SESSION['session_id'])) {
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Comportamientos.php" class="nav-link ">
+                <a href="./consultar_compra.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Consultar Compras</p>
                 </a>
@@ -181,10 +155,10 @@ if (!isset($_SESSION['session_id'])) {
             
           </li>
           <li class="nav-item ">
-            <a href="#"  class="nav-link">
+            <a href="./Configuraciones.php" class="nav-link">
               <i class="nav-icon fa fa-cogs"></i>
               <p>
-                continuara
+                Configuraciones
              
               </p>
             </a>
@@ -192,6 +166,8 @@ if (!isset($_SESSION['session_id'])) {
           </li>
         </ul>
       </nav>
+    
+    
      <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -221,19 +197,7 @@ if (!isset($_SESSION['session_id'])) {
     require_once 'Controlador/usuario.controlador.php';
     require_once 'Controlador/logros.controlador.php';
   
-                  
-    $cusuario = new ControladorUsuario();
-    $Dcantidad=  $cusuario -> ctrContarUsuarios();
-  
-    $clogro = new ControladorLogro();
-    $Dcantidadlo= $clogro ->ctrContarLogros();
-
-  
-
-    $creconocimiento = new ControladorLogro();
-    $Dcantidadre= $creconocimiento ->ctrContarReconocimientos();
-
-  
+   
 
   //  $listuser=  $cusuario -> ctrListarUsuariosMovil(1,1000);
       
@@ -350,7 +314,7 @@ if (!isset($_SESSION['session_id'])) {
       
                     <?php
                   require_once 'Controlador/logros.controlador.php' ;
-                  $ctablero =  new ControladorLogro();
+                 // $ctablero =  new ControladorLogro();
                   $list=$ctablero->ctrlistTablero(1,1000);
                   
                   while (count($list)>0){

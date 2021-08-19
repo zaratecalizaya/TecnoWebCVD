@@ -35,7 +35,7 @@ class ControladorEmpleado{
                         "paterno"=>$_POST["paterno"],
                         "materno"=>$_POST["materno"],
                         "telefono"=>$_POST["telefono"],
-                        "email"=>$_POST["email"],
+                       // "email"=>$_POST["email"],
                         "direccion"=>$_POST["direccion"],
                         "cargo"=>$_POST["cargo"],
                      
@@ -64,7 +64,7 @@ class ControladorEmpleado{
                     "paterno"=>$_POST["paterno"],
                     "materno"=>$_POST["materno"],
                     "telefono"=>$_POST["telefono"],
-                    "email"=>$_POST["email"],
+                 //   "email"=>$_POST["email"],
                     "direccion"=>$_POST["direccion"],
                     "cargo"=>$_POST["cargo"],
                  

@@ -1,9 +1,9 @@
 <?php
 
-require_once 'modelo/Funciones/ClienteDAO.php';
+require_once 'modelo/Funciones/AlmacenDAO.php';
 require_once 'modelo/utilitario.php';
 
-class ControladorCliente{
+class ControladorAlmacen{
   
     /* ==============================
      Registro de Usuario Web     
@@ -14,7 +14,7 @@ class ControladorCliente{
       ///aqui
 
 
-     public function ctrRegistroCliente(){
+     public function ctrRegistroAlmacen(){
       
       if(isset($_POST["id"])){
        
@@ -24,18 +24,15 @@ class ControladorCliente{
                     
                     if(($_POST["id"])==0){
                    // $mutil -> console_log('esta ingresando');
-                  $datos = array("ci"=>$_POST["ci"],
+                  $datos = array(
                          "nombre"=>$_POST["nombre"],
-                         "paterno"=>$_POST["paterno"],
-                         "materno"=>$_POST["materno"],
-                         "telefono"=>$_POST["telefono"],
-                       
+                         
                        
                          );
           
-                  $tabla = "cliente";
-                  $Cliented = new ClienteDAO();
-                  $respuesta = $Cliented -> addCliente($tabla,$datos);
+                  $tabla = "almacen";
+                  $Almacend = new AlmacenDAO();
+                  $respuesta = $Almacend -> addAlmacen($tabla,$datos);
                  // return $respuesta;  
                   if ($respuesta==true){
                     return "true";
@@ -50,18 +47,14 @@ class ControladorCliente{
           }else{
            
                 $datos = array("id"=>$_POST["id"],
-                "ci"=>$_POST["ci"],
+               
                 "nombre"=>$_POST["nombre"],
-                "paterno"=>$_POST["paterno"],
-                "materno"=>$_POST["materno"],
-                "telefono"=>$_POST["telefono"]
-                  
-            
+               
             );
           
-                $tabla = "cliente";
-                $Cliented = new ClienteDAO();
-                $respuesta = $Cliented -> updateCliente($tabla,$datos);
+                $tabla = "almacen";
+                $Almacend = new AlmacenDAO();
+                $respuesta = $Almacend -> updateAlmacen($tabla,$datos);
           
                 //return $respuesta;
                 if ($respuesta==true){
@@ -82,11 +75,11 @@ class ControladorCliente{
 
 
 
-      public function ctrListarCliente($pagina,$cantidad){
+      public function ctrListarAlmacen($pagina,$cantidad){
            
-       $tabla = "cliente";
-       $Cliented = new ClienteDAO();
-        $respuesta = $Cliented->listCliente($pagina,$cantidad);
+       $tabla = "almacen";
+       $Almacend = new AlmacenDAO();
+        $respuesta = $Almacend->listAlmacen($pagina,$cantidad);
     
         return $respuesta;
   

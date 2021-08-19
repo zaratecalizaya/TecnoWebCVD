@@ -23,22 +23,22 @@ class ProveedorDAO {
      * agregar nuevo usuario
      */
 
-    public function updatestatususer($tabla,$datos) { //regusu et no es
+   // public function updatestatususer($tabla,$datos) { //regusu et no es
 
-      require_once 'modelo/Conexion/connectbd.php';
+    //  require_once 'modelo/Conexion/connectbd.php';
         // connecting to database
-        $this->db = new DB_Connect();
-        $link=$this->db->connect();
+      //  $this->db = new DB_Connect();
+      //  $link=$this->db->connect();
 		
-      	$pu=$this->isuserexist($tabla, $datos["usuario"]);
-        if($pu==true){
-          $result=mysqli_query($link,"UPDATE ".$tabla." SET estado=ABS(estado-1) where id = ".$datos["id"]);
-          return $result;
-      	}else{
-      		return false;
-      	}
+      //	$pu=$this->isuserexist($tabla, $datos["usuario"]);
+      //  if($pu==true){
+      //    $result=mysqli_query($link,"UPDATE ".$tabla." SET estado=ABS(estado-1) where id = ".$datos["id"]);
+      //    return $result;
+      //	}else{
+      //		return false;
+      //	}
 
-    }
+   // }
 
 
 
