@@ -177,26 +177,6 @@ class NotaVentaDAO {
 		
 	}
 	
-	public function getusuario($Nick){
-		require_once 'modelo/Conexion/connectbd.php';
-        // connecting to database
-        $this->db = new DB_Connect();
-        $link=$this->db->connect();
-		$query = "SELECT * FROM EFUsuario where Nick='".$Nick."'";
-		$result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error());
-
-		$json = array();
-		if(mysqli_num_rows($result)>0){
-			while ($line = mysqli_fetch_array($result, MYSQL_ASSOC)) {
-				$json['usuario'][]=$line;
-			}
-			
-		}
-		
-		mysqli_close($link);
-		return json_encode($json);
-		
-	}
   
   
   public function loginUserWeb($datos) { //regusu et no es

@@ -38,7 +38,7 @@
     <a href="index3.html" class="brand-link">
       <img src="imagenes/minilogobago.png" alt="Bago Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Autotech</span>
+      <span class="brand-text font-weight-light">Bago</span>
     </a>
 
     <!-- Sidebar -->
@@ -69,7 +69,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="Almacen.php" class="nav-link">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Almacen
@@ -78,21 +78,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Repuesto.php" class="nav-link ">
+                <a href="./UsuarioWeb.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Repuestos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./Categoria.php" class="nav-link ">
+                <a href="./UsuarioMovil.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Categorias</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./Vehiculo.php" class="nav-link ">
+                <a href="./UsuarioMovil.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Vehiculo</p>
+                  <p>Automovil</p>
                 </a>
               </li>
 
@@ -108,13 +108,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Ingresos.php" class="nav-link ">
+                <a href="./Comportamientos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ingresos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./Proveedor.php" class="nav-link ">
+                <a href="./GrupoComportamientos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Proveedor</p>
                 </a>
@@ -132,7 +132,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./consultar_compra.php" class="nav-link ">
+                <a href="./Comportamientos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Consultar Compras</p>
                 </a>
@@ -182,146 +182,86 @@
 
     
 
+  
+      
    <div  class="container" >
                      <div class="modal fade" tabindex="-1" id="modal1">
                            <div class="modal-dialog modal-xl  modal-dialog-scrollable">
 
                               <div class="modal-content">
-                                 <div class="modal-header hero-image">
-                                        <label for="" style="color:white">Seleccionar Repuesto: </label> 
+                              <div class="modal-header hero-image">
+                                        <label for="" style="color:white">Lista producto detalle: </label> 
                                           <button class="btn btn-danger" data-dismiss='modal'>&times;</button>
+                                  
                                  </div>
          
 
          <div class="col" id="col">
   
-                    <form role="form" enctype="multipart/form-data"  method="post"   >
-                        <div class="modal-body">
-
-                            <div class="col" id="col">
-
-                              <div class="card card-primary">
-                                <div class="card-body">
-                                
-                     <div class="form-group">
-                    <label type="hidden" for="exampleInputId"></label>
-                    <input type="hidden"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
-                  </div>
-
-
-                  <table id="listdetalle" class="table table-bordered table-striped">
+         <table id="listdetalle" class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                     <th>Id</th>
-                     <th>Nombre</th>
-                     <th>descripcion</th>
-                     <th>Imagen</th>
-                     <th>Marca</th> 
-                     <th>Precio (Bs)</th>
-                     <th>Categoria</th>
-                     <th>Vehiculo</th>
-                   
-                     <th>Accion</th>
-                    </tr>
+                    <th>Almacen</th>
+                    <th>Stock</th>
+                    <th>Imagen</th>
+                     <th>Producto</th>
+                     <th>Marca</th>
+                     <th>Medida</th>
+                     <th>Action</th>
+                                         </tr>
                   </thead>
                <tbody>
                 <?php 
                     require_once 'Controlador/RepuestoController.php';
   
                   
-                    $cuser = new ControladorRepuesto;
-                    $list=  $cuser -> ctrListarRepuesto(1,1000);
+                    $cuser = new ControladorRepuesto();
+                    $list=  $cuser -> ctrListarAlmacenDetalle();
                    
                     while (count($list)>0){
                       $cont = array_shift($list);
                       echo "<tr>";
                       
-                      $Did= array_shift($cont);
-                      echo "<td>".$Did."</td>";
-                      $Dnombres= array_shift($cont);
-                      echo "<td>".$Dnombres."</td>";
+                      $Did_repuesto= array_shift($cont);
+                      $Did_unidad= array_shift($cont);
+                      $Did_almacen= array_shift($cont);
+                     
+                      $Dalmacen= array_shift($cont);
+                      echo "<td>".$Dalmacen."</td>";
                       
                       
-                      
-                      $Dcodigo= array_shift($cont);
-                      echo "<td>".$Dcodigo."</td>";
+                      $Dstock= array_shift($cont);
+                      echo "<td>".$Dstock."</td>";
                       
                       $Dimagen = array_shift($cont);
                       if ($Dimagen!=""){
-                        echo "<td><img src='".$Dimagen."' width='100'></td>";  
+                        echo "<td><img src='".$Dimagen."' width='70'></td>";  
                       }else{
                         echo "<td></td>";
                       }
                     
-                      $Dmarca= array_shift($cont);
-                      echo "<td>".$Dmarca."</td>";
-                      
-                      $Dprecio= array_shift($cont);
-                      echo "<td>".$Dprecio."</td>";
-                      
-                      $Did_categoria= array_shift($cont);
-                  
-                      $Did_vehiculo= array_shift($cont);
-                     
-
                       $Dnombre= array_shift($cont);
                       echo "<td>".$Dnombre."</td>";
                       
-                      $Dnombrevehiculo= array_shift($cont);
-                      echo "<td>".$Dnombrevehiculo."</td>";
-
-                   //  $Destado = array_shift($cont);
-                     // $Destadobtn="Habilitar";
-                     // $DestadoIco="thumbs-up";
-                    //  echo "<td>".$Destado."</td>";
-                    //  if ($Destado=="Habilitado"){
-                    //    $Destadobtn="Deshabilitar";
-                       // $DestadoIco="thumbs-down";
-                      }
+                      $Dmarca= array_shift($cont);
+                      echo "<td>".$Dmarca."</td>";
+                      $Dmedida= array_shift($cont);
+                      echo "<td>".$Dmedida."</td>";
                       
                       echo '<td>
-                              <button class="btn" onclick="saveDatapro('.$Did.',\''.$Dnombres.'\',\''.$Dcodigo.'\',\''.$Dmarca.'\',\''.$Dprecio.'\')"><i class="fas fa-plus"></i></button>
-                              
-                            </td>';
+                      <button class="btn" onclick="saveData('.$Did_repuesto.',\''.$Did_unidad.'\',\''.$Dnombre.'\',\''.$Dmarca.'\')"><i class="fas fa-edit"></i> Editar</button>
+                      
+                    </td>';
+
+                 
 
 
                       echo "</tr>";
-                                
+                    }               
                 ?>   
               </tbody>
           </table>
 
-
-
-
-          
-         
-                               </div>
-       <!-- /.card-body -->
-                   </div>
-              <div class="card-footer">
-         <?php
-           require_once 'Controlador/CategoriaController.php';
-           $cCategoria = new ControladorCategoria();
-           $resp= $cCategoria -> ctrRegistroCategoria();
-           //echo "<script> alert(' respuesta: ".$resp." ')</script>";
-           if ($resp=="true"){
-            // echo "<script> alert(' respuesta: ".$resp." ')</script>";
-              echo "<meta http-equiv='refresh' content='0'>";
-           }elseif($resp=="false"){
-             //echo "<script> alert(' respuesta: al parecer fue falso XD')</script>";
-           }else{  
-             if ($resp!=""){
-             echo "<script> alert(' respuesta: ".$resp." ')</script>";
-           } }
-           
-         ?>
-         
-         <input type="submit" class="btn btn-primary" value="Enviar">
-       </div>
-       </div>
-     
-      </form>
 
 
           </div>
@@ -336,6 +276,12 @@
    </div>
 
 
+
+
+        
+
+
+
    <form role="form" enctype="multipart/form-data" method="post"  >
     <!-- Main content -->
     <section class="content hero-image" >
@@ -346,7 +292,7 @@
           <div class="col-12">
             <div class="card card-primary">
               <div class="card-header" >
-                <h3 class="card-title">Agregar Nota venta </h3>
+                <h3 class="card-title">Busquedas </h3>
               </div>
  
    
@@ -361,16 +307,28 @@
                        <th>
                          <div class="row">
     
-                           
-                              <label for="start" class="form-label"  >Fecha venta: </label>
-                              <input type="datetime-local" class="form-control" id="fecha_compra" name="fecha_compra" value="<?php echo date("Y-m-d\TH-i");?>">  
-          
-                            
+                         <label for="start" class="form-label"  >   Cliente : </label>
+                         <select class="form-control select2" id="categoria" name="categoria"  style="width: 310px;"> 
+                                             <option selected="selected">seleccione</option>
+                                                <?php
+                                                   require_once 'Controlador/ClienteController.php';
+                     
+                                                     $cusuario = new ControladorCliente();
+                                                     $list=  $cusuario -> ctrListarClienteselect();
+                    
+                                                        while (count($list)>0){
+                                                          $User = array_shift($list);
+                                                          $Did = array_shift($User);
+                                                          $Dnombres = array_shift($User);
+                                                          echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
+                                                        }
+                                                 ?>
+                                          </select>
+                         <label for="start" class="form-label" style="margin-left: 40px"  >Fecha : </label>
+                              <input type="Datetime-local" id="fechaini" name="fechaini" style="margin-left: 30px"  data-inputmask-inputformat="yyyy/mm/dd" data-mask  >
+  
+                         </div>
 
-                              <label for="start" class="form-label"  >Precio Total: </label>
-                              <input type="text" class="form-control" id="precio_total" name="precio_total" placeholder="Ingrese la fecha de compra">  
-                           
-                          
 
                        </th>
                       </tr>
@@ -383,15 +341,15 @@
                               <div class="col">
     
                                   <div >
-                                  <label for="disabledSelect" class="form-label">Cliente: </label>
+                                  <label for="disabledSelect" class="form-label">Categoria: </label>
       
-                                         <select class="form-control select2" id="proveedor" name="proveedor"  style="width: 100%;"> 
-                                             <option selected="selected"></option>
+                                         <select class="form-control select2" id="categoria" name="categoria"  style="width: 100%;"> 
+                                             <option selected="selected">seleccione</option>
                                                 <?php
-                                                   require_once 'Controlador/NotacompraController.php';
+                                                   require_once 'Controlador/CategoriaController.php';
                      
-                                                     $cusuario = new ControladorNotacompra();
-                                                  //   $list=  $cusuario -> ctrListarNotacompra();
+                                                     $cusuario = new ControladorCategoria();
+                                                     $list=  $cusuario -> ctrListarCategoria();
                     
                                                         while (count($list)>0){
                                                           $User = array_shift($list);
@@ -409,10 +367,10 @@
                               <div class="col order-1">
     
                                   <div >
-                                      <label for="disabledSelect" class="form-label">Empleado : </label>
+                                      <label for="disabledSelect" class="form-label">vehiculo : </label>
       
                                          <select class="form-control select2" id="sector" name="sector"  style="width: 100%;"> 
-                                             <option selected="selected"></option>
+                                             <option selected="selected">seleccione</option>
                                                 <?php
                                                    require_once 'Controlador/vehiculoController.php';
                      
@@ -460,8 +418,8 @@
                 
                                    
                                                                          <br><br>
-      <button  class="btn btn-warning" type="button"  data-toggle="modal" data-target="#modal1" >agregar repuesto</button>
-                                                  
+                                     <button  class="btn btn-warning" type="button"  data-toggle="modal" data-target="#modal1" >addproducto</button>
+                     
                                    </div>
                                    
                                 </th>
@@ -471,16 +429,16 @@
               <table id="listdetalle" class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                    <th>Id</th>
-                    <th>Fecha Compra</th>
-                    <th>Precio Total</th>
-                    <th>Nombre</th>
-                    <th>Empleado</th>
-                    <th>Acciones</th>                  </tr>
+                     <th>nombre</th>
+                     <th>tipo</th>
+                     <th>descripcion</th>
+                     <th>marca</th> 
+                     <th>modelo</th>
+                     <th>año</th>                    </tr>
                   </thead>
                <tbody>
                 <?php 
-                    require_once 'Controlador/NotacompraController.php';
+                    require_once 'Controlador/CategoriaController.php';
   
                   
                     $cuser = new ControladorCategoria;
@@ -510,7 +468,7 @@
                       echo "<td>".$Daño."</td>";
                       
                  
-
+                       
 
                       echo "</tr>";
                     }               
@@ -618,64 +576,6 @@ $(document).ready(function () {
   
   
   
-  function updateStatus(id){
-      var parametros = {
-                "id" : id,
-        
-              
-        };
-      
-      $.ajax({
-        type: "POST",
-        url: "estadovehiculo.php",
-        data: parametros,
-        success:function( msg ) {
-          window.location.href = window.location.href;
-         alert( "Data actualizada. " + msg );
-        }
-       });
-  }
-
-  function getTabla(){
-      var parametros = {
-               
-              
-        };
-      
-        $.ajax({
-        type: "POST",
-        url: "tarjetalistarmodal.php",
-        data: parametros,
-        success:function(respuesta ) {
-          //window.location.href = window.location.href;
-
-          
-          console.log(respuesta.length);
-          console.log(respuesta);
-       var html='';
-       var i;
-
-       const text = respuesta;
-      const myArr = JSON.parse(text);      
-      console.log(myArr.length);
-          console.log(myArr);
-      for(i=0;i<myArr.length;i++){
-
-            html+='<tr>'+
-          
-          '<td>'+myArr[i][0]+'</td>'+
-          '<td>'+myArr[i][1]+'</td>'+      
-//          '<td><button class="btn" onclick="saveData('+myArr[i][0]+',\''+myArr[i][2]+'\')"><i class="fas fa-edit"></i> Editar</button></td>'+
-
-         '</tr>';
-         
-        }
-        $('#listar').html(html);
-       }
-       
-      });
-  }
-
   
 </script>
 
@@ -698,8 +598,3 @@ $(document).ready(function () {
 <!-- PAGE SCRIPTS -->
 </body>
 </html>
-
-
-
-
-

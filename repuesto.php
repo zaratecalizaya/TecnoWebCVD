@@ -590,7 +590,7 @@ $(document).ready(function () {
       
       $.ajax({
         type: "POST",
-        url: "estadorepuesto.php",
+        url: "estadoproducto.php",
         data: parametros,
         success:function( msg ) {
           window.location.href = window.location.href;

@@ -34,7 +34,7 @@
       <form role="form" enctype="multipart/form-data" method="post"  >
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputId">ID</label>
+                    <label for="exampleInputId">I</label>
                     <input type="hidden"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
                   </div>
                   <div class="form-group">
