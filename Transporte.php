@@ -66,7 +66,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="almacen.php" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Almacen
@@ -150,6 +150,7 @@
           </li>
         </ul>
       </nav>
+    
     
       <!-- /.sidebar-menu -->
     </div>

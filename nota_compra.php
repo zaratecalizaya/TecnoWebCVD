@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,7 +33,7 @@
     <a href="index3.html" class="brand-link">
       <img src="imagenes/minilogobago.png" alt="Bago Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Bago</span>
+      <span class="brand-text font-weight-light">Autotech</span>
     </a>
 
     <!-- Sidebar -->
@@ -66,7 +64,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="almacen.php" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Almacen
@@ -163,12 +161,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-white">Nota Compra</h1>
+            <h1 class="m-0 text-white">Proveedor</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="tableroAlmacenero.php">Inicio</a></li>
-              <li class="breadcrumb-item active text-white">Nota Compra</li>
+              <li class="breadcrumb-item active text-white">Proveedor</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -183,58 +181,59 @@
           <div class="col-12">
             <div class="card card-primary">
               <div class="card-header" >
-                <h3 class="card-title">Lista de nota de compra</h3>
+                <h3 class="card-title">Lista de Proveedor</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                  <th>Id</th>
-                    <th>Fecha Compra</th>
-                    <th>Precio Total</th>
+                    <th>Id</th>
+                    <th>Nit</th>
                     <th>Razon Social</th>
-                    <th>Empleado</th>
+                    <th>Telefono</th>
+                    <th>Direccion</th>
+                    <th>Email</th>
                     <th>Acciones</th>
-                    
+
                     
                   </thead>
                   <tbody>
                  <?php 
-                    require_once 'Controlador/vehiculoController.php';
+                    require_once 'Controlador/ProveedorController.php';
   
                   
-                    $cvehiculo = new ControladorVehiculo();
-                    $list=  $cvehiculo -> ctrListarVehiculo(1,1000);
+                    $cproveedor = new ControladorProveedor();
+                    $list=  $cproveedor -> ctrListarProveedor(1,1000);
                     
                     while (count($list)>0){
-                      $Vehiculo = array_shift($list);
+                      $Proveedor = array_shift($list);
                       echo "<tr>";
-                      $Did = array_shift($Vehiculo );
+                      $Did = array_shift($Proveedor );
                       echo "<td>".$Did."</td>";
-                      $Dimagen = array_shift($Vehiculo);
-                      if ($Dimagen!=""){
-                        echo "<td><img src='".$Dimagen."' width='100'></td>";  
-                      }else{
-                        echo "<td></td>";
-                      }
-                      $Daño = array_shift($Vehiculo);
-                      echo "<td>".$Daño."</td>";
-                      $Dmodelo = array_shift($Vehiculo);
-                      echo "<td>".$Dmodelo."</td>";
-                      $Dmarca = array_shift($Vehiculo);
-                      echo "<td>".$Dmarca."</td>";
+                      $Dnit = array_shift($Proveedor);
+                      echo "<td>".$Dnit."</td>";
+                      $Drazon_social = array_shift($Proveedor);
+                      echo "<td>".$Drazon_social."</td>";
+                      $Dtelefono = array_shift($Proveedor);
+                      echo "<td>".$Dtelefono."</td>";
+                      $Ddirección = array_shift($Proveedor);
+                      echo "<td>".$Ddirección."</td>";
+                      $Demail = array_shift($Proveedor);
+                      echo "<td>".$Demail."</td>";
+                      
+                     
+                      
+                     
+                    
+                    
+                      echo '<td>
+                      <button class="btn" onclick="saveData('.$Did.',\''.$Dnit.'\',\''.$Drazon_social.'\',\''.$Dtelefono.'\',\''.$Ddirección.'\',\''.$Demail.'\')"><i class="fas fa-edit"></i> Editar</button> 
                   
                       
-                      echo '<td>
-                              <button class="btn" onclick="saveData('.$Did.',\''.$Dmarca.'\',\''.$Daño.'\',\''.$Dmodelo.'\')"><i class="fas fa-edit"></i> Editar</button>
-                              
-                            </td>';
+                    </td>';
                       echo "</tr>";
                     }
-
-
-                    
                     
                     ?> 
                     
@@ -254,59 +253,70 @@
  
         <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title"><label id="TituloUser">Agregar nota de compra</label> </h3> 
-                <button id="nuevoNivel" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nueva nota de compra</button>
+                <h3 class="card-title"><label id="TituloUser">Agregar Proveedor</label> </h3> 
+                <button id="nuevoNivel" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Proveedor</button>
                 
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" enctype="multipart/form-data"  method="post"   >
+              <form  role="form" enctype="multipart/form-data"  method="post"  >
                 <div class="card-body">
                   <div class="form-group">
                     <label for="exampleInputId"></label>
                     <input type="hidden"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputNombre">Fecha de compra</label>
-                    <input type="text" class="form-control" id="marca" name="marca" placeholder="Ingrese la Marca">
+                    <label for="exampleInputNombre">Nit</label>
+                    <input type="text" class="form-control" id="nit" name="nit" placeholder="Ingrese el nit">
                   </div>
                   <div class="form-group">
-                    <label for="InputUsuario">Precio total</label>
-                    <input type="text" class="form-control" id="año" name="año" placeholder="Ingrese el Año">
+                    <label for="InputUsuario">Razon Social</label>
+                    <input type="text" class="form-control" id="razon_social" name="razon_social" placeholder="Ingrese el razon_social">
                   </div>
                    
                    
-       <tr>
-      
-      <td><label>
-
-
-      <div class="form-group">
-      <label for="InputUsuario">Proveedor</label>
-                    <select class="form-control select2"  id="id_proveedor" name="id_proveedor" style="width: 100%;"> 
-                      <option selected="selected"></option>
-                    
-                    </select>
+                  <div class="form-group">
+                    <label for="InputUsuario">Telefono</label>
+                    <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Ingrese el telefono">
                   </div>
+                  
+                 
+
+                  <div class="form-group">
+                    <label for="InputUsuario">Direccion</label>
+                    <input type="text" class="form-control" id="dirección" name="dirección" placeholder="Ingrese el direccion">
+                  </div>
+                   
+                  
+
+                  
+                  <div class="form-group">
+                    <label for="InputUsuario">Email</label>
+                    <input type="text" class="form-control" id="email" name="email" placeholder="Ingrese el Email">
+                  </div>
+                  
+                 
+
+                   
+                  
+
+                
   
                 
     
     
-    <div class="form-group">
-    <label for="InputUsuario">Empleado</label>  
-                    <select class="form-control select2"  id="id_proveedor" name="id_proveedor" style="width: 100%;"> 
-                      <option selected="selected"></option>
-                    
-                    </select>
-                  </div>
                 
                   
                 </div>
+                  
+                
+
+               
                 <!-- /.card-body -->
 
                 <div class="card-footer">
                   <?php
-                    $resp= $cvehiculo -> ctrRegistroVehiculo();
+                    $resp= $cproveedor -> ctrRegistroProveedor();
                     //echo "<script> alert(' respuesta: ".$resp." ')</script>";
                     if ($resp=="true"){
                      // echo "<script> alert(' respuesta: ".$resp." ')</script>";
@@ -378,24 +388,34 @@
 </script>
 
 <script>
-  function saveData(id, marca,año,modelo){
+
+  
+   
+  
+  function saveData(id, nit, razon_social,telefono,dirección,email){
     document.getElementById("id").value = id;
-    document.getElementById("marca").value = marca;
-    document.getElementById("año").value = año;
-    document.getElementById("modelo").value = modelo;
+    document.getElementById("nit").value = nit;
+    document.getElementById("razon_social").value = razon_social;
+    document.getElementById("telefono").value = telefono;
+    document.getElementById("dirección").value = dirección;
+    document.getElementById("email").value = email;
+    
  
-    $('#TituloUser').text("Editar Vehiculo");
-//    document.getElementById("TituloUser").value = "Editar Usuario";  
+    $('#TituloUser').text("Editar PROVEEDOR");
+ //    document.getElementById("TituloUser").value = "Editar Usuario";  
   }
   
   function newUser(){
     document.getElementById("id").value = 0;
-    document.getElementById("marca").value = "";
-    document.getElementById("año").value = 0;
-    document.getElementById("modelo").value = "";
+    document.getElementById("nit").value = 0;
+    document.getElementById("razon_social").value = "";
+    document.getElementById("telefono").value = 0;
+    document.getElementById("dirección").value = "";
+    document.getElementById("email").value = "";
+   
      
     
-    $('#TituloUser').text("Agregar Automovil");
+    $('#TituloUser').text("Agregar PROVEEDOR");
   //  document.getElementById("TituloUser").value = "Agregar Usuario";  
   }
   
@@ -410,7 +430,7 @@
       
       $.ajax({
         type: "POST",
-        url: "estadovehiculo.php",
+        url: "estadoproveedor.php",
         data: parametros,
         success:function( msg ) {
           window.location.href = window.location.href;

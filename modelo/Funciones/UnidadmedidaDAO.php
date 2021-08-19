@@ -31,7 +31,7 @@ class UnidadmedidaDAO {
       $link=$this->db->connect(); 
       $result=mysqli_query($link,"DELETE from".$tabla."where id_unidad = ".$datos["id"]);
       if(   $result){
-          header("location:Unidadmedidadelete.php");
+          header("Location: Unidadmedida.php");
       } else{
           echo "Error a eliminar";
       }

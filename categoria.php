@@ -38,7 +38,7 @@
     <a href="index3.html" class="brand-link">
       <img src="imagenes/minilogobago.png" alt="Bago Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Bago</span>
+      <span class="brand-text font-weight-light">Autotech</span>
     </a>
 
     <!-- Sidebar -->
@@ -69,7 +69,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="almacen.php" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Almacen
@@ -78,21 +78,21 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./UsuarioWeb.php" class="nav-link ">
+                <a href="./Repuesto.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Repuestos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./UsuarioMovil.php" class="nav-link ">
+                <a href="./Categoria.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Categorias</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./UsuarioMovil.php" class="nav-link ">
+                <a href="./Vehiculo.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Automovil</p>
+                  <p>Vehiculo</p>
                 </a>
               </li>
 
@@ -108,13 +108,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Comportamientos.php" class="nav-link ">
+                <a href="./Ingresos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Ingresos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./GrupoComportamientos.php" class="nav-link ">
+                <a href="./Proveedor.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Proveedor</p>
                 </a>
@@ -132,7 +132,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Comportamientos.php" class="nav-link ">
+                <a href="./consultar_compra.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Consultar Compras</p>
                 </a>
@@ -166,12 +166,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-white">Reportes</h1>
+            <h1 class="m-0 text-white">Detalle Categoria</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="tablero.php">Inicio</a></li>
-              <li class="breadcrumb-item active text-white">Reportes</li>
+              <li class="breadcrumb-item active text-white">Detalle Categoria</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -393,12 +393,14 @@
               <table id="listdetalle" class="table table-bordered table-striped">
                   <thead>
                     <tr>
-                     <th>nombre</th>
-                     <th>tipo</th>
-                     <th>descripcion</th>
-                     <th>marca</th> 
-                     <th>modelo</th>
-                     <th>año</th>                    </tr>
+                     <th>Nombre</th>
+                     <th>Tipo</th>
+                     <th>Descripcion</th>
+                     <th>Marca</th> 
+                     <th>Modelo</th>
+                     <th>Año</th>
+                     <th>Acciones</th>
+                            </tr>
                   </thead>
                <tbody>
                 <?php 
@@ -430,11 +432,20 @@
                       echo "<td>".$Dmodelo."</td>";
                       $Daño= array_shift($cont);
                       echo "<td>".$Daño."</td>";
+
+
+                      echo '<td>
+                      <form action="Categoriadelete.php" class="d-inline" method="post" >
+                      <input type="text" id="cate" name="cate" value="'.$Did_categoria .'" />
+                      <input type="text" id="vehi" name="vehi" value="'.$Did_vehiculo.'" />
+                      <button type="submit" class="btn btn-danger">borrar</button>
+                    </form>
                       
                  
 
-
-                      echo "</tr>";
+   
+                    </td>';
+                    echo "</tr>";
                     }               
                 ?>   
               </tbody>

@@ -123,8 +123,8 @@ class ControladorCategoria{
        
         $sector=$_POST["sector"];
                $id_sector=intval($sector);
-               $mutil -> console_log($id_sector);
-               $mutil -> console_log($categoria);
+               //$mutil -> console_log($id_sector);
+               //$mutil -> console_log($categoria);
           $datos = array(
           "categoria"=>$categoria,
           "sector"=>$id_sector,

@@ -8,15 +8,15 @@
 
 
     
-    $result=mysqli_query($link,"DELETE from unidad_medida where id_unidad = ".$_POST["idmedida"]);
+    $result=mysqli_query($link,"DELETE from empleado where id_empleado = ".$_POST["idempleado"]);
    
 
       if($result==1){
-        header("Location: Unidadmedida.php");
+        header("Location: Empleado.php");
     } else{
         echo "Error a eliminar";
         echo $result;
-        echo $_POST["idmedida"];
+        echo $_POST["idempleado"];
         
     }
    

@@ -231,6 +231,10 @@
                       echo "<td>".$direccion."</td>";
                       echo '<td>
                             <button class="btn" onclick="saveData('.$Did.',\''.$DNit.'\',\''.$Dnombre.'\',\''.$Dpaterno.'\',\''.$Dmaterno.'\',\''.$email.'\',\''.$telefono.'\',\''.$direccion.'\')"><i class="fas fa-edit"></i> Editar</button>
+                            <form action="Clientedelete.php" class="d-inline" method="post" >
+                      <input type="hidden" id="idcliente" name="idcliente" value="'.$Did .'" />
+                       <button type="submit" class="btn btn-danger">borrar</button>
+                    </form> 
                             </td>';
                       echo "</tr>";
                     }

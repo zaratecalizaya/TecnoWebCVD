@@ -81,53 +81,54 @@ if (!isset($_SESSION['session_id'])) {
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="almacen.php" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
-                Usuarios
+                Almacen
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./UsuarioWeb.php" class="nav-link ">
+                <a href="./Repuesto.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Usuarios Web</p>
+                  <p>Repuestos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./UsuarioMovil.php" class="nav-link ">
+                <a href="./Categoria.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Usuarios Moviles</p>
+                  <p>Categorias</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="./Vehiculo.php" class="nav-link ">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Vehiculo</p>
+                </a>
+              </li>
+
             </ul>
           </li>
           <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-trophy"></i>
               <p>
-                Logros
+                Compras
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./Comportamientos.php" class="nav-link ">
+                <a href="./Ingresos.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Comportamientos</p>
+                  <p>Ingresos</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="./GrupoComportamientos.php" class="nav-link ">
+                <a href="./Proveedor.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Grupos de Comportamientos</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./Niveles.php" class="nav-link ">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Niveles</p>
+                  <p>Proveedor</p>
                 </a>
               </li>
             </ul>
@@ -136,31 +137,21 @@ if (!isset($_SESSION['session_id'])) {
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-copy"></i>
               <p>
-                Reportes
+                Consultar Compras
                 <i class="fas fa-angle-left right"></i>
                 <span class="badge badge-info right">3</span>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="./ReporteComportamientos.php" class="nav-link">
+                <a href="./consulta_compra.php" class="nav-link ">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Ranking de comportamientos</p>
+                  <p>Consultar Compras</p>
                 </a>
               </li>
-              <li class="nav-item">
-                <a href="./reporte2.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Reporte Comentario</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="./reporte3.php" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Reporte Logros</p>
-                </a>
-              </li>
+              
             </ul>
+            
           </li>
           <li class="nav-item ">
             <a href="./Configuraciones.php" class="nav-link">
@@ -174,6 +165,7 @@ if (!isset($_SESSION['session_id'])) {
           </li>
         </ul>
       </nav>
+    
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->

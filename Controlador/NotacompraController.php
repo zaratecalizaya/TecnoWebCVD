@@ -1,9 +1,9 @@
 <?php
 
-require_once 'modelo/Funciones/ProveedorDAO.php';
+require_once 'modelo/Funciones/NotacompraDAO.php';
 require_once 'modelo/utilitario.php';
 
-class ControladorProveedor{
+class ControladorNotacompra{
   
     /* ==============================
      Registro de Usuario Web     
@@ -16,7 +16,7 @@ class ControladorProveedor{
 
 
 
-    public function ctrRegistroProveedor(){
+    public function ctrRegistroNotacompra(){
       
         if(isset($_POST["id"])){
          
@@ -30,18 +30,16 @@ class ControladorProveedor{
                 
                  // $mutil -> console_log('esta ingresando');
                       $datos = array(
-                        "ci"=>$_POST["nit"],
-                        "razon_social"=>$_POST["razon_social"],
-                        "telefono"=>$_POST["telefono"],
-                        "dirección"=>$_POST["dirección"],
-                        "email"=>$_POST["email"],
+                        "fecha_compra"=>$_POST["fecha_compra"],
+                        "precio_total"=>$_POST["precio_total"],
+                       
                         
                      
                        // "imagen"=>""
                         );
-                    $tabla = "proveedor";
-                    $Proveedord = new ProveedorDAO ();
-                    $respuesta = $Proveedord ->addProveedor($tabla,$datos);
+                    $tabla = "nota_compra";
+                    $Notacomprad = new NotacompraDAO ();
+                    $respuesta = $Notacomprad ->addNotacompra($tabla,$datos);
 
                    // return $respuesta;  
                     if ($respuesta==true){
@@ -58,18 +56,16 @@ class ControladorProveedor{
             }else{
              
                 $datos = array("id"=>$_POST["id"],
-                "nit"=>$_POST["nit"],
-                "razon_social"=>$_POST["razon_social"],
-                "telefono"=>$_POST["telefono"],
-                "dirección"=>$_POST["dirección"],
-                "email"=>$_POST["email"],
+                "fecha_compra"=>$_POST["fecha_compra"],
+                "precio_total"=>$_POST["precio_total"],
+              
                  
                    // "imagen"=>""
                     );
             
-                  $tabla = "proveedor";
-                  $Proveedord = new ProveedorDAO();
-                  $respuesta = $Proveedord -> updateProveedor($tabla,$datos);
+                  $tabla = "nota_compra";
+                  $Notacomprad = new NotacompraDAO();
+                  $respuesta = $Notacomprad -> updateNotacompra($tabla,$datos);
             
                   //return $respuesta;
                   if ($respuesta==true){
@@ -89,12 +85,12 @@ class ControladorProveedor{
 
 
 
-      public function ctrListarProveedor($pagina,$cantidad){
+      public function ctrListarNotacompra($pagina,$cantidad){
       
             
        $tabla = "proveedor";
-       $Proveedord = new ProveedorDAO();
-      $respuesta = $Proveedord -> listProveedor($pagina,$cantidad);
+       $Notacomprad = new ProveedorDAO();
+      $respuesta = $Notacomprad -> listNotacompra($pagina,$cantidad);
     
         return $respuesta;
   

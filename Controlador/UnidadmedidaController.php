@@ -15,7 +15,7 @@ class ControladorUnidadmedida{
   
 
 
-
+ 
     public function ctrRegistroUnidadmedida(){
       
         if(isset($_POST["id"])){
@@ -79,6 +79,23 @@ class ControladorUnidadmedida{
         }
         
      }
+
+     
+
+
+  /* //  public function ctrEliminarUnidadmedida($id){
+      
+                $tabla = "unidad_medida";
+                $Unidadmedidad = new UnidadmedidaDAO();
+                $respuesta = $Unidadmedidad -> delete($tabla,$id);
+          
+                return $respuesta;
+                     
+            
+          
+       
+      
+   }*/
 
 
 

@@ -33,7 +33,7 @@
     <a href="index3.html" class="brand-link">
       <img src="imagenes/minilogobago.png" alt="Bago Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Bago</span>
+      <span class="brand-text font-weight-light">Autotech</span>
     </a>
 
     <!-- Sidebar -->
@@ -64,7 +64,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="almacen.php" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Almacen
@@ -190,7 +190,7 @@
                   <tr>
                     <th>Id</th>
                     <th>Nit</th>
-                    <th>Razon_Social</th>
+                    <th>Razon Social</th>
                     <th>Telefono</th>
                     <th>Direccion</th>
                     <th>Email</th>
@@ -229,7 +229,10 @@
                     
                       echo '<td>
                       <button class="btn" onclick="saveData('.$Did.',\''.$Dnit.'\',\''.$Drazon_social.'\',\''.$Dtelefono.'\',\''.$Ddirección.'\',\''.$Demail.'\')"><i class="fas fa-edit"></i> Editar</button> 
-                  
+                      <form action="Proveedordelete.php" class="d-inline" method="post" >
+                      <input type="hidden" id="idproveedor" name="idproveedor" value="'.$Did .'" />
+                       <button type="submit" class="btn btn-danger">borrar</button>
+                    </form> 
                       
                     </td>';
                       echo "</tr>";
@@ -392,7 +395,7 @@
   
    
   
-  function saveData(id, nit, razon_social,telefono,direccion,email){
+  function saveData(id, nit, razon_social,telefono,dirección,email){
     document.getElementById("id").value = id;
     document.getElementById("nit").value = nit;
     document.getElementById("razon_social").value = razon_social;

@@ -18,12 +18,6 @@
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="css/adminlte.min.css">
- 
-  <!-- Theme jsalerty -->
-  <link rel="stylesheet" href="js/css/alertify.css">
-  <link rel="stylesheet" href="js/css/themes/default.css">
-  <script src="js/jquery-3.6.0.min.js"></script>
-  <script src="js/alertify.js"></script>
   <!-- Bago style -->
   <link rel="stylesheet" href="css/bagostyle.css">
   <!-- Google Font: Source Sans Pro -->
@@ -72,7 +66,7 @@
             </a>
           </li>
           <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
+            <a href="almacen.php" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Almacen
@@ -156,7 +150,7 @@
           </li>
         </ul>
       </nav>
-    
+        
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -169,12 +163,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-white">Unidad Medida</h1>
+            <h1 class="m-0 text-white">Vehiculos</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="tableroAlmacenero.php">Inicio</a></li>
-              <li class="breadcrumb-item active text-white">Unidad Medida</li>
+              <li class="breadcrumb-item active text-white">Vehiculos</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -189,7 +183,7 @@
           <div class="col-12">
             <div class="card card-primary">
               <div class="card-header" >
-                <h3 class="card-title">Lista de Unida Medida</h3>
+                <h3 class="card-title">Lista de Vehiculos</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -197,51 +191,64 @@
                   <thead>
                   <tr>
                     <th>Id</th>
-                    <th>Nombre</th>
-                    
+                    <th>Imagen</th>
+                    <th>Año</th>
+                    <th>Modelo</th>
+                    <th>Marca</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                     
                   </thead>
                   <tbody>
                  <?php 
-                    require_once 'Controlador/UnidadmedidaController.php';
+                    require_once 'Controlador/vehiculoController.php';
   
                   
-                    $cunidadmedida = new ControladorUnidadmedida();
-                    $list=  $cunidadmedida -> ctrListarUnidadmedida(1,1000);
+                    $cvehiculo = new ControladorVehiculo();
+                    $list=  $cvehiculo -> ctrListarVehiculo(1,1000);
                     
                     while (count($list)>0){
-                      $Unidadmedida = array_shift($list);
+                      $Vehiculo = array_shift($list);
                       echo "<tr>";
-                      $Did = array_shift($Unidadmedida );
+                      $Did = array_shift($Vehiculo );
                       echo "<td>".$Did."</td>";
-                      $Dnombre = array_shift($Unidadmedida);
-                      echo "<td>".$Dnombre."</td>";
+                      $Dimagen = array_shift($Vehiculo);
+                      if ($Dimagen!=""){
+                        echo "<td><img src='".$Dimagen."' width='100'></td>";  
+                      }else{
+                        echo "<td></td>";
+                      }
+                      $Daño = array_shift($Vehiculo);
+                      echo "<td>".$Daño."</td>";
+                      $Dmodelo = array_shift($Vehiculo);
+                      echo "<td>".$Dmodelo."</td>";
+                      $Dmarca = array_shift($Vehiculo);
+                      echo "<td>".$Dmarca."</td>";
+                      $Destado = array_shift($Vehiculo);
+                      $Destadobtn="Habilitar";
+                      $DestadoIco="thumbs-up";
+                      echo "<td>".$Destado."</td>";
+                      if ($Destado=="Habilitado"){
+                        $Destadobtn="Deshabilitar";
+                        $DestadoIco="thumbs-down";
+                      }
                       echo '<td>
-                      <button class="btn" onclick="saveData('.$Did.',\''.$Dnombre.'\')"><i class="fas fa-edit"></i> Editar</button>
-                      <form action="Unidadmedidadelete.php" class="d-inline" method="post" >
-                      <input type="hidden" id="idmedida" name="idmedida" value="'.$Did .'" />
-                       <button type="submit" class="btn btn-danger">borrar</button>
-                    </form> 
+                              <button class="btn" onclick="saveData('.$Did.',\''.$Dmarca.'\',\''.$Daño.'\',\''.$Dmodelo.'\')"><i class="fas fa-edit"></i> Editar</button>
+                              <button class="btn" onclick="updateStatus('.$Did.')"><i class="far fa-'.$DestadoIco.'"></i>'.$Destadobtn.'</button>
+                             
+                            
+                              <form action="Vehiculodelete.php" class="d-inline" method="post" >
+                              <input type="hidden" id="automovil" name="automovil" value="'.$Did .'" />
+                              <button type="submit" class="btn btn-danger">borrar</button>
+                            </form> 
 
-                      
-                      
-                      </td>';
+                              
+                              </td>';
                       echo "</tr>";
                     }
-
-                   
-                   ?>   
-                     
                     
-                                    
-                     
-                      
-
-
-                   
-                     
-                   
+                    ?> 
+                    
                   
                   </tbody>
                 </table>
@@ -258,8 +265,8 @@
  
         <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title"><label id="TituloUser">Agregar Unidad Medida</label> </h3> 
-                <button id="nuevoNivel" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Unidad-medida</button>
+                <h3 class="card-title"><label id="TituloUser">Agregar Vehiculo</label> </h3> 
+                <button id="nuevoNivel" class="btn float-right" onclick="newUser()" > <i class="fas fa-user-plus"></i> Nuevo Vehiculo</button>
                 
               </div>
               <!-- /.card-header -->
@@ -267,25 +274,30 @@
               <form role="form" enctype="multipart/form-data"  method="post"   >
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="exampleInputId"></label>
+                 
                     <input type="hidden"  class="form-control"  id="id" name="id" placeholder="ID" value="0" readonly="true">
                   </div>
                   <div class="form-group">
-                    <label for="exampleInputNombre">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Ingrese el nombre de la medidad">
+                    <label for="exampleInputNombre">Marca</label>
+                    <input type="text" class="form-control" id="marca" name="marca" placeholder="Ingrese la Marca">
                   </div>
-                
+                  <div class="form-group">
+                    <label for="InputUsuario">Año</label>
+                    <input type="text" class="form-control" id="año" name="año" placeholder="Ingrese el Año">
+                  </div>
                    
                    
-                
-    
-                     
-                   
-                
+                  <div class="form-group">
+                    <label for="InputUsuario">Modelo</label>
+                    <input type="text" class="form-control" id="modelo" name="modelo" placeholder="Ingrese el Modelo">
+                  </div>
                   
-                </div>
-                  
-                
+                 
+                  <div class="form-group">
+                    <label for="InputUsuario">Foto de Vehiculo</label>
+                   <input type="hidden" name="MAX_FILE_SIZE" value="512000" />
+                    <p><input name="subir_archivo" type="file" /></p>
+                  </div>
 
                   
                 </div>
@@ -293,7 +305,7 @@
 
                 <div class="card-footer">
                   <?php
-                    $resp= $cunidadmedida -> ctrRegistroUnidadmedida();
+                    $resp= $cvehiculo -> ctrRegistroVehiculo();
                     //echo "<script> alert(' respuesta: ".$resp." ')</script>";
                     if ($resp=="true"){
                      // echo "<script> alert(' respuesta: ".$resp." ')</script>";
@@ -365,69 +377,29 @@
 </script>
 
 <script>
-
-  
-
-/*//function preguntarsino(id){
-  //alertify.confirm('Eliminar Dato', 'Esta seguro de eliminar este registro?', function(){ eliminarDatos(id) }
-          //      , function(){ alertify.error('Cancel')});} */      
-  
-  
-   
-  
-  function saveData(id, nombre){
+  function saveData(id, marca,año,modelo){
     document.getElementById("id").value = id;
-    document.getElementById("nombre").value = nombre;
+    document.getElementById("marca").value = marca;
+    document.getElementById("año").value = año;
+    document.getElementById("modelo").value = modelo;
  
- 
- 
-    $('#TituloUser').text("Editar unidad");
- //    document.getElementById("TituloUser").value = "Editar Usuario";  
+    $('#TituloUser').text("Editar Vehiculo");
+//    document.getElementById("TituloUser").value = "Editar Usuario";  
   }
   
   function newUser(){
     document.getElementById("id").value = 0;
-    document.getElementById("nombre").value = "";
-
-   
+    document.getElementById("marca").value = "";
+    document.getElementById("año").value = 0;
+    document.getElementById("modelo").value = "";
      
     
-    $('#TituloUser').text("Agregar unidad");
+    $('#TituloUser').text("Agregar Automovil");
   //  document.getElementById("TituloUser").value = "Agregar Usuario";  
   }
   
   
-   
- /* function eliminarDatos(id){
-   // alert( "ingresando" );
-    var parametros = {
-                "id" : id
-        
-              
-        };
-      
-      $.ajax({
-       // alert( "ingresando" );
-        type: "POST",
-        url: "Unidadmedidadelete.php",
-        data: parametros,
-        //alert( "ingresando" );
-        success:function( r ) {
-          //alert( "ingresando" );
-          if(r==true){
-             alert( "Data actualizada. " + r );
-            window.location.href = window.location.href;
-            alertify.succes("Eliminado con exito!!"+r);
-
-          }
-
-          
-          alertify.succes("Fallo el servidor :(");
-        // alert( "Data actualizada. " + msg );
-        } });}*/
-
-
-
+  
   function updateStatus(id){
       var parametros = {
                 "id" : id,
@@ -437,7 +409,7 @@
       
       $.ajax({
         type: "POST",
-        url: "estadounidadmedida.php",
+        url: "estadovehiculo.php",
         data: parametros,
         success:function( msg ) {
           window.location.href = window.location.href;
@@ -445,8 +417,6 @@
         }
        });
   }
-
-  
 </script>
 
 <!-- Usuario SCRIPTS -->
@@ -460,8 +430,6 @@
 <script src="plugins/jquery-mapael/maps/usa_states.min.js"></script>
 <!-- ChartJS -->
 <script src="plugins/chart.js/Chart.min.js"></script>
-
-
 <!-- sweetalert -->
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

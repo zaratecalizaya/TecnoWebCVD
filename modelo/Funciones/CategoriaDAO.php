@@ -23,16 +23,6 @@ class CategoriaDAO {
      * agregar nuevo usuario
      */
  
-    public function datedelete($tabla,$datos) { //regusu et no es
-
-      require_once 'modelo/Conexion/connectbd.php';
-        // connecting to database
-        $this->db = new DB_Connect();
-        $link=$this->db->connect();
-		
-          $result=mysqli_query($link,"DELETE from ".$tabla." where id = ".$datos["id"]);
-    
-    }
 
 
 
@@ -352,25 +342,22 @@ class CategoriaDAO {
         //$mutil -> console_log('is user:'.$pu);
         
       		$json = array();
-
-          
-     
-    
           $consulta ="INSERT INTO categoria_vehiculo (descripcion,id_categoria,id_vehiculo) VALUES('".$datos["descripcion"]."','".$datos["categoria"]."','".$datos["sector"]."')";
-
-           
               $result=mysqli_query($link,$consulta);
               if ($result ==true){
                 return "true";
               }else {
-                return "Error al guardar categoria";
+                return "";
               }
             
     }
     
 
 
+   
       
+
+    
   
 }
  

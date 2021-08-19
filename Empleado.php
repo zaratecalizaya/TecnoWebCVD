@@ -35,7 +35,7 @@
     <a href="index3.html" class="brand-link">
       <img src="imagenes/minilogobago.png" alt="Bago Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">Bago</span>
+      <span class="brand-text font-weight-light">Autotech</span>
     </a>
 
     <!-- Sidebar -->
@@ -237,7 +237,10 @@
                     
                       echo '<td>
                       <button class="btn" onclick="saveData('.$Did.',\''.$Dci.'\',\''.$Dnombre.'\',\''.$Dpaterno.'\',\''.$Dmaterno.'\',\''.$Dtelefono.'\',\''.$Demail.'\',\''.$Ddireccion.'\',\''.$Dcargo.'\')"><i class="fas fa-edit"></i> Editar</button> 
-                  
+                      <form action="Empleadodelete.php" class="d-inline" method="post" >
+                      <input type="hidden" id="idempleado" name="idempleado" value="'.$Did .'" />
+                       <button type="submit" class="btn btn-danger">borrar</button>
+                    </form> 
                       
                     </td>';
                       echo "</tr>";

@@ -23,13 +23,6 @@ class ProveedorDAO {
      * agregar nuevo usuario
      */
 
-     public function datedelete ($tabla,$datos) {
-      require_once 'modelo/Conexion/connectbd.php';
-      // connecting to database
-      $this->db = new DB_Connect();
-      $link=$this->db->connect(); 
-      $result=mysqli_query($link,"DELETE from".$tabla."where id = ".$datos["id"]);
-     }
     public function updatestatususer($tabla,$datos) { //regusu et no es
 
       require_once 'modelo/Conexion/connectbd.php';
@@ -133,16 +126,6 @@ class ProveedorDAO {
       }
     }
 
-    public function deleteProveedor($tabla,$datos) { 
-        $this->db = new DB_Connect();
-        $link=$this->db->connect();
-        $result="delete from proveedor where id_proveedor=$this->id_proveedor";
-		
-		if(parent::ejecutar($sql))
-			return true;
-		else
-			return false;
-    }
 
 
     
@@ -164,37 +147,41 @@ class ProveedorDAO {
           $link=$this->db->connect();
       //$json=$cuenta;
       
-      $query = "SELECT id_proveedor,nit,razon_social,telefono,dirección,email,estado FROM proveedor ";
+      $query = "SELECT id_proveedor,nit,razon_social,telefono,dirección,email FROM proveedor ";
       $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
   
       $json = array();
       //$json =mysqli_num_rows($result);
       if(mysqli_num_rows($result)>0){
           //$json['cliente'][]=nada;
-        while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-              $destado ="Deshabilitado";
-          if ($line["estado"]==1){
-             $destado ="Habilitado";
-         }        
+       while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+             // $destado ="Deshabilitado";
+        //  if ($line["estado"]==1){
+            // $destado ="Habilitado";
+        // }        
           array_push($json, array($line["id_proveedor"],$line["nit"],$line["razon_social"],$line["telefono"],$line["dirección"],$line["email"]));
         }
         
-      }
       
+      }
       mysqli_close($link);
       return $json;
       
     }
-  
 
     
-
-
-  //  public function eliminar(Request $datos){
-    //    $obj = Empleado::findOrFail($datos->id);
-      //  $obj->delete();
-    //}
-  
+    public function delete ($tabla,$datos) {
+      require_once 'modelo/Conexion/connectbd.php';
+      // connecting to database
+      $this->db = new DB_Connect();
+      $link=$this->db->connect(); 
+      $result=mysqli_query($link,"DELETE from".$tabla."where id_proveedor = ".$datos["id"]);
+      if(   $result){
+          header("Location: Proveedor.php");
+      } else{
+          echo "Error a eliminar";
+      }
+     }
 
 
       

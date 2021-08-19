@@ -19,19 +19,8 @@ class ClienteDAO {
  
     }
 	
+   
     
-
-    public function datedelete($tabla,$datos) { //regusu et no es
-
-      require_once 'modelo/Conexion/connectbd.php';
-        // connecting to database
-        $this->db = new DB_Connect();
-        $link=$this->db->connect();
-		
-          $result=mysqli_query($link,"DELETE from ".$tabla." where id = ".$datos["id"]);
-    
-    }
-
 
 
 	
@@ -135,6 +124,18 @@ class ClienteDAO {
   
 
     
+    public function delete ($tabla,$datos) {
+      require_once 'modelo/Conexion/connectbd.php';
+      // connecting to database
+      $this->db = new DB_Connect();
+      $link=$this->db->connect(); 
+      $result=mysqli_query($link,"DELETE from".$tabla."where id_cliente = ".$datos["id"]);
+      if(   $result){
+          header("Location: Cliente.php");
+      } else{
+          echo "Error a eliminar";
+      }
+     }
 
 
       
