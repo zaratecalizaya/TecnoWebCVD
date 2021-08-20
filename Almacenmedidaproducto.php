@@ -219,7 +219,7 @@
                     require_once 'Controlador/RepuestoController.php';
   
                   
-                    $cuser = new ControladorRepuesto;
+                    $cuser = new ControladorRepuesto();
                     $list=  $cuser -> ctrListarRepuesto(1,1000);
                    
                     while (count($list)>0){

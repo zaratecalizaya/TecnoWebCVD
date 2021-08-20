@@ -30,7 +30,9 @@
 
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
-  <?php include("barrasup.php"); ?>
+  <?php include("barrasup.php");
+  include 'carritoventa.php';
+  ?>
 
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -166,12 +168,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-white">DetalleCategoria</h1>
+            <h1 class="m-0 text-white">DetalleCompra</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="tablero.php">Inicio</a></li>
-              <li class="breadcrumb-item active text-white">  Detalle Categoria</li>
+              <li class="breadcrumb-item active text-white">  Detalle Compra</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -202,11 +204,13 @@
                   <thead>
                     <tr>
                     <th>Almacen</th>
-                    <th>Stock</th>
+                    
                     <th>Imagen</th>
                      <th>Producto</th>
+                     
                      <th>Marca</th>
                      <th>Medida</th>
+                     <th>Precio /Bs</th>
                      <th>Action</th>
                                          </tr>
                   </thead>
@@ -216,7 +220,7 @@
   
                   
                     $cuser = new ControladorRepuesto();
-                    $list=  $cuser -> ctrListarAlmacenDetalle();
+                    $list=  $cuser -> ctrListarAlmacenDetalleCompra();
                    
                     while (count($list)>0){
                       $cont = array_shift($list);
@@ -229,9 +233,6 @@
                       $Dalmacen= array_shift($cont);
                       echo "<td>".$Dalmacen."</td>";
                       
-                      
-                      $Dstock= array_shift($cont);
-                      echo "<td>".$Dstock."</td>";
                       
                       $Dimagen = array_shift($cont);
                       if ($Dimagen!=""){
@@ -248,9 +249,25 @@
                       $Dmedida= array_shift($cont);
                       echo "<td>".$Dmedida."</td>";
                       
+                      $Dprecio= array_shift($cont);
+                      echo "<td>".$Dprecio."</td>";
+                      $cantidad=1;
                       echo '<td>
-                      <button class="btn" onclick="saveData('.$Did_repuesto.',\''.$Did_unidad.'\',\''.$Dnombre.'\',\''.$Dmarca.'\')"><i class="fas fa-edit"></i> Editar</button>
+                      <form action="" method="post">
+                      <input type="hidden" id="idproducto" name="idproducto" value="'.$Did_repuesto.'">
+                     
+                      <input type="hidden" id="idunidad" name="idunidad" value="'.$Did_unidad.'">
+                      <input type="hidden" id="idalmacen" name="idalmacen" value="'.$Did_almacen.'">
+                      <input type="hidden" id="nombre" name="nombre" value="'.$Dnombre.'">
+                      <input type="hidden" id="precio" name="precio" value="'.$Dprecio.'">
+                      <input type="hidden" id="cantidad" name="cantidad" value="'.$cantidad.'">
+                      <input type="hidden" id="marca" name="marca" value="'.$Dmarca.'">
+                      <input type="hidden" id="medida" name="medida" value="'.$Dmedida.'">
+                      <button class="btn btn-primary" name="btnAccion" value="Agregar" type="submit">
+                        Carrito
                       
+                        </button>
+                    </form>              
                     </td>';
 
                  
@@ -262,13 +279,11 @@
               </tbody>
           </table>
 
-
+  
 
           </div>
                 
   
-            
-         
        
        </div>
       </div>
@@ -300,40 +315,15 @@
 
               <!-- /.card-header -->
               <div class="card-body">
+
+              <div class="alert alert-success">
+              No hay productos en el carrito
+
+              <?php echo($mensaje);
+              ?>
+            </div>
                 
-              <table class="table table-bordered table-striped" >
-                    <thead>
-                      <tr>
-                       <th>
-                         <div class="row">
-    
-                         <label for="start" class="form-label"  >   Cliente : </label>
-                         <select class="form-control select2" id="categoria" name="categoria"  style="width: 310px;"> 
-                                             <option selected="selected">seleccione</option>
-                                                <?php
-                                                   require_once 'Controlador/ClienteController.php';
-                     
-                                                     $cusuario = new ControladorCliente();
-                                                     $list=  $cusuario -> ctrListarClienteselect();
-                    
-                                                        while (count($list)>0){
-                                                          $User = array_shift($list);
-                                                          $Did = array_shift($User);
-                                                          $Dnombres = array_shift($User);
-                                                          echo '<option value="'.$Did.'">'.$Dnombres.'</option>';
-                                                        }
-                                                 ?>
-                                          </select>
-                         <label for="start" class="form-label" style="margin-left: 40px"  >Fecha : </label>
-                              <input type="Datetime-local" id="fechaini" name="fechaini" style="margin-left: 30px"  data-inputmask-inputformat="yyyy/mm/dd" data-mask  >
-  
-                         </div>
-
-
-                       </th>
-                      </tr>
-                   </thead>
-               </table>     
+                  
               <table  class="table table-bordered table-striped " id="busquedas" >
                     <thead  >
                           <tr>
@@ -426,55 +416,64 @@
 
                </thead>
             </table>
+            <h3>Lista de venta</h3>
+
+
+            <?php  if(!empty($_SESSION['CARRITO'])){?>
               <table id="listdetalle" class="table table-bordered table-striped">
-                  <thead>
+              <thead>
                     <tr>
-                     <th>nombre</th>
-                     <th>tipo</th>
-                     <th>descripcion</th>
-                     <th>marca</th> 
-                     <th>modelo</th>
-                     <th>año</th>                    </tr>
-                  </thead>
+                    <th>Nombre</th>
+                    <th>Marca</th>
+                    <th>Medida</th>
+                    <th>Precio</th>
+                    
+                    <th>Cantidad</th>
+                    
+                     <th>Total</th>
+                                         </tr>
+               
+                          </thead>
                <tbody>
-                <?php 
-                    require_once 'Controlador/CategoriaController.php';
-  
+               <?php $total=0;?>
+                <?php foreach($_SESSION['CARRITO'] as $indice->$producto){?>
                   
-                    $cuser = new ControladorCategoria;
-                    $list=  $cuser -> ctrListarDetalleCategoria();
-                   
-                    while (count($list)>0){
-                      $cont = array_shift($list);
-                      echo "<tr>";
-                      
-                      $Did_categoria= array_shift($cont);
-                  
-                      $Did_vehiculo= array_shift($cont);
-                     
-
-                      $Dnombre= array_shift($cont);
-                      echo "<td>".$Dnombre."</td>";
-                      
-                      $Dtipo= array_shift($cont);
-                      echo "<td>".$Dtipo."</td>";
-                      $Ddescripcion= array_shift($cont);
-                      echo "<td>".$Ddescripcion."</td>";
-                      $Dmarca= array_shift($cont);
-                      echo "<td>".$Dmarca."</td>";
-                      $Dmodelo= array_shift($cont);
-                      echo "<td>".$Dmodelo."</td>";
-                      $Daño= array_shift($cont);
-                      echo "<td>".$Daño."</td>";
-                      
-                 
+                    <tr>
+                         <td><?php echo $producto['NOMBRE']?></td>
+                         <td  class="text-center"><?php echo $producto['MARCA']?></td>
+                         <td class="text-center"><?php echo $producto['MEDIDA']?></td>
+                         <td class="text-center"><?php echo $producto['PRECIO']?></td>
+                         <td class="text-center"><?php echo $producto['CANTIDAD']?></td>
+     
+                         <td class="text-center"><?php echo number_format($producto['CANTIDAD']*$producto['PRECIO'],2)?></td>
+                         
+                         
+                         
+                         <td>
+                         <form action="" method="POST">
+                         <input type="hidden" id="id" name="id" value="<?php echo $producto['ID']?>">
+                         <button class="btn btn-danger" type="submit" name="btnAccion" value="Eliminara">Eliminar</button>
                        
-
-                      echo "</tr>";
-                    }               
-                ?>   
+                         </form>  
+                         </td>
+                         
+                         </tr>
+                     <?php $total=$total+($producto['CANTIDAD']*$producto['PRECIO']);?>
+                    <?php }?>
+               <tr>
+                    <td colspan="3" align="right"> <h3>Total</h3></td>
+                    <td align="right"><h3>$<?php echo number_format($total,2);?></h3></td>
+                    </tr>
+             
+             
               </tbody>
           </table>
+          <?php }else{?>
+            <div class="alert alert-success">
+              No hay productos en el carrito
+            </div>
+
+            <?php }?>
 
               </div>
               <!-- /.card-body -->

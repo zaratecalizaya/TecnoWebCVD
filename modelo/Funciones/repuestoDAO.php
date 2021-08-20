@@ -564,6 +564,38 @@ GROUP BY ur.id_repuesto";
 
 
 
+
+    public function listAlmacendetalleCompra(){
+      require_once 'modelo/Conexion/connectbd.php';
+          // connecting to database
+          $this->db = new DB_Connect();
+          $link=$this->db->connect();
+      //$json=$cuenta;
+
+      
+      
+      $query = "SELECT au.id_repuesto,au.id_unidad,au.id_almacen,a.nombre as almacen,r.imagen,r.nombre,r.marca, GROUP_CONCAT(ur.Cantidad_medida,' ',um.nombre) as medidas,r.precio
+      from repuesto r,unidad_repuesto ur , unidad_medida um ,almacen a ,almacen_unidad au where r.id_repuesto =ur.id_repuesto and ur.id_unidad=um.id_unidad and au.id_almacen=a.id_almacen and ur.id_repuesto=au.id_repuesto and ur.id_unidad=au.id_unidad
+GROUP BY ur.id_repuesto";
+      $result = mysqli_query($link,$query) or die('Consulta fallida: ' . mysqli_error($link));
+  
+      $json = array();
+      //$json =mysqli_num_rows($result);
+      if(mysqli_num_rows($result)>0){
+          //$json['cliente'][]=nada;
+        while ($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+        
+        
+            array_push($json, array($line["id_repuesto"],$line["id_unidad"],$line["id_almacen"],$line["almacen"],$line["imagen"],$line["nombre"],$line["marca"],$line["medidas"],$line["precio"]));
+        }
+        
+      }
+      
+      mysqli_close($link);
+      return $json;
+      
+    }
+
 }
  
  

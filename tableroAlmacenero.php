@@ -195,18 +195,7 @@ if (!isset($_SESSION['session_id'])) {
     require_once 'Controlador/logros.controlador.php';
   
                   
-    $cusuario = new ControladorUsuario();
-    $Dcantidad=  $cusuario -> ctrContarUsuarios();
-  
-    $clogro = new ControladorLogro();
-    $Dcantidadlo= $clogro ->ctrContarLogros();
-
-  
-
-    $creconocimiento = new ControladorLogro();
-    $Dcantidadre= $creconocimiento ->ctrContarReconocimientos();
-
-  
+    
 
   //  $listuser=  $cusuario -> ctrListarUsuariosMovil(1,1000);
       
@@ -323,8 +312,6 @@ if (!isset($_SESSION['session_id'])) {
       
                     <?php
                   require_once 'Controlador/logros.controlador.php' ;
-                  $ctablero =  new ControladorLogro();
-                  $list=$ctablero->ctrlistTablero(1,1000);
                   
                   while (count($list)>0){
                    

@@ -271,6 +271,7 @@ public function ctrListarMedida(){
 
 
  
+       
       public function ctrListarRepuestoDetalle(){
       
             
@@ -396,6 +397,17 @@ public function ctrListarAlmacenDetalle(){
        
   $Almacend = new RepuestoDAO();
    $respuesta = $Almacend -> listAlmacendetalle();
+
+   return $respuesta;
+
+ }
+
+ public function ctrListarAlmacenDetalleCompra(){
+      
+            
+       
+  $Almacend = new RepuestoDAO();
+   $respuesta = $Almacend ->listAlmacendetalleCompra();
 
    return $respuesta;
 
