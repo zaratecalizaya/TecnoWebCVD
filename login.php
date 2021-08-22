@@ -76,7 +76,7 @@
                 // require_once 'modelo/utilitario.php';
 
                 if (isset($_POST['IniciarSesion'])) {
-                  $mutil = new Utils();
+                  // $mutil = new Utils();
 
                   switch ($_POST['IniciarSesion']) {
                     case "Iniciar": {
@@ -96,11 +96,15 @@
 
                         if ($consulta['email'] = $datos["email"] && $consulta['contraseña'] = $datos["contraseña"]) {
 
-                          $mutil->console_log("Inicio de sesión exitoso");
+                          echo "Inicio de sesión exitoso";
+                       
+                                
                           mysqli_close($link);
                         } else {
                           $mensaje = "0|Usuario o contraseña incorrecto.";
-                          $mutil->console_log("Inicio de sesión exitoso");
+                          echo "Inicio de sesión exitoso";
+                        
+                        
                         }
 
                         mysqli_close($link);
